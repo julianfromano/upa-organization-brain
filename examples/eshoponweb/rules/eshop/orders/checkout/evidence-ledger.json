@@ -1,0 +1,446 @@
+{
+  "items": [
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an unauthenticated request creates no order and does not delete the basket"
+    },
+    {
+      "evidence": "DD_FIXED_SHIPPING_ADDRESS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CHECKOUT_USES_FIXED_ADDRESS",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "derived",
+      "text": "every order created by checkout uses the address hard-coded in the page"
+    },
+    {
+      "evidence": "await _basketService.DeleteBasketAsync(BasketModel.Id);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "after order creation, the basket and its lines are removed"
+    },
+    {
+      "evidence": "catch (EmptyBasketOnCheckoutException emptyBasketOnCheckoutException)",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_FAILED_ORDER_PRESERVES_BASKET",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "when checkout creates no order, an existing basket remains available"
+    },
+    {
+      "evidence": "DD_FIXED_SHIPPING_ADDRESS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "derived",
+      "text": "the purchased line keeps the price recorded in the basket"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "protected shopper operations require an authenticated user"
+    },
+    {
+      "evidence": "return Request.HttpContext.User.Identity.Name!;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "evidence": "if (!Guid.TryParse(userName, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "evidence": "userName = Guid.NewGuid().ToString();",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "evidence": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a submitted quantity replaces the existing line quantity"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "changing a line quantity does not reprice it"
+    },
+    {
+      "evidence": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a line omitted from the submitted quantities is not changed"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup removes zero-quantity lines from the selected basket"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup preserves other baskets' lines and nonempty lines"
+    },
+    {
+      "evidence": "total += item.UnitPrice * item.Units;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_ORDER_LINE_SUBTOTAL",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "each order-line subtotal equals unit price times units"
+    },
+    {
+      "evidence": "/// Represents a snapshot of the item that was ordered.",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "kind": "law",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a recorded order line keeps its purchased name, image, price, and units"
+    },
+    {
+      "evidence": "var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an order line copies price and units from the basket line, not the current catalog price"
+    },
+    {
+      "evidence": "new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an order line records the catalog name, image, and item identifier at purchase time"
+    },
+    {
+      "evidence": "var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a basket line whose catalog item is missing does not produce an order line"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an item identifier outside the valid integer range does not produce an order line"
+    },
+    {
+      "evidence": "total += item.UnitPrice * item.Units;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "the order total increases by the subtotal of each created line"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "AS_DATABASE_CASCADE",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "assumption",
+      "text": "deleting a basket removes the basket and its lines"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every AccessGrant has exactly_one granted: Bool"
+    },
+    {
+      "evidence": "string? userName = null;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_SOURCE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one source: BuyerSource"
+    },
+    {
+      "evidence": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one writesCookie: Bool"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BASKET_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Basket has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public int Quantity { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_QUANTITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one quantity: Int"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one unitPrice: Money"
+    },
+    {
+      "evidence": "public string ProductName { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_NAME",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one productName: Text"
+    },
+    {
+      "evidence": "public string PictureUri { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_IMAGE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one pictureUri: Text"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one unitPrice: Money"
+    },
+    {
+      "evidence": "public int Units { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_UNITS",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one units: Int"
+    },
+    {
+      "evidence": "public int CatalogItemId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_ITEM",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one catalogItemId: Identifier"
+    },
+    {
+      "evidence": "total += item.UnitPrice * item.Units;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_LINE_TOTAL",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderLine has exactly_one subtotal: Money"
+    },
+    {
+      "evidence": "total += item.UnitPrice * item.Units;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_TOTAL",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every OrderTotal has exactly_one amount: Money"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public string Street { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_STREET",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one street: Text"
+    },
+    {
+      "evidence": "public string City { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_CITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one city: Text"
+    },
+    {
+      "evidence": "public string State { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_REGION",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one region: Text"
+    },
+    {
+      "evidence": "public string Country { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_COUNTRY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one country: Text"
+    },
+    {
+      "evidence": "public string ZipCode { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ORDER_POSTAL_CODE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Order has exactly_one postalCode: Text"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

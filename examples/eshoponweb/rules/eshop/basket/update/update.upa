@@ -1,0 +1,25 @@
+spec UpdateBasketQuantities version "0.1" tier subprocess
+// Sources: src/Web/Pages/Basket/Index.cshtml.cs:55-66; src/Web/Pages/Basket/Checkout.cshtml.cs:50-56; src/ApplicationCore/Services/BasketService.cs:47-64.
+
+component Buyer = eshop.basket.buyer@0.1
+component Lines = eshop.basket.lines@0.1
+// The basket page and checkout both call SetQuantities for submitted line identifiers.
+decision DD_SUBMITTED_LINE "A submitted line identifier belongs to this basket; SetQuantities only visits lines in the loaded basket"
+language_gap GAP_MULTIPLE_LINES "A form submits multiple basket lines; this model describes one representative line per invocation"
+language_gap GAP_OTHER_MODEL_ANNOTATIONS "Only the quantity range annotation is modeled; other model-binding annotations are not covered"
+operation ValidateQuantityModel(quantity: Int) {
+  when quantity < 0 or quantity > 2147483647 outcome InvalidQuantity { }
+  when quantity >= 0 and quantity <= 2147483647 outcome ValidQuantity success { }
+}
+compose atomic UpdateBasketQuantities(request: Identifier, identityMissing: Bool, isAuthenticated: Bool, userNameMissing: Bool, hasCookie: Bool, cookieIsGuid: Bool, basketId: Identifier, buyerId: Text, lineId: Identifier, quantity: Int, isSubmitted: Bool) =
+  ValidateQuantityModel(quantity); Buyer.ResolveBuyer(request, identityMissing, isAuthenticated, userNameMissing, hasCookie, cookieIsGuid); Lines.GetOrCreateBasket(basketId, buyerId); Lines.FindBasket(basketId); Lines.SetLineQuantity(lineId, quantity, isSubmitted); Lines.RemoveZeroQuantityLines(basketId)
+business_rules {
+  ensures BR_INVALID_FORM_HAS_NO_EFFECT for UpdateBasketQuantities origin literal("if (!ModelState.IsValid)") "a negative or out-of-range form quantity does not change a basket line":
+    (quantity < 0 or quantity > 2147483647) => (lineId in BasketLine => BasketLine.quantity[lineId] == old(BasketLine.quantity[lineId]))
+  ensures BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE for UpdateBasketQuantities origin literal("_items.RemoveAll(i => i.Quantity == 0);") "submitting zero removes that line from the basket":
+    (isSubmitted and quantity == 0 and not identityMissing and not (isAuthenticated and userNameMissing) and old(lineId in BasketLine) and old(BasketLine.basketId[lineId]) == basketId) => not (lineId in BasketLine)
+  ensures BR_POSITIVE_QUANTITY_REPLACES_LINE for UpdateBasketQuantities origin literal("item.SetQuantity(quantity);") "a positive submitted quantity replaces the basket line quantity":
+    (isSubmitted and quantity > 0 and quantity <= 2147483647 and not identityMissing and not (isAuthenticated and userNameMissing) and old(lineId in BasketLine) and old(BasketLine.basketId[lineId]) == basketId) => (lineId in BasketLine and BasketLine.quantity[lineId] == quantity)
+  ensures BR_QUANTITY_UPDATE_DOES_NOT_REPRICE for UpdateBasketQuantities origin literal("item.SetQuantity(quantity);") "quantity changes preserve the line's recorded price":
+    (lineId in BasketLine and old(lineId in BasketLine)) => BasketLine.unitPrice[lineId] == old(BasketLine.unitPrice[lineId])
+}

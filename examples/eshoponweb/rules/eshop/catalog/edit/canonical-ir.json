@@ -1,0 +1,3484 @@
+{
+  "composes": [
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          ],
+          "op": "Access_AuthorizeAdministrator",
+          "trail": [
+            "Access.AuthorizeAdministrator"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            }
+          ],
+          "op": "Item_FindCatalogItem",
+          "trail": [
+            "Item.FindCatalogItem"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "name",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "description",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            {
+              "k": "var",
+              "n": "nameIsEmpty",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "descriptionIsEmpty",
+              "ty": "bool"
+            }
+          ],
+          "op": "Item_UpdateItemDetails",
+          "trail": [
+            "Item.UpdateItemDetails"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            }
+          ],
+          "op": "Item_UpdateItemBrand",
+          "trail": [
+            "Item.UpdateItemBrand"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            }
+          ],
+          "op": "Item_UpdateItemType",
+          "trail": [
+            "Item.UpdateItemType"
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "UpdateCatalogItemApi",
+      "outcomes": [
+        {
+          "outcome": "NotAuthenticated",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "MissingAdministratorRole",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_UpdateItemDetails"
+        },
+        {
+          "outcome": "EmptyName",
+          "step": "Item_UpdateItemDetails"
+        },
+        {
+          "outcome": "EmptyDescription",
+          "step": "Item_UpdateItemDetails"
+        },
+        {
+          "outcome": "NonPositivePrice",
+          "step": "Item_UpdateItemDetails"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_UpdateItemBrand"
+        },
+        {
+          "outcome": "InvalidBrand",
+          "step": "Item_UpdateItemBrand"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_UpdateItemType"
+        },
+        {
+          "outcome": "InvalidType",
+          "step": "Item_UpdateItemType"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        },
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "nameIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "descriptionIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Int",
+          "name": "brandId",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "typeId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          ],
+          "op": "Access_AuthorizeAdministrator",
+          "trail": [
+            "Access.AuthorizeAdministrator"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "modelIsValid",
+              "ty": "bool"
+            }
+          ],
+          "op": "ValidateAdminModel"
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            }
+          ],
+          "op": "Item_FindCatalogItem",
+          "trail": [
+            "Item.FindCatalogItem"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "name",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            {
+              "k": "var",
+              "n": "nameIsEmpty",
+              "ty": "bool"
+            }
+          ],
+          "op": "UpdateNameAndPriceFromAdmin"
+        }
+      ],
+      "layer": null,
+      "name": "EditCatalogItemPage",
+      "outcomes": [
+        {
+          "outcome": "NotAuthenticated",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "MissingAdministratorRole",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "InvalidModel",
+          "step": "ValidateAdminModel"
+        },
+        {
+          "outcome": "ValidModel",
+          "step": "ValidateAdminModel"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "UpdateNameAndPriceFromAdmin"
+        },
+        {
+          "outcome": "EmptyName",
+          "step": "UpdateNameAndPriceFromAdmin"
+        },
+        {
+          "outcome": "ExistingDescriptionIsEmpty",
+          "step": "UpdateNameAndPriceFromAdmin"
+        },
+        {
+          "outcome": "NonPositivePrice",
+          "step": "UpdateNameAndPriceFromAdmin"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "modelIsValid",
+          "type": "bool"
+        },
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "nameIsEmpty",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Access",
+        "components": [],
+        "depth": 0,
+        "exports": [
+          {
+            "name": "CanManageCatalog",
+            "params": [
+              [
+                "isAuthenticated",
+                "Bool"
+              ],
+              [
+                "isAdministrator",
+                "Bool"
+              ]
+            ],
+            "ret": "Bool"
+          }
+        ],
+        "ir_hash": "10d68b880fdb82f6f534067070d68eeec2d8c3806d233a203546d8cfad0c1a93",
+        "path": "eshop/access/authorization/authorization.upa",
+        "ref": "eshop.access.authorization",
+        "spec": "Authorization",
+        "version": "0.1"
+      },
+      {
+        "alias": "Item",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "8f406d83b66eedc865fc60e1bd993933c8d65b45646e4b25e45244fa545a2073",
+        "path": "eshop/catalog/item/item.upa",
+        "ref": "eshop.catalog.item",
+        "spec": "CatalogItem",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1
+  },
+  "entities": {
+    "AccessGrant": {
+      "attrs": [
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "granted",
+          "type": "bool"
+        }
+      ],
+      "block": "Access=eshop.access.authorization"
+    },
+    "CatalogItem": {
+      "attrs": [
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "brandId",
+          "type": "int"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "imageUri",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "typeId",
+          "type": "int"
+        }
+      ],
+      "block": "Item=eshop.catalog.item"
+    }
+  },
+  "enums": {},
+  "externals": [],
+  "facts": [
+    {
+      "attr": "granted",
+      "card": "exactly_one",
+      "entity": "AccessGrant",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "name",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Name { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "price",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal Price { get; private set; }"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "invocations": [
+    {
+      "evidence": "PublicApi/CatalogItemEndpoints/UpdateCatalogItemEndpoint.cs:41,52",
+      "kind": "database",
+      "mode": "sync",
+      "name": "SELECT Catalog WHERE Id = @id; UPDATE Catalog",
+      "target": "UpdateCatalogItemApi",
+      "via": []
+    }
+  ],
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "AccessGrant": {
+        "attributes": {
+          "granted": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_ACCESS_GRANTED",
+              "OP:Access_AuthorizeAdministrator"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "F_ACCESS_GRANTED",
+              "OP:Access_AuthorizeAdministrator"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Access_AuthorizeAdministrator"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "Access_BR_ADMIN_REQUIRES_ROLE",
+          "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "F_ACCESS_GRANTED",
+          "OP:Access_AuthorizeAdministrator"
+        ]
+      },
+      "CatalogItem": {
+        "attributes": {
+          "brandId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+              "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+              "Item_BR_BRAND_MUST_BE_NONZERO",
+              "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+              "OP:Item_UpdateItemBrand"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "OP:Item_UpdateItemBrand"
+            ]
+          },
+          "description": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+              "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ]
+          },
+          "imageUri": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          },
+          "name": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+              "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "BR_UPDATE_API_REQUIRES_ADMIN",
+              "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+              "F_ITEM_NAME",
+              "Item_BR_EMPTY_NAME_IS_REJECTED",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "F_ITEM_NAME",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ]
+          },
+          "price": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+              "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "BR_UPDATE_API_REQUIRES_ADMIN",
+              "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+              "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+              "F_ITEM_PRICE",
+              "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "F_ITEM_PRICE",
+              "Item_BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:Item_UpdateItemDetails",
+              "OP:UpdateNameAndPriceFromAdmin"
+            ]
+          },
+          "typeId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+              "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+              "Item_BR_TYPE_MUST_BE_NONZERO",
+              "OP:Item_UpdateItemType"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+              "OP:Item_UpdateItemType"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+          "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+          "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+          "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+          "BR_UPDATE_API_REQUIRES_ADMIN",
+          "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+          "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+          "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+          "F_ITEM_NAME",
+          "F_ITEM_PRICE",
+          "Item_BR_BRAND_MUST_BE_NONZERO",
+          "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+          "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+          "Item_BR_EMPTY_NAME_IS_REJECTED",
+          "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+          "Item_BR_TYPE_MUST_BE_NONZERO",
+          "Item_BR_VALID_DETAILS_ARE_APPLIED",
+          "OP:Item_FindCatalogItem",
+          "OP:Item_UpdateItemBrand",
+          "OP:Item_UpdateItemDetails",
+          "OP:Item_UpdateItemType",
+          "OP:UpdateNameAndPriceFromAdmin"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "Access_AuthorizeAdministrator",
+        "parameter": "request",
+        "plays": [
+          "AccessGrant"
+        ],
+        "required_by": [
+          "Access_BR_ADMIN_REQUIRES_ROLE",
+          "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "OP:Access_AuthorizeAdministrator"
+        ]
+      },
+      {
+        "operation": "EditCatalogItemPage",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+          "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+          "BR_ADMIN_EDIT_REQUIRES_ADMIN"
+        ]
+      },
+      {
+        "operation": "Item_FindCatalogItem",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "OP:Item_FindCatalogItem"
+        ]
+      },
+      {
+        "operation": "Item_UpdateItemBrand",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "Item_BR_BRAND_MUST_BE_NONZERO",
+          "OP:Item_UpdateItemBrand"
+        ]
+      },
+      {
+        "operation": "Item_UpdateItemDetails",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+          "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+          "Item_BR_EMPTY_NAME_IS_REJECTED",
+          "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+          "Item_BR_VALID_DETAILS_ARE_APPLIED",
+          "OP:Item_UpdateItemDetails"
+        ]
+      },
+      {
+        "operation": "Item_UpdateItemType",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "Item_BR_TYPE_MUST_BE_NONZERO",
+          "OP:Item_UpdateItemType"
+        ]
+      },
+      {
+        "operation": "UpdateCatalogItemApi",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+          "BR_UPDATE_API_REQUIRES_ADMIN",
+          "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+          "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+          "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT"
+        ]
+      },
+      {
+        "operation": "UpdateNameAndPriceFromAdmin",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "OP:UpdateNameAndPriceFromAdmin"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_UPDATE_ANNOTATIONS",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "Update request data annotations are not invoked by the minimal API endpoint; they are not modeled as guarantees"
+      },
+      {
+        "id": "GAP_EDIT_PATHS_DIFFER",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The API and Admin page update different fields, so their behaviors are modeled separately"
+      },
+      {
+        "id": "GAP_ADMIN_MODEL_VALIDATION",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The Admin page also depends on view-model annotations that were not inspected in detail"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "modelIsValid",
+              "ty": "bool"
+            }
+          },
+          "outcome": "InvalidModel",
+          "stmts": [],
+          "success": true
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "modelIsValid",
+            "ty": "bool"
+          },
+          "outcome": "ValidModel",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "ValidateAdminModel",
+      "params": [
+        {
+          "decl": "Bool",
+          "name": "modelIsValid",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "a": "description",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "str",
+              "ty": "text",
+              "v": ""
+            },
+            "ty": "bool"
+          },
+          "outcome": "ExistingDescriptionIsEmpty",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "NonPositivePrice",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "name",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "name",
+                "ty": "text"
+              }
+            },
+            {
+              "attr": "price",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "price",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "UpdateNameAndPriceFromAdmin",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "nameIsEmpty",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "outcome": "NotAuthenticated",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "outcome": "MissingAdministratorRole",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "AccessGrant",
+              "inits": [
+                {
+                  "attr": "granted",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Access_AuthorizeAdministrator",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "ItemFound",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "Item_FindCatalogItem",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        }
+      ]
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "descriptionIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyDescription",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "NonPositivePrice",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "name",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "name",
+                "ty": "text"
+              }
+            },
+            {
+              "attr": "description",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "description",
+                "ty": "text"
+              }
+            },
+            {
+              "attr": "price",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "price",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Item_UpdateItemDetails",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "nameIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "descriptionIsEmpty",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "InvalidBrand",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "brandId",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "brandId",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Item_UpdateItemBrand",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "brandId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "InvalidType",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "typeId",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "typeId",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Item_UpdateItemType",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "typeId",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "price",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "text",
+              "x": {
+                "a": "name",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_UPDATE_API_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]"
+      },
+      "targets": [
+        "UpdateCatalogItemApi"
+      ],
+      "text": "a non-administrator cannot change a catalog item"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Results.NotFound();"
+      },
+      "targets": [
+        "UpdateCatalogItemApi"
+      ],
+      "text": "updating a missing item does not create it"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "price",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "brandId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));"
+      },
+      "targets": [
+        "UpdateCatalogItemApi"
+      ],
+      "text": "a non-positive price leaves the existing item unchanged"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "brandId",
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "typeId",
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "a": "name",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                },
+                "op": "==",
+                "r": {
+                  "k": "old",
+                  "ty": "text",
+                  "x": {
+                    "a": "name",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "price",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "old",
+                  "ty": "int",
+                  "x": {
+                    "a": "price",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "brandId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "typeId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "typeId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.UpdateDetails(details);"
+      },
+      "targets": [
+        "UpdateCatalogItemApi"
+      ],
+      "text": "a zero brand or type prevents the API update from being persisted"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "k": "bin",
+                      "l": {
+                        "k": "var",
+                        "n": "isAuthenticated",
+                        "ty": "bool"
+                      },
+                      "op": "and",
+                      "r": {
+                        "k": "var",
+                        "n": "isAdministrator",
+                        "ty": "bool"
+                      },
+                      "ty": "bool"
+                    },
+                    "op": "and",
+                    "r": {
+                      "k": "old",
+                      "ty": "bool",
+                      "x": {
+                        "e": "CatalogItem",
+                        "k": "in",
+                        "key": {
+                          "k": "var",
+                          "n": "itemId",
+                          "ty": "id"
+                        },
+                        "ty": "bool"
+                      }
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "un",
+                    "op": "not",
+                    "ty": "bool",
+                    "x": {
+                      "k": "var",
+                      "n": "nameIsEmpty",
+                      "ty": "bool"
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "var",
+                    "n": "descriptionIsEmpty",
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "price",
+                  "ty": "int"
+                },
+                "op": ">",
+                "r": {
+                  "k": "int",
+                  "ty": "int",
+                  "v": 0
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "brandId",
+                "ty": "int"
+              },
+              "op": "!=",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "!=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "a": "name",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "name",
+                    "ty": "text"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "description",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "description",
+                    "ty": "text"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "price",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "var",
+                  "n": "price",
+                  "ty": "int"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "brandId",
+                "ty": "int"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "typeId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.UpdateBrand(request.CatalogBrandId);"
+      },
+      "targets": [
+        "UpdateCatalogItemApi"
+      ],
+      "text": "valid API input updates details, brand, and type"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "e": "CatalogItem",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "itemId",
+            "ty": "id"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "description",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "text",
+                "x": {
+                  "a": "description",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "brandId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "typeId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "typeId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "new(viewModel.Name, existingCatalogItem.Description, viewModel.Price)"
+      },
+      "targets": [
+        "EditCatalogItemPage"
+      ],
+      "text": "the Admin page preserves the existing description, brand, and type"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "price",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "text",
+              "x": {
+                "a": "name",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS)]"
+      },
+      "targets": [
+        "EditCatalogItemPage"
+      ],
+      "text": "a non-administrator cannot change an item through the Admin page"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "k": "bin",
+              "l": {
+                "a": "description",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "str",
+                "ty": "text",
+                "v": ""
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "text",
+              "x": {
+                "a": "name",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "price",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));"
+      },
+      "targets": [
+        "EditCatalogItemPage"
+      ],
+      "text": "an item whose existing description is empty is not edited from the Admin page"
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "AccessGrant",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "request",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "var",
+            "n": "isAdministrator",
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "AccessGrant",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "CatalogItem",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "old",
+                  "ty": "bool",
+                  "x": {
+                    "e": "CatalogItem",
+                    "k": "in",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "nameIsEmpty",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "descriptionIsEmpty",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": ">",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "name",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "name",
+                "ty": "text"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "description",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "description",
+                "ty": "text"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_VALID_DETAILS_ARE_APPLIED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "targets": [
+        "Item_UpdateItemDetails"
+      ],
+      "text": "valid name, description, and price replace the item's details"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "price",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));"
+      },
+      "targets": [
+        "Item_UpdateItemDetails"
+      ],
+      "text": "a zero or negative price leaves the item unchanged"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "name",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "text"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "text",
+            "x": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_EMPTY_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));"
+      },
+      "targets": [
+        "Item_UpdateItemDetails"
+      ],
+      "text": "an empty name leaves the item unchanged"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "descriptionIsEmpty",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "nameIsEmpty",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "description",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "text"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "text",
+            "x": {
+              "a": "description",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));"
+      },
+      "targets": [
+        "Item_UpdateItemDetails"
+      ],
+      "text": "an empty description leaves the item unchanged"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "e": "CatalogItem",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "itemId",
+            "ty": "id"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "brandId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "typeId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "typeId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "imageUri",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "text",
+              "x": {
+                "a": "imageUri",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "targets": [
+        "Item_UpdateItemDetails"
+      ],
+      "text": "updating details does not change the brand, type, or image"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "brandId",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "brandId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_BRAND_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));"
+      },
+      "targets": [
+        "Item_UpdateItemBrand"
+      ],
+      "text": "a zero brand identifier is rejected"
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "typeId",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "typeId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Item_BR_TYPE_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));"
+      },
+      "targets": [
+        "Item_UpdateItemType"
+      ],
+      "text": "a zero type identifier is rejected"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "EditCatalogItem",
+  "stores": [
+    {
+      "columns": {
+        "brandId": "CatalogBrandId",
+        "description": "Description",
+        "imageUri": "PictureUri",
+        "name": "Name",
+        "price": "Price",
+        "typeId": "CatalogTypeId"
+      },
+      "entity": "CatalogItem",
+      "evidence": "Infrastructure/Data/Config/CatalogItemConfiguration.cs",
+      "key": "Id",
+      "table": "Catalog"
+    }
+  ],
+  "texts": [
+    ""
+  ],
+  "tier": "subprocess",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

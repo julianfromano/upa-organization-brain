@@ -1,0 +1,240 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-004",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-005",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-006",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-007",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateNameAndPriceFromAdmin",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-008",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-009",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-010",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "Access_AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-011",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Item_UpdateItemDetails",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-013",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Item_UpdateItemDetails",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-014",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Item_UpdateItemDetails",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-015",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Item_UpdateItemBrand",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-016",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Item_UpdateItemBrand",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-017",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Item_UpdateItemType",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-018",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Item_UpdateItemType",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-019",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-020",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-021",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-022",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-023",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-024",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-025",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-026",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-027",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-028",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "AccessGrant has exactly_one granted: Bool",
+    "id": "SC-029",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-030",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "CatalogItem has exactly_one name: Text",
+    "id": "SC-031",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-032",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "CatalogItem has exactly_one price: Money",
+    "id": "SC-033",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-034",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  }
+]

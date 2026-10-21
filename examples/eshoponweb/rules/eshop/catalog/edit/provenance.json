@@ -1,0 +1,243 @@
+{
+  "by_rule": {
+    "Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.description",
+      "CatalogItem.typeId"
+    ],
+    "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "BR_ADMIN_EDIT_REQUIRES_ADMIN": [
+      "CatalogItem",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "BR_UPDATE_API_APPLIES_ALL_FIELDS": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price",
+      "CatalogItem.typeId"
+    ],
+    "BR_UPDATE_API_REQUIRES_ADMIN": [
+      "CatalogItem",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.name",
+      "CatalogItem.price",
+      "CatalogItem.typeId"
+    ],
+    "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.price"
+    ],
+    "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT": [
+      "CatalogItem"
+    ],
+    "F_ACCESS_GRANTED": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "F_ITEM_NAME": [
+      "CatalogItem",
+      "CatalogItem.name"
+    ],
+    "F_ITEM_PRICE": [
+      "CatalogItem",
+      "CatalogItem.price"
+    ],
+    "Item_BR_BRAND_MUST_BE_NONZERO": [
+      "CatalogItem",
+      "CatalogItem.brandId"
+    ],
+    "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.imageUri",
+      "CatalogItem.typeId"
+    ],
+    "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.description"
+    ],
+    "Item_BR_EMPTY_NAME_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.name"
+    ],
+    "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.price"
+    ],
+    "Item_BR_TYPE_MUST_BE_NONZERO": [
+      "CatalogItem",
+      "CatalogItem.typeId"
+    ],
+    "Item_BR_VALID_DETAILS_ARE_APPLIED": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "OP:Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:Item_FindCatalogItem": [
+      "CatalogItem"
+    ],
+    "OP:Item_UpdateItemBrand": [
+      "CatalogItem",
+      "CatalogItem.brandId"
+    ],
+    "OP:Item_UpdateItemDetails": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "OP:Item_UpdateItemType": [
+      "CatalogItem",
+      "CatalogItem.typeId"
+    ],
+    "OP:UpdateNameAndPriceFromAdmin": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ]
+  },
+  "why": {
+    "AccessGrant": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "AccessGrant.granted": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "CatalogItem": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_API_REQUIRES_ADMIN",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+        "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "Item_BR_BRAND_MUST_BE_NONZERO",
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "Item_BR_EMPTY_NAME_IS_REJECTED",
+        "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "Item_BR_TYPE_MUST_BE_NONZERO",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_FindCatalogItem",
+        "OP:Item_UpdateItemBrand",
+        "OP:Item_UpdateItemDetails",
+        "OP:Item_UpdateItemType",
+        "OP:UpdateNameAndPriceFromAdmin"
+      ]
+    },
+    "CatalogItem.brandId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+        "Item_BR_BRAND_MUST_BE_NONZERO",
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "OP:Item_UpdateItemBrand"
+      ]
+    },
+    "CatalogItem.description": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_UpdateItemDetails",
+        "OP:UpdateNameAndPriceFromAdmin"
+      ]
+    },
+    "CatalogItem.imageUri": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION"
+      ]
+    },
+    "CatalogItem.name": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_API_REQUIRES_ADMIN",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "F_ITEM_NAME",
+        "Item_BR_EMPTY_NAME_IS_REJECTED",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_UpdateItemDetails",
+        "OP:UpdateNameAndPriceFromAdmin"
+      ]
+    },
+    "CatalogItem.price": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_API_REQUIRES_ADMIN",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+        "F_ITEM_PRICE",
+        "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_UpdateItemDetails",
+        "OP:UpdateNameAndPriceFromAdmin"
+      ]
+    },
+    "CatalogItem.typeId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "Item_BR_TYPE_MUST_BE_NONZERO",
+        "OP:Item_UpdateItemType"
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "build_seconds": 0.87,
+  "composition": {
+    "components": [
+      {
+        "alias": "Buyer",
+        "ref": "eshop.basket.buyer",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Lines",
+        "ref": "eshop.basket.lines",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1,
+    "summary_total": {
+      "PROVEN": 57,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "17184377a57602c059afdc52639812cbed745d40f2071fde536b2183aa281a3f",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 3,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 0,
+    "inferred_roles": 0,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 5,
+    "ir_bytes": 32380,
+    "obligations": 28,
+    "operations": 6,
+    "properties": 14,
+    "upa_lines": 25
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 28,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

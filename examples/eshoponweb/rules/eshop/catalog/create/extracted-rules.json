@@ -1,0 +1,162 @@
+{
+  "assumptions": [
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_NEW_CATALOG_ID",
+      "owner": "database identity",
+      "text": "A newly assigned catalog identifier is not already present"
+    }
+  ],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_CREATE_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "a request without an authenticated administrator does not create an item"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DUPLICATE_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "throw new DuplicateException($\"A catalogItem with name {request.Name} already exists\");"
+      },
+      "text": "a duplicate name does not create an item"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_CREATE_STORES_REQUESTED_VALUES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);"
+      },
+      "text": "an administrator with an available name creates an item with the submitted values without validating price, brand, or type"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "newItem.UpdatePictureUri(\"eCatalog-item-default.png\");"
+      },
+      "text": "after the database assigns an identity, the default image replaces the submitted image"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "a missing identity or administrator role grants no access"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_DATABASE_ITEM_ID",
+      "text": "The database assigns the new item identity; the request does not supply it"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_CREATE_HAS_NO_DOMAIN_GUARDS",
+      "text": "The CatalogItem constructor used for creation does not validate empty text or non-positive price values"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "subject": "AccessGrant.granted",
+      "target": "Bool"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "CheckNameAvailability",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "nameAlreadyExists"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "InsertCatalogItem",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId",
+        "typeId",
+        "brandId",
+        "description",
+        "name",
+        "price",
+        "imageUri"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "SetDefaultImage",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId",
+        "identityAssigned"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Access_AuthorizeAdministrator",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "isAdministrator"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "CreateItem",
+      "note": "composition",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "isAdministrator",
+        "nameAlreadyExists",
+        "itemId",
+        "typeId",
+        "brandId",
+        "description",
+        "name",
+        "price",
+        "imageUri",
+        "identityAssigned"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

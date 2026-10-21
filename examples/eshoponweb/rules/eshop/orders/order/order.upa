@@ -1,0 +1,97 @@
+spec CreateOrder version "0.1" tier subprocess
+// Sources: src/ApplicationCore/Services/OrderService.cs:30-52; Entities/OrderAggregate/Order.cs:15,23,38-46; CatalogItemOrdered.cs:5-15; OrderItem.cs:12-17; Address.cs:18-25.
+
+component Lines = eshop.basket.lines@0.1
+component Item = eshop.catalog.item@0.1
+type Money = Int scale 2
+decision DD_ORDER_ITEM_SNAPSHOT "An order line snapshots its catalog item's identity, name, and image at purchase time"
+decision DD_ORDER_PRICE_FROM_BASKET "The order line uses the basket's recorded unit price, not the catalog's current price"
+decision DD_MATERIALIZED_ORDER_TOTAL "The calculated order total is stored as a value to make it expressible in this model"
+decision DD_DATABASE_ORDER_IDENTITIES "The database assigns unique order and order-line identities; collisions are modeled as rejected outcomes"
+language_gap GAP_ORDER_SINGLE_LINE "A basket may contain multiple lines; this model handles one representative line per invocation"
+language_gap GAP_ORDER_VALIDATION_SEQUENCE "Catalog lines are validated before the buyer identifier, matching the source operation order"
+language_gap GAP_ADDRESS_VALIDATION "The Address type has no field validation; checkout supplies a fixed address"
+language_gap GAP_ORDER_TIMESTAMP "OrderDate is assigned from the current time, which is not modeled"
+language_gap GAP_PICTURE_URI_COMPOSITION "The URI composer may rewrite the image base URL; this model only checks for an empty image"
+assumption AS_NO_EXISTING_ORDERS "No orders or order lines exist initially" owner "operation"
+entity Basket { buyerId: Text }
+entity BasketLine { basketId: Identifier, catalogItemId: Identifier, quantity: Int, unitPrice: Money }
+entity CatalogItem { name: Text, description: Text, price: Money, brandId: Int, typeId: Int, imageUri: Text }
+entity Order { buyerId: Text, street: Text, city: Text, region: Text, country: Text, postalCode: Text }
+entity OrderLine { orderId: Identifier, catalogItemId: Identifier, productName: Text, pictureUri: Text, unitPrice: Money, units: Int, subtotal: Money }
+entity OrderTotal { amount: Money }
+facts {
+  fact F_ORDER_BUYER origin literal("public string BuyerId { get; private set; }"): every Order has exactly_one buyerId: Text
+  fact F_ORDER_STREET origin literal("public string Street { get; private set; }"): every Order has exactly_one street: Text
+  fact F_ORDER_CITY origin literal("public string City { get; private set; }"): every Order has exactly_one city: Text
+  fact F_ORDER_REGION origin literal("public string State { get; private set; }"): every Order has exactly_one region: Text
+  fact F_ORDER_COUNTRY origin literal("public string Country { get; private set; }"): every Order has exactly_one country: Text
+  fact F_ORDER_POSTAL_CODE origin literal("public string ZipCode { get; private set; }"): every Order has exactly_one postalCode: Text
+  fact F_ORDER_LINE_NAME origin literal("public string ProductName { get; private set; }"): every OrderLine has exactly_one productName: Text
+  fact F_ORDER_LINE_IMAGE origin literal("public string PictureUri { get; private set; }"): every OrderLine has exactly_one pictureUri: Text
+  fact F_ORDER_LINE_PRICE origin literal("public decimal UnitPrice { get; private set; }"): every OrderLine has exactly_one unitPrice: Money
+  fact F_ORDER_LINE_UNITS origin literal("public int Units { get; private set; }"): every OrderLine has exactly_one units: Int
+  fact F_ORDER_LINE_ITEM origin literal("public int CatalogItemId { get; private set; }"): every OrderLine has exactly_one catalogItemId: Identifier
+  fact F_ORDER_LINE_TOTAL origin literal("total += item.UnitPrice * item.Units;"): every OrderLine has exactly_one subtotal: Money
+  fact F_ORDER_TOTAL origin literal("total += item.UnitPrice * item.Units;"): every OrderTotal has exactly_one amount: Money
+}
+initial origin assumption(AS_NO_EXISTING_ORDERS): (forall order: not (order in Order)) and (forall line: not (line in OrderLine)) and (forall total: not (total in OrderTotal))
+operation ValidateBasketForOrder(basketId: Identifier) {
+  when not (basketId in Basket) outcome BasketNotFound { }
+  when not (exists line: (line in BasketLine) and BasketLine.basketId[line] == basketId) outcome EmptyBasket { }
+  when basketId in Basket outcome BasketReady success { }
+}
+operation CreateOrderLine(lineId: Identifier, orderId: Identifier, basketLineId: Identifier, numericItemId: Int) {
+  when lineId in OrderLine outcome DuplicateOrderLineId { }
+  when not (basketLineId in BasketLine) outcome BasketLineNotFound { }
+  when not (BasketLine.catalogItemId[basketLineId] in CatalogItem) outcome CatalogItemNotFound { }
+  when numericItemId < 1 or numericItemId > 2147483647 outcome ItemIdOutOfRange { }
+  when CatalogItem.name[BasketLine.catalogItemId[basketLineId]] == "" outcome EmptyProductName { }
+  when CatalogItem.imageUri[BasketLine.catalogItemId[basketLineId]] == "" outcome EmptyProductImage { }
+  when orderId in OrderTotal {
+    create OrderLine[lineId] { orderId = orderId, catalogItemId = BasketLine.catalogItemId[basketLineId], productName = CatalogItem.name[BasketLine.catalogItemId[basketLineId]], pictureUri = CatalogItem.imageUri[BasketLine.catalogItemId[basketLineId]], unitPrice = BasketLine.unitPrice[basketLineId], units = BasketLine.quantity[basketLineId], subtotal = BasketLine.unitPrice[basketLineId] * BasketLine.quantity[basketLineId] }
+    set OrderTotal.amount[orderId] = OrderTotal.amount[orderId] + BasketLine.unitPrice[basketLineId] * BasketLine.quantity[basketLineId]
+  }
+  otherwise {
+    create OrderLine[lineId] { orderId = orderId, catalogItemId = BasketLine.catalogItemId[basketLineId], productName = CatalogItem.name[BasketLine.catalogItemId[basketLineId]], pictureUri = CatalogItem.imageUri[BasketLine.catalogItemId[basketLineId]], unitPrice = BasketLine.unitPrice[basketLineId], units = BasketLine.quantity[basketLineId], subtotal = BasketLine.unitPrice[basketLineId] * BasketLine.quantity[basketLineId] }
+    create OrderTotal[orderId] { amount = BasketLine.unitPrice[basketLineId] * BasketLine.quantity[basketLineId] }
+  }
+}
+operation InsertOrder(orderId: Identifier, buyerId: Text, buyerIdIsEmpty: Bool, street: Text, city: Text, region: Text, country: Text, postalCode: Text) {
+  when orderId in Order outcome DuplicateOrderId { }
+  when buyerIdIsEmpty outcome EmptyBuyerId { }
+  otherwise { create Order[orderId] { buyerId = buyerId, street = street, city = city, region = region, country = country, postalCode = postalCode } }
+}
+compose atomic CreateOrderFromBasket(basketId: Identifier, orderId: Identifier, lineId: Identifier, basketLineId: Identifier, numericItemId: Int, buyerId: Text, buyerIdIsEmpty: Bool, street: Text, city: Text, region: Text, country: Text, postalCode: Text) =
+  ValidateBasketForOrder(basketId); CreateOrderLine(lineId, orderId, basketLineId, numericItemId); InsertOrder(orderId, buyerId, buyerIdIsEmpty, street, city, region, country, postalCode)
+invokes CreateOrderFromBasket database "SELECT Catalog WHERE Id IN (...)" sync evidence "ApplicationCore/Services/OrderService.cs:38-39"
+store Order in "Orders" key "Id" { buyerId = "BuyerId", street = "ShipToAddress_Street", city = "ShipToAddress_City", region = "ShipToAddress_State", country = "ShipToAddress_Country", postalCode = "ShipToAddress_ZipCode" } evidence "Infrastructure/Data/Config/OrderConfiguration.cs"
+store OrderLine in "OrderItems" key "Id" { orderId = "OrderId", catalogItemId = "ItemOrdered_CatalogItemId", productName = "ItemOrdered_ProductName", pictureUri = "ItemOrdered_PictureUri", unitPrice = "UnitPrice", units = "Units" } evidence "Infrastructure/Data/Config/OrderItemConfiguration.cs"
+business_rules {
+  invariant BR_ORDER_LINE_SUBTOTAL origin literal("total += item.UnitPrice * item.Units;") "each order-line subtotal equals unit price times units":
+    forall line: (line in OrderLine) => OrderLine.subtotal[line] == OrderLine.unitPrice[line] * OrderLine.units[line]
+  law BR_ORDER_LINE_SNAPSHOT_IMMUTABLE origin literal("/// Represents a snapshot of the item that was ordered.") "a recorded order line keeps its purchased name, image, price, and units":
+    forall line: old(line in OrderLine) => (OrderLine.productName[line] == old(OrderLine.productName[line]) and OrderLine.pictureUri[line] == old(OrderLine.pictureUri[line]) and OrderLine.unitPrice[line] == old(OrderLine.unitPrice[line]) and OrderLine.units[line] == old(OrderLine.units[line]) and OrderLine.subtotal[line] == old(OrderLine.subtotal[line]))
+  ensures BR_ORDER_LINE_USES_BASKET_PRICE for CreateOrderLine origin literal("var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);") "an order line copies price and units from the basket line, not the current catalog price":
+    (lineId in OrderLine and not old(lineId in OrderLine)) => (OrderLine.unitPrice[lineId] == old(BasketLine.unitPrice[basketLineId]) and OrderLine.units[lineId] == old(BasketLine.quantity[basketLineId]) and OrderLine.orderId[lineId] == orderId)
+  ensures BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM for CreateOrderLine origin literal("new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))") "an order line records the catalog name, image, and item identifier at purchase time":
+    (lineId in OrderLine and not old(lineId in OrderLine)) => (OrderLine.productName[lineId] == old(CatalogItem.name[BasketLine.catalogItemId[basketLineId]]) and OrderLine.pictureUri[lineId] == old(CatalogItem.imageUri[BasketLine.catalogItemId[basketLineId]]) and OrderLine.catalogItemId[lineId] == old(BasketLine.catalogItemId[basketLineId]))
+  ensures BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE for CreateOrderLine origin literal("var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);") "a basket line whose catalog item is missing does not produce an order line":
+    (basketLineId in BasketLine and not (BasketLine.catalogItemId[basketLineId] in CatalogItem)) => ((lineId in OrderLine) == old(lineId in OrderLine))
+  ensures BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE for CreateOrderLine origin literal("Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);") "an item identifier outside the valid integer range does not produce an order line":
+    (numericItemId < 1 or numericItemId > 2147483647) => ((lineId in OrderLine) == old(lineId in OrderLine))
+  ensures BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL for CreateOrderLine origin literal("total += item.UnitPrice * item.Units;") "the order total increases by the subtotal of each created line":
+    (lineId in OrderLine and not old(lineId in OrderLine)) => OrderTotal.amount[orderId] == (if old(orderId in OrderTotal) then old(OrderTotal.amount[orderId]) else 0) + old(BasketLine.unitPrice[basketLineId]) * old(BasketLine.quantity[basketLineId])
+  ensures BR_EMPTY_BASKET_CANNOT_CREATE_ORDER for CreateOrderFromBasket origin literal("Guard.Against.EmptyBasketOnCheckout(basket.Items);") "an empty basket cannot produce an order or order line":
+    (forall line: not (old(line in BasketLine) and old(BasketLine.basketId[line]) == basketId)) => (((orderId in Order) == old(orderId in Order)) and ((lineId in OrderLine) == old(lineId in OrderLine)))
+  ensures BR_MISSING_BASKET_CANNOT_CREATE_ORDER for CreateOrderFromBasket origin literal("Guard.Against.Null(basket, nameof(basket));") "a missing basket cannot produce an order":
+    (not old(basketId in Basket)) => ((orderId in Order) == old(orderId in Order))
+  ensures BR_EMPTY_BUYER_CANNOT_CREATE_ORDER for CreateOrderFromBasket origin literal("Guard.Against.NullOrEmpty(buyerId, nameof(buyerId));") "an empty buyer identifier does not produce an order or line":
+    buyerIdIsEmpty => (((orderId in Order) == old(orderId in Order)) and ((lineId in OrderLine) == old(lineId in OrderLine)))
+  ensures BR_ORDER_STORES_SHIPPING_ADDRESS for CreateOrderFromBasket origin literal("await _orderRepository.AddAsync(order)") "a created order records its buyer and supplied shipping address":
+    (orderId in Order and not old(orderId in Order)) => (Order.buyerId[orderId] == buyerId and Order.street[orderId] == street and Order.city[orderId] == city and Order.region[orderId] == region and Order.country[orderId] == country and Order.postalCode[orderId] == postalCode)
+  ensures BR_ORDER_CREATION_PRESERVES_BASKET for CreateOrderFromBasket origin literal("await _orderRepository.AddAsync(order);") "creating an order does not alter the basket; basket deletion occurs afterward":
+    ((basketId in Basket) == old(basketId in Basket)) and (basketId in Basket => Basket.buyerId[basketId] == old(Basket.buyerId[basketId])) and (basketLineId in BasketLine => BasketLine.quantity[basketLineId] == old(BasketLine.quantity[basketLineId]))
+  ensures BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG for CreateOrderFromBasket origin derived(DD_ORDER_ITEM_SNAPSHOT) "creating an order copies catalog details without changing the catalog":
+    forall item: (item in CatalogItem) => (CatalogItem.name[item] == old(CatalogItem.name[item]) and CatalogItem.description[item] == old(CatalogItem.description[item]) and CatalogItem.price[item] == old(CatalogItem.price[item]) and CatalogItem.brandId[item] == old(CatalogItem.brandId[item]) and CatalogItem.typeId[item] == old(CatalogItem.typeId[item]) and CatalogItem.imageUri[item] == old(CatalogItem.imageUri[item]))
+}

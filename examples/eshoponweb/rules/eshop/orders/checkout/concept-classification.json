@@ -1,0 +1,404 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeUser"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+        "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+        "BR_FAILED_ORDER_PRESERVES_BASKET",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket",
+        "OP:Order_ValidateBasketForOrder",
+        "OP:Update_Lines_FindBasket",
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+        "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket",
+        "OP:Order_CreateOrderLine",
+        "OP:Order_ValidateBasketForOrder",
+        "OP:Update_Lines_RemoveZeroQuantityLines",
+        "OP:Update_Lines_SetLineQuantity",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ],
+      "name": "BuyerResolution",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "OP:Order_CreateOrderLine",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+        "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+        "BR_CHECKOUT_USES_FIXED_ADDRESS",
+        "BR_FAILED_ORDER_PRESERVES_BASKET",
+        "F_ORDER_BUYER",
+        "F_ORDER_CITY",
+        "F_ORDER_COUNTRY",
+        "F_ORDER_POSTAL_CODE",
+        "F_ORDER_REGION",
+        "F_ORDER_STREET",
+        "INITIAL",
+        "OP:Order_InsertOrder"
+      ],
+      "name": "Order",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE",
+        "F_ORDER_LINE_IMAGE",
+        "F_ORDER_LINE_ITEM",
+        "F_ORDER_LINE_NAME",
+        "F_ORDER_LINE_PRICE",
+        "F_ORDER_LINE_TOTAL",
+        "F_ORDER_LINE_UNITS",
+        "INITIAL",
+        "OP:Order_CreateOrderLine",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Order_BR_ORDER_LINE_SUBTOTAL",
+        "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL"
+      ],
+      "name": "OrderLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "F_ORDER_TOTAL",
+        "INITIAL",
+        "OP:Order_CreateOrderLine",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL"
+      ],
+      "name": "OrderTotal",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "State",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are referenced in guards or properties (governs behavior)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Access_AuthorizeUser"
+      ],
+      "name": "Access_AuthorizeUser",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_ValidateQuantityModel"
+      ],
+      "name": "Update_ValidateQuantityModel",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Buyer_ResolveBuyer"
+      ],
+      "name": "Update_Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Update_Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_FindBasket"
+      ],
+      "name": "Update_Lines_FindBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_SetLineQuantity"
+      ],
+      "name": "Update_Lines_SetLineQuantity",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_RemoveZeroQuantityLines"
+      ],
+      "name": "Update_Lines_RemoveZeroQuantityLines",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Order_ValidateBasketForOrder"
+      ],
+      "name": "Order_ValidateBasketForOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Order_CreateOrderLine"
+      ],
+      "name": "Order_CreateOrderLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Order_InsertOrder"
+      ],
+      "name": "Order_InsertOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_DeleteBasket"
+      ],
+      "name": "Lines_DeleteBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout"
+      ],
+      "name": "Checkout",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_CreateOrderLine",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM"
+      ],
+      "name": "BasketLine.catalogItemId",
+      "reason": "attribute used as the identifier for CatalogItem: contextual role, not a class"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "OP:Access_AuthorizeUser"
+      ],
+      "name": "Access_AuthorizeUser.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+        "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+        "BR_FAILED_ORDER_PRESERVES_BASKET"
+      ],
+      "name": "Checkout.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE"
+      ],
+      "name": "Checkout.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+        "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+        "BR_CHECKOUT_USES_FIXED_ADDRESS",
+        "BR_FAILED_ORDER_PRESERVES_BASKET"
+      ],
+      "name": "Checkout.orderId",
+      "reason": "parameter used as the identifier for ['Order']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE"
+      ],
+      "name": "Checkout.orderLineId",
+      "reason": "parameter used as the identifier for ['OrderLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket"
+      ],
+      "name": "Lines_DeleteBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_CreateOrderLine",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL"
+      ],
+      "name": "Order_CreateOrderLine.basketLineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_CreateOrderLine",
+        "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL"
+      ],
+      "name": "Order_CreateOrderLine.lineId",
+      "reason": "parameter used as the identifier for ['OrderLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_CreateOrderLine",
+        "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL"
+      ],
+      "name": "Order_CreateOrderLine.orderId",
+      "reason": "parameter used as the identifier for ['OrderTotal']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_InsertOrder"
+      ],
+      "name": "Order_InsertOrder.orderId",
+      "reason": "parameter used as the identifier for ['Order']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Order_ValidateBasketForOrder"
+      ],
+      "name": "Order_ValidateBasketForOrder.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ],
+      "name": "Update_Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_FindBasket"
+      ],
+      "name": "Update_Lines_FindBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Update_Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_SetLineQuantity",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED"
+      ],
+      "name": "Update_Lines_SetLineQuantity.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    }
+  ],
+  "role_notes": []
+}

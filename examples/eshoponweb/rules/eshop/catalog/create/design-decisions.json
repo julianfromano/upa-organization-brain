@@ -1,0 +1,20 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_DATABASE_ITEM_ID",
+    "resolves": null,
+    "status": "decided",
+    "text": "The database assigns the new item identity; the request does not supply it"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_CREATE_HAS_NO_DOMAIN_GUARDS",
+    "resolves": null,
+    "status": "decided",
+    "text": "The CatalogItem constructor used for creation does not validate empty text or non-positive price values"
+  }
+]

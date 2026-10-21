@@ -1,0 +1,229 @@
+{
+  "assumptions": [],
+  "components": [
+    {
+      "alias": "Access",
+      "ref": "eshop.access.authorization",
+      "summary": {
+        "PROVEN": 3,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 3,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    }
+  ],
+  "errors": [],
+  "ir_hash": "d02faf0b1bcb9d5ca6321ebeacb8e847631dd0a53dd4818f995394ca29ffd9a8",
+  "obligations": [
+    {
+      "description": "Access_AuthorizeAdministrator satisfies postcondition Access_BR_ADMIN_REQUIRES_ROLE",
+      "id": "ENS:Access_BR_ADMIN_REQUIRES_ROLE@Access_AuthorizeAdministrator",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "Access_AuthorizeAdministrator",
+      "rule": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "Access_AuthorizeAdministrator satisfies postcondition Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "id": "ENS:Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@Access_AuthorizeAdministrator",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "Access_AuthorizeAdministrator",
+      "rule": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "CreateItem satisfies postcondition BR_CREATE_REQUIRES_ADMIN",
+      "id": "ENS:BR_CREATE_REQUIRES_ADMIN@CreateItem",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateItem",
+      "rule": "BR_CREATE_REQUIRES_ADMIN",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "CreateItem satisfies postcondition BR_DUPLICATE_NAME_IS_REJECTED",
+      "id": "ENS:BR_DUPLICATE_NAME_IS_REJECTED@CreateItem",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateItem",
+      "rule": "BR_DUPLICATE_NAME_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateItem satisfies postcondition BR_CREATE_STORES_REQUESTED_VALUES",
+      "id": "ENS:BR_CREATE_STORES_REQUESTED_VALUES@CreateItem",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateItem",
+      "rule": "BR_CREATE_STORES_REQUESTED_VALUES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateItem satisfies postcondition BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+      "id": "ENS:BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE@CreateItem",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateItem",
+      "rule": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    }
+  ],
+  "proof_cache": {
+    "frame": 0,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 6
+  },
+  "rules": [
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_CREATE_REQUIRES_ADMIN@CreateItem"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "rule": "BR_CREATE_REQUIRES_ADMIN",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a request without an authenticated administrator does not create an item",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DUPLICATE_NAME_IS_REJECTED@CreateItem"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "throw new DuplicateException($\"A catalogItem with name {request.Name} already exists\");"
+      },
+      "rule": "BR_DUPLICATE_NAME_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a duplicate name does not create an item",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_CREATE_STORES_REQUESTED_VALUES@CreateItem"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);"
+      },
+      "rule": "BR_CREATE_STORES_REQUESTED_VALUES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an administrator with an available name creates an item with the submitted values without validating price, brand, or type",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE@CreateItem"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "newItem.UpdatePictureUri(\"eCatalog-item-default.png\");"
+      },
+      "rule": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "after the database assigns an identity, the default image replaces the submitted image",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:Access_BR_ADMIN_REQUIRES_ROLE@Access_AuthorizeAdministrator"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "rule": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "only an authenticated administrator receives catalog-management access",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@Access_AuthorizeAdministrator"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "rule": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a missing identity or administrator role grants no access",
+      "user_assumptions": []
+    }
+  ],
+  "summary": {
+    "PROVEN": 6,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {
+    "business": {
+      "PROVEN": 4,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    },
+    "other": {
+      "PROVEN": 2,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "summary_total": {
+    "PROVEN": 9,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

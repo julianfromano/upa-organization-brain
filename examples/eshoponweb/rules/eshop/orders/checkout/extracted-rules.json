@@ -1,0 +1,630 @@
+{
+  "assumptions": [],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "text": "an unauthenticated request creates no order and does not delete the basket"
+    },
+    {
+      "classification": "DERIVED_RULE",
+      "id": "BR_CHECKOUT_USES_FIXED_ADDRESS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "derived",
+        "ref": "DD_FIXED_SHIPPING_ADDRESS"
+      },
+      "text": "every order created by checkout uses the address hard-coded in the page"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.DeleteBasketAsync(BasketModel.Id);"
+      },
+      "text": "after order creation, the basket and its lines are removed"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_FAILED_ORDER_PRESERVES_BASKET",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "catch (EmptyBasketOnCheckoutException emptyBasketOnCheckoutException)"
+      },
+      "text": "when checkout creates no order, an existing basket remains available"
+    },
+    {
+      "classification": "DERIVED_RULE",
+      "id": "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "derived",
+        "ref": "DD_FIXED_SHIPPING_ADDRESS"
+      },
+      "text": "the purchased line keeps the price recorded in the basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "text": "protected shopper operations require an authenticated user"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Request.HttpContext.User.Identity.Name!;"
+      },
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (!Guid.TryParse(userName, out var _))"
+      },
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userName = Guid.NewGuid().ToString();"
+      },
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));"
+      },
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "text": "a submitted quantity replaces the existing line quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "text": "changing a line quantity does not reprice it"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))"
+      },
+      "text": "a line omitted from the submitted quantities is not changed"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "text": "cleanup removes zero-quantity lines from the selected basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "text": "cleanup preserves other baskets' lines and nonempty lines"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_ORDER_LINE_SUBTOTAL",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "text": "each order-line subtotal equals unit price times units"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "kind": "law",
+      "origin": {
+        "kind": "literal",
+        "ref": "/// Represents a snapshot of the item that was ordered."
+      },
+      "text": "a recorded order line keeps its purchased name, image, price, and units"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);"
+      },
+      "text": "an order line copies price and units from the basket line, not the current catalog price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))"
+      },
+      "text": "an order line records the catalog name, image, and item identifier at purchase time"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);"
+      },
+      "text": "a basket line whose catalog item is missing does not produce an order line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);"
+      },
+      "text": "an item identifier outside the valid integer range does not produce an order line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "text": "the order total increases by the subtotal of each created line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "assumption",
+        "ref": "AS_DATABASE_CASCADE"
+      },
+      "text": "deleting a basket removes the basket and its lines"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_FIXED_SHIPPING_ADDRESS",
+      "text": "The checkout address is hard-coded in the page; the shopper does not enter it"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_ORDER_BUYER_FROM_BASKET",
+      "text": "The order buyer identifier is the basket BuyerId"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "subject": "AccessGrant.granted",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_SOURCE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "string? userName = null;"
+      },
+      "subject": "BuyerResolution.source",
+      "target": "BuyerSource"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"
+      },
+      "subject": "BuyerResolution.writesCookie",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Basket.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "subject": "BasketLine.quantity",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "BasketLine.unitPrice",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ProductName { get; private set; }"
+      },
+      "subject": "OrderLine.productName",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_IMAGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string PictureUri { get; private set; }"
+      },
+      "subject": "OrderLine.pictureUri",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "OrderLine.unitPrice",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_UNITS",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Units { get; private set; }"
+      },
+      "subject": "OrderLine.units",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_ITEM",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int CatalogItemId { get; private set; }"
+      },
+      "subject": "OrderLine.catalogItemId",
+      "target": "Identifier"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "subject": "OrderLine.subtotal",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "subject": "OrderTotal.amount",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Order.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_STREET",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Street { get; private set; }"
+      },
+      "subject": "Order.street",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_CITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string City { get; private set; }"
+      },
+      "subject": "Order.city",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_REGION",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string State { get; private set; }"
+      },
+      "subject": "Order.region",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_COUNTRY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Country { get; private set; }"
+      },
+      "subject": "Order.country",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_POSTAL_CODE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ZipCode { get; private set; }"
+      },
+      "subject": "Order.postalCode",
+      "target": "Text"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Access_AuthorizeUser",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "isAuthenticated"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_ValidateQuantityModel",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "quantity"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_Buyer_ResolveBuyer",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "identityMissing",
+        "isAuthenticated",
+        "userNameMissing",
+        "hasCookie",
+        "cookieIsGuid"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_Lines_GetOrCreateBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId",
+        "buyerId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_Lines_FindBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_Lines_SetLineQuantity",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "quantity",
+        "isSubmitted"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Update_Lines_RemoveZeroQuantityLines",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Order_ValidateBasketForOrder",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Order_CreateOrderLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "orderId",
+        "basketLineId",
+        "numericItemId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Order_InsertOrder",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "orderId",
+        "buyerId",
+        "buyerIdIsEmpty",
+        "street",
+        "city",
+        "region",
+        "country",
+        "postalCode"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_DeleteBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Checkout",
+      "note": "composition",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "identityMissing",
+        "userNameMissing",
+        "hasCookie",
+        "cookieIsGuid",
+        "basketId",
+        "buyerId",
+        "lineId",
+        "quantity",
+        "isSubmitted",
+        "orderId",
+        "orderLineId",
+        "numericItemId",
+        "buyerIdIsEmpty"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

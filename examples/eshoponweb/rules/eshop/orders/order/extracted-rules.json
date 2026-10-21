@@ -1,0 +1,379 @@
+{
+  "assumptions": [
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_NO_EXISTING_ORDERS",
+      "owner": "operation",
+      "text": "No orders or order lines exist initially"
+    }
+  ],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_LINE_SUBTOTAL",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "text": "each order-line subtotal equals unit price times units"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "kind": "law",
+      "origin": {
+        "kind": "literal",
+        "ref": "/// Represents a snapshot of the item that was ordered."
+      },
+      "text": "a recorded order line keeps its purchased name, image, price, and units"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_LINE_USES_BASKET_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);"
+      },
+      "text": "an order line copies price and units from the basket line, not the current catalog price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))"
+      },
+      "text": "an order line records the catalog name, image, and item identifier at purchase time"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);"
+      },
+      "text": "a basket line whose catalog item is missing does not produce an order line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);"
+      },
+      "text": "an item identifier outside the valid integer range does not produce an order line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "text": "the order total increases by the subtotal of each created line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.EmptyBasketOnCheckout(basket.Items);"
+      },
+      "text": "an empty basket cannot produce an order or order line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(basket, nameof(basket));"
+      },
+      "text": "a missing basket cannot produce an order"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(buyerId, nameof(buyerId));"
+      },
+      "text": "an empty buyer identifier does not produce an order or line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order)"
+      },
+      "text": "a created order records its buyer and supplied shipping address"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ORDER_CREATION_PRESERVES_BASKET",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order);"
+      },
+      "text": "creating an order does not alter the basket; basket deletion occurs afterward"
+    },
+    {
+      "classification": "DERIVED_RULE",
+      "id": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+      "kind": "ensures",
+      "origin": {
+        "kind": "derived",
+        "ref": "DD_ORDER_ITEM_SNAPSHOT"
+      },
+      "text": "creating an order copies catalog details without changing the catalog"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_ORDER_ITEM_SNAPSHOT",
+      "text": "An order line snapshots its catalog item's identity, name, and image at purchase time"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_ORDER_PRICE_FROM_BASKET",
+      "text": "The order line uses the basket's recorded unit price, not the catalog's current price"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_MATERIALIZED_ORDER_TOTAL",
+      "text": "The calculated order total is stored as a value to make it expressible in this model"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_DATABASE_ORDER_IDENTITIES",
+      "text": "The database assigns unique order and order-line identities; collisions are modeled as rejected outcomes"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Order.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_STREET",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Street { get; private set; }"
+      },
+      "subject": "Order.street",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_CITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string City { get; private set; }"
+      },
+      "subject": "Order.city",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_REGION",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string State { get; private set; }"
+      },
+      "subject": "Order.region",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_COUNTRY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Country { get; private set; }"
+      },
+      "subject": "Order.country",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_POSTAL_CODE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ZipCode { get; private set; }"
+      },
+      "subject": "Order.postalCode",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ProductName { get; private set; }"
+      },
+      "subject": "OrderLine.productName",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_IMAGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string PictureUri { get; private set; }"
+      },
+      "subject": "OrderLine.pictureUri",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "OrderLine.unitPrice",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_UNITS",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Units { get; private set; }"
+      },
+      "subject": "OrderLine.units",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_ITEM",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int CatalogItemId { get; private set; }"
+      },
+      "subject": "OrderLine.catalogItemId",
+      "target": "Identifier"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_LINE_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "subject": "OrderLine.subtotal",
+      "target": "Money"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ORDER_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "subject": "OrderTotal.amount",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "ValidateBasketForOrder",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "CreateOrderLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "orderId",
+        "basketLineId",
+        "numericItemId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "InsertOrder",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "orderId",
+        "buyerId",
+        "buyerIdIsEmpty",
+        "street",
+        "city",
+        "region",
+        "country",
+        "postalCode"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "CreateOrderFromBasket",
+      "note": "composition",
+      "params": [
+        "basketId",
+        "orderId",
+        "lineId",
+        "basketLineId",
+        "numericItemId",
+        "buyerId",
+        "buyerIdIsEmpty",
+        "street",
+        "city",
+        "region",
+        "country",
+        "postalCode"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

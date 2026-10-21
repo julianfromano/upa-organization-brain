@@ -1,0 +1,151 @@
+{
+  "assumptions": [],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_VALID_DETAILS_ARE_APPLIED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "text": "valid name, description, and price replace the item's details"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));"
+      },
+      "text": "a zero or negative price leaves the item unchanged"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EMPTY_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));"
+      },
+      "text": "an empty name leaves the item unchanged"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));"
+      },
+      "text": "an empty description leaves the item unchanged"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "text": "updating details does not change the brand, type, or image"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_BRAND_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));"
+      },
+      "text": "a zero brand identifier is rejected"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_TYPE_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));"
+      },
+      "text": "a zero type identifier is rejected"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_PRICE_SCALE",
+      "text": "Catalog prices use decimal(18,2), represented as integer cents"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ITEM_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Name { get; private set; }"
+      },
+      "subject": "CatalogItem.name",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ITEM_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal Price { get; private set; }"
+      },
+      "subject": "CatalogItem.price",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "FindCatalogItem",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "UpdateItemDetails",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId",
+        "name",
+        "description",
+        "price",
+        "nameIsEmpty",
+        "descriptionIsEmpty"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "UpdateItemBrand",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId",
+        "brandId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "UpdateItemType",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId",
+        "typeId"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

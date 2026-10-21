@@ -1,0 +1,79 @@
+[
+  {
+    "description": "UpdateItemDetails satisfies postcondition BR_VALID_DETAILS_ARE_APPLIED",
+    "id": "ENS:BR_VALID_DETAILS_ARE_APPLIED@UpdateItemDetails",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemDetails",
+    "rule": "BR_VALID_DETAILS_ARE_APPLIED",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 2
+  },
+  {
+    "description": "UpdateItemDetails satisfies postcondition BR_NONPOSITIVE_PRICE_IS_REJECTED",
+    "id": "ENS:BR_NONPOSITIVE_PRICE_IS_REJECTED@UpdateItemDetails",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemDetails",
+    "rule": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 0
+  },
+  {
+    "description": "UpdateItemDetails satisfies postcondition BR_EMPTY_NAME_IS_REJECTED",
+    "id": "ENS:BR_EMPTY_NAME_IS_REJECTED@UpdateItemDetails",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemDetails",
+    "rule": "BR_EMPTY_NAME_IS_REJECTED",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  },
+  {
+    "description": "UpdateItemDetails satisfies postcondition BR_EMPTY_DESCRIPTION_IS_REJECTED",
+    "id": "ENS:BR_EMPTY_DESCRIPTION_IS_REJECTED@UpdateItemDetails",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemDetails",
+    "rule": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  },
+  {
+    "description": "UpdateItemDetails satisfies postcondition BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+    "id": "ENS:BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION@UpdateItemDetails",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemDetails",
+    "rule": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 0
+  },
+  {
+    "description": "UpdateItemBrand satisfies postcondition BR_BRAND_MUST_BE_NONZERO",
+    "id": "ENS:BR_BRAND_MUST_BE_NONZERO@UpdateItemBrand",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemBrand",
+    "rule": "BR_BRAND_MUST_BE_NONZERO",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  },
+  {
+    "description": "UpdateItemType satisfies postcondition BR_TYPE_MUST_BE_NONZERO",
+    "id": "ENS:BR_TYPE_MUST_BE_NONZERO@UpdateItemType",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "UpdateItemType",
+    "rule": "BR_TYPE_MUST_BE_NONZERO",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 2
+  }
+]

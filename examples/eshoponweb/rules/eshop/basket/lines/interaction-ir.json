@@ -1,0 +1,1582 @@
+{
+  "capabilities": [
+    {
+      "evidence": [
+        "operations.AddBasketLine.cases[1].stmts[0]",
+        "operations.AddBasketLine.cases[2].stmts[0]",
+        "operations.DeleteBasket.cases[1].stmts[0]",
+        "operations.DeleteBasket.cases[1].stmts[1]",
+        "operations.GetOrCreateBasket.cases[1].stmts[0]",
+        "operations.MergeBasketLine.cases[1].stmts[0]",
+        "operations.MergeBasketLine.cases[1].stmts[1]",
+        "operations.MergeBasketLine.cases[2].stmts[0]",
+        "operations.MergeBasketLine.cases[2].stmts[1]",
+        "operations.RemoveZeroQuantityLines.cases[0].stmts[0]",
+        "operations.SetLineQuantity.cases[3].stmts[0]"
+      ],
+      "name": "command-execution",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.AddBasketLine.params.basketId",
+        "operations.AddBasketLine.params.itemId",
+        "operations.AddBasketLine.params.lineId",
+        "operations.AddBasketLine.params.quantity",
+        "operations.AddBasketLine.params.unitPrice",
+        "operations.DeleteBasket.params.basketId",
+        "operations.GetOrCreateBasket.params.basketId",
+        "operations.GetOrCreateBasket.params.buyerId",
+        "operations.MergeBasketLine.params.anonymousLine",
+        "operations.MergeBasketLine.params.shopperBasket",
+        "operations.MergeBasketLine.params.shopperLine",
+        "operations.SetLineQuantity.params.lineId",
+        "operations.SetLineQuantity.params.quantity"
+      ],
+      "name": "data-input",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.AddBasketLine.cases[1].stmts[0]",
+        "operations.AddBasketLine.cases[2].stmts[0]",
+        "operations.DeleteBasket.cases[1].stmts[0]",
+        "operations.DeleteBasket.cases[1].stmts[1]",
+        "operations.GetOrCreateBasket.cases[1].stmts[0]",
+        "operations.MergeBasketLine.cases[1].stmts[0]",
+        "operations.MergeBasketLine.cases[1].stmts[1]",
+        "operations.MergeBasketLine.cases[2].stmts[0]",
+        "operations.MergeBasketLine.cases[2].stmts[1]",
+        "operations.RemoveZeroQuantityLines.cases[0].stmts[0]",
+        "operations.SetLineQuantity.cases[3].stmts[0]"
+      ],
+      "name": "human-interaction",
+      "reasons": [
+        "The IR does not explicitly identify who initiates the operation."
+      ],
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence": [
+        "operations.AddBasketLine.cases[0]",
+        "operations.DeleteBasket.cases[0]",
+        "operations.FindBasket.cases[0]",
+        "operations.FindBasket.cases[1]",
+        "operations.GetOrCreateBasket.cases[0]",
+        "operations.MergeBasketLine.cases[0]",
+        "operations.SetLineQuantity.cases[0]",
+        "operations.SetLineQuantity.cases[1]",
+        "operations.SetLineQuantity.cases[2]"
+      ],
+      "name": "validation-feedback",
+      "status": "OBSERVED"
+    }
+  ],
+  "format": "upa-interaction-ir-1",
+  "inference_rules": [
+    "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+    "EXPLICIT_TO_TEXT_OF_OPERATION_PARAMETER",
+    "LOGICAL_OPERATION_PROJECTION",
+    "NAMED_OPERATION_OUTCOMES",
+    "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+    "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+    "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+    "UNCONDITIONAL_STATE_CHANGE_CASE"
+  ],
+  "language_gaps": [
+    {
+      "id": "GAP_QUANTITY_OVERFLOW",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "Adding quantities can overflow a signed 32-bit integer; overflow behavior is not specified by this model"
+    },
+    {
+      "id": "GAP_BASKET_TOTAL_ITEMS",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "Basket.TotalItems sums all line quantities; an aggregate across a basket is not expressed here"
+    },
+    {
+      "id": "GAP_LINE_IDENTITIES",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "The database assigns basket-line identities; the caller supplies the abstract key used in this model"
+    },
+    {
+      "id": "GAP_MERGE_UNIT_CONSERVATION",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "Total units across all lines during merge were not proven within the solver budget; per-line merge behavior is modeled"
+    }
+  ],
+  "operations": [
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.AddBasketLine.cases[1].stmts[0]",
+            "operations.AddBasketLine.cases[2].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.AddBasketLine.params.lineId",
+            "operations.AddBasketLine.params.basketId",
+            "operations.AddBasketLine.params.itemId",
+            "operations.AddBasketLine.params.unitPrice",
+            "operations.AddBasketLine.params.quantity"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.AddBasketLine.cases[1].stmts[0]",
+            "operations.AddBasketLine.cases[2].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.AddBasketLine.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BasketLine",
+          "kind": "set",
+          "trace": "operations.AddBasketLine.cases[1].stmts[0]"
+        },
+        {
+          "entity": "BasketLine",
+          "kind": "create",
+          "trace": "operations.AddBasketLine.cases[2].stmts[0]"
+        }
+      ],
+      "id": "AddBasketLine",
+      "inputs": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "lineId",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.lineId",
+            "operations.AddBasketLine.cases[1].stmts[0].key",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "basketId",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.basketId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "itemId",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.itemId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "unitPrice",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.unitPrice"
+          ],
+          "type": "int"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "quantity",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.quantity"
+          ],
+          "type": "int"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "BasketLine",
+        "trace": [
+          "operations.AddBasketLine.cases[2].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "QuantityOutOfRange",
+          "trace": "operations.AddBasketLine.cases[0]"
+        },
+        {
+          "case_index": 2,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.AddBasketLine.cases[2]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "lineId",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.lineId",
+            "operations.AddBasketLine.cases[1].stmts[0].key",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "basketId",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.basketId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "itemId",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.itemId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "unitPrice",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.unitPrice"
+          ],
+          "type": "int"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "quantity",
+          "required": true,
+          "trace": [
+            "operations.AddBasketLine.params.quantity"
+          ],
+          "type": "int"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "QuantityOutOfRange",
+          "trace": "operations.AddBasketLine.cases[0].cond"
+        },
+        {
+          "expression": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "CONFLICT",
+          "outcome": null,
+          "trace": "operations.AddBasketLine.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.AddBasketLine"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.DeleteBasket.cases[1].stmts[0]",
+            "operations.DeleteBasket.cases[1].stmts[1]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.DeleteBasket.params.basketId"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.DeleteBasket.cases[1].stmts[0]",
+            "operations.DeleteBasket.cases[1].stmts[1]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.DeleteBasket.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BasketLine",
+          "kind": "delete",
+          "trace": "operations.DeleteBasket.cases[1].stmts[0]"
+        },
+        {
+          "entity": "Basket",
+          "kind": "delete",
+          "trace": "operations.DeleteBasket.cases[1].stmts[1]"
+        }
+      ],
+      "id": "DeleteBasket",
+      "inputs": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "basketId",
+          "reference": {
+            "entity": "Basket",
+            "identity_attribute": "basketId"
+          },
+          "required": true,
+          "trace": [
+            "operations.DeleteBasket.params.basketId",
+            "operations.DeleteBasket.cases[0].cond.x",
+            "operations.GetOrCreateBasket.cases[1].stmts[0].key"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "BasketNotFound",
+          "trace": "operations.DeleteBasket.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.DeleteBasket.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "basketId",
+          "reference": {
+            "entity": "Basket",
+            "identity_attribute": "basketId"
+          },
+          "required": true,
+          "trace": [
+            "operations.DeleteBasket.params.basketId",
+            "operations.DeleteBasket.cases[0].cond.x",
+            "operations.GetOrCreateBasket.cases[1].stmts[0].key"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "BasketNotFound",
+          "trace": "operations.DeleteBasket.cases[0].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.DeleteBasket"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.FindBasket.cases[0]",
+            "operations.FindBasket.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [],
+      "id": "FindBasket",
+      "inputs": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "basketId",
+          "reference": {
+            "entity": "Basket",
+            "identity_attribute": "basketId"
+          },
+          "required": true,
+          "trace": [
+            "operations.FindBasket.params.basketId",
+            "operations.FindBasket.cases[0].cond.x",
+            "operations.GetOrCreateBasket.cases[1].stmts[0].key"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "BasketNotFound",
+          "trace": "operations.FindBasket.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "BasketFound",
+          "trace": "operations.FindBasket.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "basketId",
+          "reference": {
+            "entity": "Basket",
+            "identity_attribute": "basketId"
+          },
+          "required": true,
+          "trace": [
+            "operations.FindBasket.params.basketId",
+            "operations.FindBasket.cases[0].cond.x",
+            "operations.GetOrCreateBasket.cases[1].stmts[0].key"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "BasketNotFound",
+          "trace": "operations.FindBasket.cases[0].cond"
+        },
+        {
+          "expression": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "BasketFound",
+          "trace": "operations.FindBasket.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.FindBasket"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.GetOrCreateBasket.cases[1].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.GetOrCreateBasket.params.basketId",
+            "operations.GetOrCreateBasket.params.buyerId"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.GetOrCreateBasket.cases[1].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.GetOrCreateBasket.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "Basket",
+          "kind": "create",
+          "trace": "operations.GetOrCreateBasket.cases[1].stmts[0]"
+        }
+      ],
+      "id": "GetOrCreateBasket",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "basketId",
+          "required": true,
+          "trace": [
+            "operations.GetOrCreateBasket.params.basketId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "buyerId",
+          "required": true,
+          "trace": [
+            "operations.GetOrCreateBasket.params.buyerId"
+          ],
+          "type": "text"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "Basket",
+        "trace": [
+          "operations.GetOrCreateBasket.cases[1].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "CONFLICT",
+          "name": "BasketAlreadyExists",
+          "trace": "operations.GetOrCreateBasket.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.GetOrCreateBasket.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "basketId",
+          "required": true,
+          "trace": [
+            "operations.GetOrCreateBasket.params.basketId"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "buyerId",
+          "required": true,
+          "trace": [
+            "operations.GetOrCreateBasket.params.buyerId"
+          ],
+          "type": "text"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "CONFLICT",
+          "outcome": "BasketAlreadyExists",
+          "trace": "operations.GetOrCreateBasket.cases[0].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.GetOrCreateBasket"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.MergeBasketLine.cases[1].stmts[0]",
+            "operations.MergeBasketLine.cases[1].stmts[1]",
+            "operations.MergeBasketLine.cases[2].stmts[0]",
+            "operations.MergeBasketLine.cases[2].stmts[1]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.MergeBasketLine.params.anonymousLine",
+            "operations.MergeBasketLine.params.shopperLine",
+            "operations.MergeBasketLine.params.shopperBasket"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.MergeBasketLine.cases[1].stmts[0]",
+            "operations.MergeBasketLine.cases[1].stmts[1]",
+            "operations.MergeBasketLine.cases[2].stmts[0]",
+            "operations.MergeBasketLine.cases[2].stmts[1]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.MergeBasketLine.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BasketLine",
+          "kind": "set",
+          "trace": "operations.MergeBasketLine.cases[1].stmts[0]"
+        },
+        {
+          "entity": "BasketLine",
+          "kind": "delete",
+          "trace": "operations.MergeBasketLine.cases[1].stmts[1]"
+        },
+        {
+          "entity": "BasketLine",
+          "kind": "create",
+          "trace": "operations.MergeBasketLine.cases[2].stmts[0]"
+        },
+        {
+          "entity": "BasketLine",
+          "kind": "delete",
+          "trace": "operations.MergeBasketLine.cases[2].stmts[1]"
+        }
+      ],
+      "id": "MergeBasketLine",
+      "inputs": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "anonymousLine",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.anonymousLine",
+            "operations.MergeBasketLine.cases[0].cond.x",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "shopperLine",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.shopperLine",
+            "operations.MergeBasketLine.cases[1].stmts[0].key",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "shopperBasket",
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.shopperBasket"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "BasketLine",
+        "trace": [
+          "operations.MergeBasketLine.cases[2].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "AnonymousLineNotFound",
+          "trace": "operations.MergeBasketLine.cases[0]"
+        },
+        {
+          "case_index": 2,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.MergeBasketLine.cases[2]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "anonymousLine",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.anonymousLine",
+            "operations.MergeBasketLine.cases[0].cond.x",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "shopperLine",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.shopperLine",
+            "operations.MergeBasketLine.cases[1].stmts[0].key",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "shopperBasket",
+          "required": true,
+          "trace": [
+            "operations.MergeBasketLine.params.shopperBasket"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "AnonymousLineNotFound",
+          "trace": "operations.MergeBasketLine.cases[0].cond"
+        },
+        {
+          "expression": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "CONFLICT",
+          "outcome": null,
+          "trace": "operations.MergeBasketLine.cases[1].cond"
+        }
+      ],
+      "system_values": [
+        {
+          "derives_from": [
+            {
+              "attribute": "catalogItemId",
+              "entity": "BasketLine",
+              "expression_path": "$",
+              "key_expression": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              }
+            }
+          ],
+          "entity": "BasketLine",
+          "expression": {
+            "a": "catalogItemId",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "anonymousLine",
+              "ty": "id"
+            },
+            "ty": "id"
+          },
+          "inference_rule": "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+          "kind": "DERIVED",
+          "name": "catalogItemId",
+          "trace": "operations.MergeBasketLine.cases[2].stmts[0].inits[1]"
+        },
+        {
+          "derives_from": [
+            {
+              "attribute": "quantity",
+              "entity": "BasketLine",
+              "expression_path": "$",
+              "key_expression": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              }
+            }
+          ],
+          "entity": "BasketLine",
+          "expression": {
+            "a": "quantity",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "anonymousLine",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "inference_rule": "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+          "kind": "DERIVED",
+          "name": "quantity",
+          "trace": "operations.MergeBasketLine.cases[2].stmts[0].inits[2]"
+        },
+        {
+          "derives_from": [
+            {
+              "attribute": "unitPrice",
+              "entity": "BasketLine",
+              "expression_path": "$",
+              "key_expression": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              }
+            }
+          ],
+          "entity": "BasketLine",
+          "expression": {
+            "a": "unitPrice",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "anonymousLine",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "inference_rule": "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+          "kind": "DERIVED",
+          "name": "unitPrice",
+          "trace": "operations.MergeBasketLine.cases[2].stmts[0].inits[3]"
+        }
+      ],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.MergeBasketLine"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "basketId",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.RemoveZeroQuantityLines.params.basketId"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.RemoveZeroQuantityLines.cases[0].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.RemoveZeroQuantityLines.cases[0].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BasketLine",
+          "kind": "delete",
+          "trace": "operations.RemoveZeroQuantityLines.cases[0].stmts[0]"
+        }
+      ],
+      "id": "RemoveZeroQuantityLines",
+      "inputs": [],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.RemoveZeroQuantityLines.cases[0]"
+        }
+      ],
+      "parameters": [
+        {
+          "kind": "UNRESOLVED",
+          "name": "basketId",
+          "required": true,
+          "trace": [
+            "operations.RemoveZeroQuantityLines.params.basketId"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.RemoveZeroQuantityLines"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "isSubmitted",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.SetLineQuantity.params.isSubmitted"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.SetLineQuantity.cases[3].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.SetLineQuantity.params.lineId",
+            "operations.SetLineQuantity.params.quantity"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.SetLineQuantity.cases[3].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.SetLineQuantity.cases[0]",
+            "operations.SetLineQuantity.cases[1]",
+            "operations.SetLineQuantity.cases[2]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BasketLine",
+          "kind": "set",
+          "trace": "operations.SetLineQuantity.cases[3].stmts[0]"
+        }
+      ],
+      "id": "SetLineQuantity",
+      "inputs": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "lineId",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.SetLineQuantity.params.lineId",
+            "operations.SetLineQuantity.cases[2].cond.x",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "quantity",
+          "required": true,
+          "trace": [
+            "operations.SetLineQuantity.params.quantity"
+          ],
+          "type": "int"
+        }
+      ],
+      "intent": {
+        "kind": "UPDATE",
+        "subject": "BasketLine",
+        "trace": [
+          "operations.SetLineQuantity.cases[3].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isSubmitted",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "LineNotSubmitted",
+          "trace": "operations.SetLineQuantity.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "QuantityOutOfRange",
+          "trace": "operations.SetLineQuantity.cases[1]"
+        },
+        {
+          "case_index": 2,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "LineNotFound",
+          "trace": "operations.SetLineQuantity.cases[2]"
+        },
+        {
+          "case_index": 3,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.SetLineQuantity.cases[3]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "lineId",
+          "reference": {
+            "entity": "BasketLine",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.SetLineQuantity.params.lineId",
+            "operations.SetLineQuantity.cases[2].cond.x",
+            "operations.MergeBasketLine.cases[2].stmts[0].key"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "quantity",
+          "required": true,
+          "trace": [
+            "operations.SetLineQuantity.params.quantity"
+          ],
+          "type": "int"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "isSubmitted",
+          "required": true,
+          "trace": [
+            "operations.SetLineQuantity.params.isSubmitted"
+          ],
+          "type": "bool"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isSubmitted",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "LineNotSubmitted",
+          "trace": "operations.SetLineQuantity.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "QuantityOutOfRange",
+          "trace": "operations.SetLineQuantity.cases[1].cond"
+        },
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "LineNotFound",
+          "trace": "operations.SetLineQuantity.cases[2].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.SetLineQuantity"
+      }
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "source": {
+    "logical_ir_version": "upa-ir-0.1",
+    "sha256": "55ebb03c6c301c5990e1d61bdc8c665dbde79016ce56d9db063a2e19f93d62a7",
+    "spec": "BasketLines"
+  }
+}

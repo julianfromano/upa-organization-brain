@@ -1,0 +1,206 @@
+{
+  "by_rule": {
+    "BR_EXISTING_BASKET_LINE_ADDS_ONE": [
+      "BasketLine",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT": [
+      "Basket",
+      "BasketLine"
+    ],
+    "BR_NEW_BASKET_LINE_HAS_ONE_UNIT": [
+      "BasketLine",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "BR_SUCCESSFUL_ADD_HAS_BASKET": [
+      "Basket"
+    ],
+    "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Buyer_BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BASKET_BUYER": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "F_BUYER_COOKIE": [
+      "BuyerResolution",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BUYER_SOURCE": [
+      "BuyerResolution",
+      "BuyerResolution.source"
+    ],
+    "F_LINE_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "F_LINE_UNIT_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "INITIAL": [
+      "Basket",
+      "BasketLine"
+    ],
+    "Lines_BR_ADDING_LINE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_EXISTING_LINE_ADDS_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT": [
+      "BasketLine"
+    ],
+    "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Buyer_ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "OP:Lines_AddBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ]
+  },
+  "why": {
+    "Basket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_SUCCESSFUL_ADD_HAS_BASKET",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "Basket.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "BasketLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ]
+    },
+    "BasketLine.basketId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ]
+    },
+    "BasketLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ]
+    },
+    "BasketLine.quantity": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+        "F_LINE_QUANTITY",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ]
+    },
+    "BasketLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+        "F_LINE_UNIT_PRICE",
+        "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ]
+    },
+    "BuyerResolution": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.source": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.writesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    }
+  }
+}

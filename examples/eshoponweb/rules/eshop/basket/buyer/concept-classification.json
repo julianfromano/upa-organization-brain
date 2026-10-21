@@ -1,0 +1,77 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_MISSING_IDENTITY_IS_REJECTED",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:ResolveBuyer"
+      ],
+      "name": "BuyerResolution",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:DecideLoginMerge"
+      ],
+      "name": "LoginMergeDecision",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "State",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are referenced in guards or properties (governs behavior)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ResolveBuyer"
+      ],
+      "name": "ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DecideLoginMerge"
+      ],
+      "name": "DecideLoginMerge",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:DecideLoginMerge"
+      ],
+      "name": "DecideLoginMerge.request",
+      "reason": "parameter used as the identifier for ['LoginMergeDecision']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_MISSING_IDENTITY_IS_REJECTED",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:ResolveBuyer"
+      ],
+      "name": "ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    }
+  ],
+  "role_notes": []
+}

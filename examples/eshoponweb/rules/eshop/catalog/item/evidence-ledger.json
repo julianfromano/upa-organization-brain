@@ -1,0 +1,96 @@
+{
+  "items": [
+    {
+      "evidence": "Name = details.Name;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_VALID_DETAILS_ARE_APPLIED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "valid name, description, and price replace the item's details"
+    },
+    {
+      "evidence": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero or negative price leaves the item unchanged"
+    },
+    {
+      "evidence": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_EMPTY_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an empty name leaves the item unchanged"
+    },
+    {
+      "evidence": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an empty description leaves the item unchanged"
+    },
+    {
+      "evidence": "Name = details.Name;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "updating details does not change the brand, type, or image"
+    },
+    {
+      "evidence": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_BRAND_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero brand identifier is rejected"
+    },
+    {
+      "evidence": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_TYPE_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero type identifier is rejected"
+    },
+    {
+      "evidence": "public string Name { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ITEM_NAME",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every CatalogItem has exactly_one name: Text"
+    },
+    {
+      "evidence": "public decimal Price { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ITEM_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every CatalogItem has exactly_one price: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

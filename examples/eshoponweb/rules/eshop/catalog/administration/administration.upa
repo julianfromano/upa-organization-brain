@@ -1,0 +1,8 @@
+spec CatalogAdministration version "0.1" tier process
+
+component Create = eshop.catalog.create@0.1
+component Edit = eshop.catalog.edit@0.1
+component Delete = eshop.catalog.delete@0.1
+component Filter = eshop.catalog.filter@0.1
+
+// Catalog management includes creation, API and Admin-page editing, deletion, and filtered browsing.

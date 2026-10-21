@@ -1,0 +1,67 @@
+{
+  "build_seconds": 0.61,
+  "composition": {
+    "components": [
+      {
+        "alias": "Create",
+        "ref": "eshop.catalog.create",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Edit",
+        "ref": "eshop.catalog.edit",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Delete",
+        "ref": "eshop.catalog.delete",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Filter",
+        "ref": "eshop.catalog.filter",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 2,
+    "summary_total": {
+      "PROVEN": 51,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "4b7aad2414388fad251429ff6a12347cc38101fec34515145cae95c982ff7c76",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 0,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 0,
+    "inferred_roles": 0,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 0,
+    "ir_bytes": 2646,
+    "obligations": 0,
+    "operations": 0,
+    "properties": 0,
+    "upa_lines": 8
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 0,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

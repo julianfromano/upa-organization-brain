@@ -1,0 +1,204 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_API_REQUIRES_ADMIN",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+        "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "Item_BR_BRAND_MUST_BE_NONZERO",
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "Item_BR_EMPTY_NAME_IS_REJECTED",
+        "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "Item_BR_TYPE_MUST_BE_NONZERO",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_FindCatalogItem",
+        "OP:Item_UpdateItemBrand",
+        "OP:Item_UpdateItemDetails",
+        "OP:Item_UpdateItemType",
+        "OP:UpdateNameAndPriceFromAdmin"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ValidateAdminModel"
+      ],
+      "name": "ValidateAdminModel",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateNameAndPriceFromAdmin"
+      ],
+      "name": "UpdateNameAndPriceFromAdmin",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Item_FindCatalogItem"
+      ],
+      "name": "Item_FindCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Item_UpdateItemDetails"
+      ],
+      "name": "Item_UpdateItemDetails",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Item_UpdateItemBrand"
+      ],
+      "name": "Item_UpdateItemBrand",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Item_UpdateItemType"
+      ],
+      "name": "Item_UpdateItemType",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateCatalogItemApi"
+      ],
+      "name": "UpdateCatalogItemApi",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditCatalogItemPage"
+      ],
+      "name": "EditCatalogItemPage",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+        "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+        "BR_ADMIN_EDIT_REQUIRES_ADMIN"
+      ],
+      "name": "EditCatalogItemPage.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Item_FindCatalogItem"
+      ],
+      "name": "Item_FindCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Item_BR_BRAND_MUST_BE_NONZERO",
+        "OP:Item_UpdateItemBrand"
+      ],
+      "name": "Item_UpdateItemBrand.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "Item_BR_EMPTY_NAME_IS_REJECTED",
+        "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:Item_UpdateItemDetails"
+      ],
+      "name": "Item_UpdateItemDetails.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Item_BR_TYPE_MUST_BE_NONZERO",
+        "OP:Item_UpdateItemType"
+      ],
+      "name": "Item_UpdateItemType.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+        "BR_UPDATE_API_REQUIRES_ADMIN",
+        "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+        "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+        "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT"
+      ],
+      "name": "UpdateCatalogItemApi.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:UpdateNameAndPriceFromAdmin"
+      ],
+      "name": "UpdateNameAndPriceFromAdmin.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    }
+  ],
+  "role_notes": []
+}

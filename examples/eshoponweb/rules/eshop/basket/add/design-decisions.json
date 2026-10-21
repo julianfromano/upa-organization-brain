@@ -1,0 +1,20 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_ADD_ONE_UNIT",
+    "resolves": null,
+    "status": "decided",
+    "text": "The basket page omits the quantity argument, so AddItemToBasket uses its default quantity of one"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_CAPTURE_CATALOG_PRICE",
+    "resolves": null,
+    "status": "decided",
+    "text": "A new basket line records the catalog price read when the item is added"
+  }
+]

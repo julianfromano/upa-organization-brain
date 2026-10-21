@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "protected shopper operations require an authenticated user"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every AccessGrant has exactly_one granted: Bool"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

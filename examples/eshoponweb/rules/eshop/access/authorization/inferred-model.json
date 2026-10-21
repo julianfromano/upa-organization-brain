@@ -1,0 +1,72 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "AccessGrant": {
+      "attributes": {
+        "granted": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "F_ACCESS_GRANTED",
+            "OP:AuthorizeAdministrator",
+            "OP:AuthorizeUser"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "F_ACCESS_GRANTED",
+            "OP:AuthorizeAdministrator",
+            "OP:AuthorizeUser"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "AuthorizeAdministrator",
+        "AuthorizeUser"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_ADMIN_REQUIRES_ROLE",
+        "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "F_ACCESS_GRANTED",
+        "OP:AuthorizeAdministrator",
+        "OP:AuthorizeUser"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "AuthorizeAdministrator",
+      "parameter": "request",
+      "plays": [
+        "AccessGrant"
+      ],
+      "required_by": [
+        "BR_ADMIN_REQUIRES_ROLE",
+        "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:AuthorizeAdministrator"
+      ]
+    },
+    {
+      "operation": "AuthorizeUser",
+      "parameter": "request",
+      "plays": [
+        "AccessGrant"
+      ],
+      "required_by": [
+        "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "OP:AuthorizeUser"
+      ]
+    }
+  ],
+  "relations": []
+}

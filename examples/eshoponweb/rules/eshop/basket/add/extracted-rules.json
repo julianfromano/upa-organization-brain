@@ -1,0 +1,281 @@
+{
+  "assumptions": [
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_PRICE_FROM_CATALOG",
+      "owner": "catalog repository",
+      "text": "The supplied unit price is read from the catalog item returned by GetByIdAsync"
+    }
+  ],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (item == null)"
+      },
+      "text": "a missing item creates neither a basket nor a basket line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.AddItemToBasket(username,"
+      },
+      "text": "a new basket line stores one unit at the catalog price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "text": "adding an item that is already present adds one unit without changing its price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_SUCCESSFUL_ADD_HAS_BASKET",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "basket = new Basket(username);"
+      },
+      "text": "a successful add leaves a basket for the resolved shopper"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Request.HttpContext.User.Identity.Name!;"
+      },
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (!Guid.TryParse(userName, out var _))"
+      },
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userName = Guid.NewGuid().ToString();"
+      },
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));"
+      },
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "text": "adding an existing item increases that line's quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "text": "adding units to an existing line does not change its unit price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "text": "a new line stores its basket, item, quantity, and unit price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "an out-of-range quantity does not create or change a line"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_ADD_ONE_UNIT",
+      "text": "The basket page omits the quantity argument, so AddItemToBasket uses its default quantity of one"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_CAPTURE_CATALOG_PRICE",
+      "text": "A new basket line records the catalog price read when the item is added"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_SOURCE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "string? userName = null;"
+      },
+      "subject": "BuyerResolution.source",
+      "target": "BuyerSource"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"
+      },
+      "subject": "BuyerResolution.writesCookie",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Basket.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "subject": "BasketLine.quantity",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "BasketLine.unitPrice",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "ValidateCatalogItem",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemExists"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Buyer_ResolveBuyer",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "identityMissing",
+        "isAuthenticated",
+        "userNameMissing",
+        "hasCookie",
+        "cookieIsGuid"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_GetOrCreateBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId",
+        "buyerId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_AddBasketLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "basketId",
+        "itemId",
+        "unitPrice",
+        "quantity"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "AddItemToBasket",
+      "note": "composition",
+      "params": [
+        "request",
+        "itemExists",
+        "identityMissing",
+        "isAuthenticated",
+        "userNameMissing",
+        "hasCookie",
+        "cookieIsGuid",
+        "basketId",
+        "buyerId",
+        "lineId",
+        "itemId",
+        "unitPrice"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

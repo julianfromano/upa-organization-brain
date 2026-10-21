@@ -1,0 +1,2214 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-004",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-005",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-006",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-007",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-008",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-009",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-010",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-011",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-013",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-014",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Add_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-015",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-016",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Add_Lines_GetOrCreateBasket",
+    "subject": "Basket"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-017",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-018",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "Add_Lines_GetOrCreateBasket initializes the attribute when creating Basket",
+    "id": "SC-019",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-020",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-021",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-022",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-023",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-024",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-025",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "Add_Lines_AddBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-026",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-027",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-028",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Add_Lines_AddBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-029",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-030",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "Add_Lines_AddBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-031",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-032",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-033",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "Add_Lines_AddBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-034",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Add_Lines_AddBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-035",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-036",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-037",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-038",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-039",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-040",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-041",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-042",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-043",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-044",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-045",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-046",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-047",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "Update_Lines_GetOrCreateBasket initializes the attribute when creating Basket",
+    "id": "SC-048",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Update_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-049",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Lines_SetLineQuantity",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-050",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Lines_RemoveZeroQuantityLines",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-051",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Update_Lines_RemoveZeroQuantityLines",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-052",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Checkout_Access_AuthorizeUser",
+    "subject": "AccessGrant"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-053",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Access_AuthorizeUser",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-054",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Access_AuthorizeUser",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "Checkout_Access_AuthorizeUser initializes the attribute when creating AccessGrant",
+    "id": "SC-055",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Access_AuthorizeUser",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-056",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-057",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-058",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-059",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-060",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-061",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-062",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-063",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-064",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-065",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-066",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Checkout_Update_Buyer_ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-067",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Buyer_ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-068",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "Checkout_Update_Lines_GetOrCreateBasket initializes the attribute when creating Basket",
+    "id": "SC-069",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Update_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-070",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Lines_SetLineQuantity",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-071",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-072",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-073",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_ValidateBasketForOrder",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-074",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-075",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "CatalogItem"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-076",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-077",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-078",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-079",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-080",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-081",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-082",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-083",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-084",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-085",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-086",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-087",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-088",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-089",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-090",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-091",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-092",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-093",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-094",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-095",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-096",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-097",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-098",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-099",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-100",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-101",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-102",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-103",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-104",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-105",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-106",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-107",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-108",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-109",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-110",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-111",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-112",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-113",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-114",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-115",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-116",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-117",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-118",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-119",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-120",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-121",
+    "kind": "REFERENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-122",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-123",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-124",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-125",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-126",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-127",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-128",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-129",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-130",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-131",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "Checkout_Order_CreateOrderLine initializes the attribute when creating OrderTotal",
+    "id": "SC-132",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-133",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-134",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-135",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-136",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-137",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-138",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-139",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-140",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-141",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-142",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-143",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-144",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-145",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-146",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-147",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-148",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-149",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-150",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "Checkout_Order_InsertOrder initializes the attribute when creating Order",
+    "id": "SC-151",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Checkout_Order_InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-152",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Checkout_Lines_DeleteBasket",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-153",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-154",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-155",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-156",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-157",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-158",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-159",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-160",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-161",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-162",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-163",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-164",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-165",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-166",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Merge_Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-167",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-168",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "Merge_Lines_GetOrCreateBasket initializes the attribute when creating Basket",
+    "id": "SC-169",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-170",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-171",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-172",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-173",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "Merge_Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-174",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "Merge_Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-175",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Merge_Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-176",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "Merge_Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-177",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Merge_Lines_MergeBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-178",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Merge_Lines_DeleteBasket",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-179",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "CreateItem_Access_AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-180",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-181",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-182",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-183",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-184",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-185",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-186",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-187",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-188",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-189",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-190",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-191",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-192",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-193",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-194",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-195",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "CreateItem_InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-196",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateItem_InsertCatalogItem",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-197",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateItem_SetDefaultImage",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-198",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "EditItem_Access_AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-199",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:EditItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-200",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Item_UpdateItemDetails",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-201",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Item_UpdateItemDetails",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-202",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Item_UpdateItemDetails",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-203",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Item_UpdateItemBrand",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-204",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:EditItem_Item_UpdateItemType",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-205",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DeleteItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "DeleteItem_Access_AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-206",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DeleteItem_Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-207",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-208",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-209",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-210",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-211",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-212",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-213",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-214",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-215",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-216",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-217",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-218",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-219",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-220",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-221",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-222",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-223",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-224",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-225",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-226",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-227",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-228",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-229",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-230",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-231",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-232",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-233",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-234",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-235",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-236",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-237",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-238",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-239",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-240",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-241",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-242",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-243",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-244",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-245",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-246",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-247",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-248",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-249",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-250",
+    "kind": "REFERENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-251",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-252",
+    "kind": "REFERENCE",
+    "source": "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-253",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-254",
+    "kind": "REFERENCE",
+    "source": "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-255",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-256",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-257",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-258",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-259",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-260",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-261",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-262",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-263",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-264",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-265",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-266",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-267",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-268",
+    "kind": "TYPE_EVIDENCE",
+    "source": "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-269",
+    "kind": "TYPE_EVIDENCE",
+    "source": "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-270",
+    "kind": "TYPE_EVIDENCE",
+    "source": "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "BuyerResolution has exactly_one source: BuyerSource",
+    "id": "SC-271",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BUYER_SOURCE",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-272",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BUYER_SOURCE",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "BuyerResolution has exactly_one writesCookie: Bool",
+    "id": "SC-273",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BUYER_COOKIE",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-274",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BUYER_COOKIE",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "Basket has exactly_one buyerId: Text",
+    "id": "SC-275",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BASKET_BUYER",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-276",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BASKET_BUYER",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "BasketLine has exactly_one quantity: Int",
+    "id": "SC-277",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LINE_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-278",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LINE_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "BasketLine has exactly_one unitPrice: Money",
+    "id": "SC-279",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LINE_UNIT_PRICE",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-280",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LINE_UNIT_PRICE",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "AccessGrant has exactly_one granted: Bool",
+    "id": "SC-281",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-282",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "OrderLine has exactly_one productName: Text",
+    "id": "SC-283",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_NAME",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-284",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_NAME",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "OrderLine has exactly_one pictureUri: Text",
+    "id": "SC-285",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_IMAGE",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-286",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_IMAGE",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "OrderLine has exactly_one unitPrice: Money",
+    "id": "SC-287",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_PRICE",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-288",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_PRICE",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "OrderLine has exactly_one units: Int",
+    "id": "SC-289",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_UNITS",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-290",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_UNITS",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "OrderLine has exactly_one catalogItemId: Identifier",
+    "id": "SC-291",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_ITEM",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-292",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_ITEM",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "OrderLine has exactly_one subtotal: Money",
+    "id": "SC-293",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_TOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-294",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_TOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "OrderTotal has exactly_one amount: Money",
+    "id": "SC-295",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_TOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-296",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_TOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "Order has exactly_one buyerId: Text",
+    "id": "SC-297",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_BUYER",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-298",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_BUYER",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "Order has exactly_one street: Text",
+    "id": "SC-299",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_STREET",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-300",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_STREET",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "Order has exactly_one city: Text",
+    "id": "SC-301",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_CITY",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-302",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_CITY",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "Order has exactly_one region: Text",
+    "id": "SC-303",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_REGION",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-304",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_REGION",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "Order has exactly_one country: Text",
+    "id": "SC-305",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_COUNTRY",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-306",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_COUNTRY",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "Order has exactly_one postalCode: Text",
+    "id": "SC-307",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_POSTAL_CODE",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-308",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_POSTAL_CODE",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one mergesBasket: Bool",
+    "id": "SC-309",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-310",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one deletesCookie: Bool",
+    "id": "SC-311",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-312",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "CatalogItem has exactly_one name: Text",
+    "id": "SC-313",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-314",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "CatalogItem has exactly_one price: Money",
+    "id": "SC-315",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-316",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  }
+]

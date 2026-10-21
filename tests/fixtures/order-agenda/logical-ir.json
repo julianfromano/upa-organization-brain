@@ -1,0 +1,30 @@
+{
+  "spec": "order-agenda",
+  "version": "1.0.0",
+  "ir_version": "1",
+  "entities": {
+    "Order": {
+      "attrs": [
+        {"name": "customerId", "type": "int", "decl": "Int", "ghost": false},
+        {"name": "product", "type": "text", "decl": "Text", "ghost": false},
+        {"name": "quantity", "type": "nat", "decl": "Natural", "ghost": false},
+        {"name": "number", "type": "int", "decl": "Int", "ghost": false}
+      ],
+      "block": null
+    }
+  },
+  "operations": [
+    {
+      "name": "RegisterOrder",
+      "params": [
+        {"name": "customerId", "type": "int"},
+        {"name": "product", "type": "text"},
+        {"name": "quantity", "type": "nat"},
+        {"name": "id", "type": "int"}
+      ],
+      "cases": [
+        {"cond": "quantity >= 1", "stmts": [{"kind": "create", "entity": "Order"}], "outcome": "order-registered"}
+      ]
+    }
+  ]
+}

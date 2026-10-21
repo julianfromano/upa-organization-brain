@@ -1,0 +1,106 @@
+{
+  "items": [
+    {
+      "evidence": "return Request.HttpContext.User.Identity.Name!;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "evidence": "if (!Guid.TryParse(userName, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "evidence": "userName = Guid.NewGuid().ToString();",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "evidence": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "evidence": "if (Guid.TryParse(anonymousId, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "evidence": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    },
+    {
+      "evidence": "string? userName = null;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_SOURCE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one source: BuyerSource"
+    },
+    {
+      "evidence": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one writesCookie: Bool"
+    },
+    {
+      "evidence": "await _basketService.TransferBasketAsync(anonymousId, userName);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LOGIN_MERGE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every LoginMergeDecision has exactly_one mergesBasket: Bool"
+    },
+    {
+      "evidence": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every LoginMergeDecision has exactly_one deletesCookie: Bool"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

@@ -1,0 +1,92 @@
+{
+  "pending_design_decisions": [],
+  "plane_1_formal_on_IR": {
+    "assumptions": [
+      "AX_TYPED_INITIAL",
+      "AS_DATABASE_CASCADE"
+    ],
+    "does_not_prove": [
+      "business correctness beyond the formalized rules",
+      "progress/liveness (every order completes)",
+      "fidelity of the IR-to-C# translation"
+    ],
+    "not_proven": [],
+    "proven_rules": [
+      "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+      "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+      "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+      "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+      "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+      "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "CreateItem_Access_BR_ADMIN_REQUIRES_ROLE",
+      "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "EditItem_Access_BR_ADMIN_REQUIRES_ROLE",
+      "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+      "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
+      "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
+      "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
+      "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
+      "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "TYPES"
+    ],
+    "what": "the verifier (Z3) proves each rule over canonical IR under the listed assumptions; two-state laws and invariants hold across every sequence of atomic operations"
+  },
+  "plane_2_validated_on_csharp": {
+    "status": "NOT_RUN",
+    "what": "C# conformance tests against the IR reference model; this is not a proof"
+  },
+  "plane_3_integration_operation": {
+    "items": [
+      "step durability and atomicity (AS_1)",
+      "concurrency (Q_4)",
+      "real persistence",
+      "performance",
+      "real process interruptions"
+    ],
+    "status": "OUT_OF_SCOPE_FOR_MVP"
+  }
+}

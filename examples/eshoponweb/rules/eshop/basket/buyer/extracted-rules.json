@@ -1,0 +1,144 @@
+{
+  "assumptions": [],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Request.HttpContext.User.Identity.Name!;"
+      },
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (!Guid.TryParse(userName, out var _))"
+      },
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userName = Guid.NewGuid().ToString();"
+      },
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));"
+      },
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    }
+  ],
+  "decisions": [],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_SOURCE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "string? userName = null;"
+      },
+      "subject": "BuyerResolution.source",
+      "target": "BuyerSource"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BUYER_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"
+      },
+      "subject": "BuyerResolution.writesCookie",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LOGIN_MERGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.TransferBasketAsync(anonymousId, userName);"
+      },
+      "subject": "LoginMergeDecision.mergesBasket",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "subject": "LoginMergeDecision.deletesCookie",
+      "target": "Bool"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "ResolveBuyer",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "identityMissing",
+        "isAuthenticated",
+        "userNameMissing",
+        "hasCookie",
+        "cookieIsGuid"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "DecideLoginMerge",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "hasCookie",
+        "cookieIsGuid",
+        "userNameEmpty"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

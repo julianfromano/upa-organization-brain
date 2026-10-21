@@ -1,0 +1,519 @@
+{
+  "composes": [],
+  "entities": {
+    "AccessGrant": {
+      "attrs": [
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "granted",
+          "type": "bool"
+        }
+      ],
+      "block": null
+    }
+  },
+  "enums": {},
+  "externals": [],
+  "facts": [
+    {
+      "attr": "granted",
+      "card": "exactly_one",
+      "entity": "AccessGrant",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "target": "Bool"
+    }
+  ],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "AccessGrant": {
+        "attributes": {
+          "granted": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_ACCESS_GRANTED",
+              "OP:AuthorizeAdministrator",
+              "OP:AuthorizeUser"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "F_ACCESS_GRANTED",
+              "OP:AuthorizeAdministrator",
+              "OP:AuthorizeUser"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "AuthorizeAdministrator",
+          "AuthorizeUser"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ADMIN_REQUIRES_ROLE",
+          "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+          "F_ACCESS_GRANTED",
+          "OP:AuthorizeAdministrator",
+          "OP:AuthorizeUser"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "AuthorizeAdministrator",
+        "parameter": "request",
+        "plays": [
+          "AccessGrant"
+        ],
+        "required_by": [
+          "BR_ADMIN_REQUIRES_ROLE",
+          "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "OP:AuthorizeAdministrator"
+        ]
+      },
+      {
+        "operation": "AuthorizeUser",
+        "parameter": "request",
+        "plays": [
+          "AccessGrant"
+        ],
+        "required_by": [
+          "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+          "OP:AuthorizeUser"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [
+      {
+        "id": "AS_FRAMEWORK_AUTH",
+        "owner": "ASP.NET Core",
+        "text": "The ASP.NET Core authorization middleware rejects unauthenticated requests and requests without the required role before a handler runs"
+      }
+    ],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [
+      {
+        "alternatives": "",
+        "id": "DD_CATALOG_ROLE",
+        "text": "Catalog administration requires the Administrators role; other protected shopper operations require an authenticated user"
+      }
+    ],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "outcome": "NotAuthenticated",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "outcome": "MissingAdministratorRole",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "AccessGrant",
+              "inits": [
+                {
+                  "attr": "granted",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "AuthorizeAdministrator",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "outcome": "NotAuthenticated",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "AccessGrant",
+              "inits": [
+                {
+                  "attr": "granted",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "AuthorizeUser",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "AccessGrant",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "request",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "var",
+            "n": "isAdministrator",
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "AuthorizeAdministrator"
+      ],
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "AccessGrant",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "AuthorizeAdministrator"
+      ],
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "AccessGrant",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "request",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "var",
+          "n": "isAuthenticated",
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "targets": [
+        "AuthorizeUser"
+      ],
+      "text": "protected shopper operations require an authenticated user"
+    }
+  ],
+  "queries": [
+    {
+      "body": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "isAuthenticated",
+          "ty": "bool"
+        },
+        "op": "and",
+        "r": {
+          "k": "var",
+          "n": "isAdministrator",
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "decl": "Bool",
+      "layer": null,
+      "name": "CanManageCatalog",
+      "params": [
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        }
+      ],
+      "ret": "bool"
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "Authorization",
+  "texts": [
+    ""
+  ],
+  "tier": "atom",
+  "types": {},
+  "uses": [],
+  "version": "0.1"
+}

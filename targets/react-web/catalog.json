@@ -1,0 +1,28 @@
+{
+  "format": "component-catalog-1",
+  "name": "react-web-components",
+  "version": "1.0.0",
+  "provider": "react-web",
+  "platform": "React DOM",
+  "roles": {
+    "boolean-input": "Checkbox",
+    "collection-input": ["TextField", "Button"],
+    "content-group": "Card",
+    "feedback": ["Alert", "Toast"],
+    "heading": "Header",
+    "numeric-input": "TextField",
+    "primary-action": "Button",
+    "selection": "Select",
+    "textual-input": "TextField"
+  },
+  "contracts": {
+    "Alert": {"export": "Alert", "props_used": ["severity: info|success|warning|error", "title: string", "children: ReactNode"]},
+    "Button": {"export": "Button", "props_used": ["type: button|submit", "disabled: boolean", "onClick: function", "children: ReactNode"]},
+    "Card": {"export": "Card", "props_used": ["title: string", "children: ReactNode"]},
+    "Checkbox": {"export": "Checkbox", "props_used": ["id: string", "label: string", "checked: boolean", "onChange: function"]},
+    "Header": {"export": "Header", "props_used": ["children: ReactNode"]},
+    "Select": {"export": "Select", "props_used": ["id: string", "label: string", "options: {value,label}[]", "value: string", "onChange: function", "required: boolean"]},
+    "TextField": {"export": "TextField", "props_used": ["id: string", "label: string", "type: text|number", "value: string", "onChange: function", "required: boolean", "min: number"]},
+    "Toast": {"export": "Toast", "props_used": ["severity: info|success|warning|error", "children: ReactNode"]}
+  }
+}

@@ -1,0 +1,39 @@
+spec BasketBuyer version "0.1" tier atom
+// Sources: src/Web/Pages/Basket/Index.cshtml.cs:68-99; src/Web/Areas/Identity/Pages/Account/Login.cshtml.cs:80-84,106-118; src/Web/Constants.cs:5.
+
+enum BuyerSource { SignedInUser, ExistingCookie, NewCookie }
+entity BuyerResolution { source: BuyerSource, writesCookie: Bool }
+entity LoginMergeDecision { mergesBasket: Bool, deletesCookie: Bool }
+facts {
+  fact F_BUYER_SOURCE origin literal("string? userName = null;"): every BuyerResolution has exactly_one source: BuyerSource
+  fact F_BUYER_COOKIE origin literal("Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"): every BuyerResolution has exactly_one writesCookie: Bool
+  fact F_LOGIN_MERGE origin literal("await _basketService.TransferBasketAsync(anonymousId, userName);"): every LoginMergeDecision has exactly_one mergesBasket: Bool
+  fact F_LOGIN_COOKIE origin literal("Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"): every LoginMergeDecision has exactly_one deletesCookie: Bool
+}
+operation ResolveBuyer(request: Identifier, identityMissing: Bool, isAuthenticated: Bool, userNameMissing: Bool, hasCookie: Bool, cookieIsGuid: Bool) {
+  when identityMissing outcome IdentityMissing { }
+  when isAuthenticated and userNameMissing outcome UserNameMissing { }
+  when isAuthenticated { create BuyerResolution[request] { source = BuyerSource.SignedInUser, writesCookie = false } }
+  when hasCookie and cookieIsGuid { create BuyerResolution[request] { source = BuyerSource.ExistingCookie, writesCookie = false } }
+  otherwise { create BuyerResolution[request] { source = BuyerSource.NewCookie, writesCookie = true } }
+}
+operation DecideLoginMerge(request: Identifier, hasCookie: Bool, cookieIsGuid: Bool, userNameEmpty: Bool) {
+  when hasCookie and cookieIsGuid and userNameEmpty outcome EmptyUserName { }
+  when hasCookie and cookieIsGuid { create LoginMergeDecision[request] { mergesBasket = true, deletesCookie = true } }
+  when hasCookie { create LoginMergeDecision[request] { mergesBasket = false, deletesCookie = true } }
+  otherwise { create LoginMergeDecision[request] { mergesBasket = false, deletesCookie = false } }
+}
+business_rules {
+  ensures BR_SIGNED_IN_BUYER_USES_USER_NAME for ResolveBuyer origin literal("return Request.HttpContext.User.Identity.Name!;") "an authenticated shopper is identified by their user name and receives no basket cookie":
+    (request in BuyerResolution and not old(request in BuyerResolution) and isAuthenticated and not identityMissing and not userNameMissing) => (BuyerResolution.source[request] == BuyerSource.SignedInUser and BuyerResolution.writesCookie[request] == false)
+  ensures BR_ANONYMOUS_GUID_COOKIE_IS_REUSED for ResolveBuyer origin literal("if (!Guid.TryParse(userName, out var _))") "an anonymous shopper with a valid GUID cookie reuses that basket":
+    (request in BuyerResolution and not old(request in BuyerResolution) and not identityMissing and not isAuthenticated and hasCookie and cookieIsGuid) => (BuyerResolution.source[request] == BuyerSource.ExistingCookie and BuyerResolution.writesCookie[request] == false)
+  ensures BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER for ResolveBuyer origin literal("userName = Guid.NewGuid().ToString();") "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie":
+    (request in BuyerResolution and not old(request in BuyerResolution) and not identityMissing and not isAuthenticated and (not hasCookie or not cookieIsGuid)) => (BuyerResolution.source[request] == BuyerSource.NewCookie and BuyerResolution.writesCookie[request] == true)
+  ensures BR_MISSING_IDENTITY_IS_REJECTED for ResolveBuyer origin literal("Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));") "a missing request identity cannot resolve a basket buyer":
+    identityMissing => ((request in BuyerResolution) == old(request in BuyerResolution))
+  ensures BR_LOGIN_MERGES_ONLY_GUID_COOKIE for DecideLoginMerge origin literal("if (Guid.TryParse(anonymousId, out var _))") "login transfers a basket only when a cookie exists and contains a GUID":
+    (request in LoginMergeDecision and not old(request in LoginMergeDecision) and LoginMergeDecision.mergesBasket[request]) => (hasCookie and cookieIsGuid and not userNameEmpty)
+  ensures BR_LOGIN_DELETES_PRESENT_COOKIE for DecideLoginMerge origin literal("Response.Cookies.Delete(Constants.BASKET_COOKIENAME);") "login deletes a present cookie unless an empty user name aborts the transfer":
+    (hasCookie and not (cookieIsGuid and userNameEmpty)) => (request in LoginMergeDecision and LoginMergeDecision.deletesCookie[request])
+}

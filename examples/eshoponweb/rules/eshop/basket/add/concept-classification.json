@@ -1,0 +1,157 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_SUCCESSFUL_ADD_HAS_BASKET",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "BuyerResolution",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "State",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are referenced in guards or properties (governs behavior)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ValidateCatalogItem"
+      ],
+      "name": "ValidateCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_AddBasketLine"
+      ],
+      "name": "Lines_AddBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:AddItemToBasket"
+      ],
+      "name": "AddItemToBasket",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_SUCCESSFUL_ADD_HAS_BASKET"
+      ],
+      "name": "AddItemToBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT"
+      ],
+      "name": "AddItemToBasket.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Lines_AddBasketLine"
+      ],
+      "name": "Lines_AddBasketLine.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    }
+  ],
+  "role_notes": []
+}

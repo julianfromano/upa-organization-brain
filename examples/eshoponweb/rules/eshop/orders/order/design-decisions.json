@@ -1,0 +1,38 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_ORDER_ITEM_SNAPSHOT",
+    "resolves": null,
+    "status": "decided",
+    "text": "An order line snapshots its catalog item's identity, name, and image at purchase time"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_ORDER_PRICE_FROM_BASKET",
+    "resolves": null,
+    "status": "decided",
+    "text": "The order line uses the basket's recorded unit price, not the catalog's current price"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_MATERIALIZED_ORDER_TOTAL",
+    "resolves": null,
+    "status": "decided",
+    "text": "The calculated order total is stored as a value to make it expressible in this model"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_DATABASE_ORDER_IDENTITIES",
+    "resolves": null,
+    "status": "decided",
+    "text": "The database assigns unique order and order-line identities; collisions are modeled as rejected outcomes"
+  }
+]

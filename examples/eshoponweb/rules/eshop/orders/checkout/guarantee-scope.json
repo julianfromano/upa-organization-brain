@@ -1,0 +1,67 @@
+{
+  "pending_design_decisions": [],
+  "plane_1_formal_on_IR": {
+    "assumptions": [
+      "AX_TYPED_INITIAL",
+      "AS_DATABASE_CASCADE"
+    ],
+    "does_not_prove": [
+      "business correctness beyond the formalized rules",
+      "progress/liveness (every order completes)",
+      "fidelity of the IR-to-C# translation"
+    ],
+    "not_proven": [],
+    "proven_rules": [
+      "BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER",
+      "BR_CHECKOUT_USES_FIXED_ADDRESS",
+      "BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER",
+      "BR_FAILED_ORDER_PRESERVES_BASKET",
+      "BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE",
+      "Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "Order_BR_ORDER_LINE_SUBTOTAL",
+      "Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+      "Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "TYPES"
+    ],
+    "what": "the verifier (Z3) proves each rule over canonical IR under the listed assumptions; two-state laws and invariants hold across every sequence of atomic operations"
+  },
+  "plane_2_validated_on_csharp": {
+    "conformance": {
+      "property_violations": 0,
+      "state_mismatches": 0,
+      "steps": 2400,
+      "traces": 200
+    },
+    "failures": 0,
+    "functional_checks_passed": 2,
+    "kind": "validated-not-proven",
+    "status": "PASSED",
+    "what": "C# conformance against an IR-independent reference interpreter, with runtime monitoring of every property; this is not a proof"
+  },
+  "plane_3_integration_operation": {
+    "items": [
+      "step durability and atomicity (AS_1)",
+      "concurrency (Q_4)",
+      "real persistence",
+      "performance",
+      "real process interruptions"
+    ],
+    "status": "OUT_OF_SCOPE_FOR_MVP"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "items": [
+    {
+      "evidence": "if (!ModelState.IsValid)",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_INVALID_FORM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a negative or out-of-range form quantity does not change a basket line"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "submitting zero removes that line from the basket"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a positive submitted quantity replaces the basket line quantity"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "quantity changes preserve the line's recorded price"
+    },
+    {
+      "evidence": "return Request.HttpContext.User.Identity.Name!;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "evidence": "if (!Guid.TryParse(userName, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "evidence": "userName = Guid.NewGuid().ToString();",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "evidence": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a submitted quantity replaces the existing line quantity"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "changing a line quantity does not reprice it"
+    },
+    {
+      "evidence": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a line omitted from the submitted quantities is not changed"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup removes zero-quantity lines from the selected basket"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup preserves other baskets' lines and nonempty lines"
+    },
+    {
+      "evidence": "string? userName = null;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_SOURCE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one source: BuyerSource"
+    },
+    {
+      "evidence": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one writesCookie: Bool"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BASKET_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Basket has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public int Quantity { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_QUANTITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one quantity: Int"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one unitPrice: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

@@ -1,0 +1,204 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket",
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Lines_DeleteBasket",
+        "OP:Lines_MergeBasketLine"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:Buyer_DecideLoginMerge"
+      ],
+      "name": "LoginMergeDecision",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Result",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are only recorded/observed; no rule branches on them"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Buyer_DecideLoginMerge"
+      ],
+      "name": "Buyer_DecideLoginMerge",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_MergeBasketLine"
+      ],
+      "name": "Lines_MergeBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_DeleteBasket"
+      ],
+      "name": "Lines_DeleteBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:MergeOnLogin"
+      ],
+      "name": "MergeOnLogin",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:Buyer_DecideLoginMerge"
+      ],
+      "name": "Buyer_DecideLoginMerge.request",
+      "reason": "parameter used as the identifier for ['LoginMergeDecision']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket"
+      ],
+      "name": "Lines_DeleteBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Lines_MergeBasketLine"
+      ],
+      "name": "Lines_MergeBasketLine.anonymousLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Lines_MergeBasketLine"
+      ],
+      "name": "Lines_MergeBasketLine.shopperLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE"
+      ],
+      "name": "MergeOnLogin.anonymousBasket",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER"
+      ],
+      "name": "MergeOnLogin.anonymousLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NO_COOKIE_NO_MERGE"
+      ],
+      "name": "MergeOnLogin.shopperBasket",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE"
+      ],
+      "name": "MergeOnLogin.shopperLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    }
+  ],
+  "role_notes": []
+}

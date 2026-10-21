@@ -1,0 +1,176 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "CatalogItem": {
+      "attributes": {
+        "brandId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_BRAND_MUST_BE_NONZERO",
+            "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+            "OP:UpdateItemBrand"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "OP:UpdateItemBrand"
+          ]
+        },
+        "description": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "OP:UpdateItemDetails"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "OP:UpdateItemDetails"
+          ]
+        },
+        "imageUri": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": []
+        },
+        "name": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_EMPTY_NAME_IS_REJECTED",
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "F_ITEM_NAME",
+            "OP:UpdateItemDetails"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "F_ITEM_NAME",
+            "OP:UpdateItemDetails"
+          ]
+        },
+        "price": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "F_ITEM_PRICE",
+            "OP:UpdateItemDetails"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_VALID_DETAILS_ARE_APPLIED",
+            "F_ITEM_PRICE",
+            "OP:UpdateItemDetails"
+          ]
+        },
+        "typeId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+            "BR_TYPE_MUST_BE_NONZERO",
+            "OP:UpdateItemType"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "OP:UpdateItemType"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [],
+      "kind": "Entity",
+      "required_by": [
+        "BR_BRAND_MUST_BE_NONZERO",
+        "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "BR_EMPTY_NAME_IS_REJECTED",
+        "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "BR_TYPE_MUST_BE_NONZERO",
+        "BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:FindCatalogItem",
+        "OP:UpdateItemBrand",
+        "OP:UpdateItemDetails",
+        "OP:UpdateItemType"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "FindCatalogItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "OP:FindCatalogItem"
+      ]
+    },
+    {
+      "operation": "UpdateItemBrand",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "BR_BRAND_MUST_BE_NONZERO",
+        "OP:UpdateItemBrand"
+      ]
+    },
+    {
+      "operation": "UpdateItemDetails",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "BR_EMPTY_NAME_IS_REJECTED",
+        "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:UpdateItemDetails"
+      ]
+    },
+    {
+      "operation": "UpdateItemType",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "BR_TYPE_MUST_BE_NONZERO",
+        "OP:UpdateItemType"
+      ]
+    }
+  ],
+  "relations": []
+}

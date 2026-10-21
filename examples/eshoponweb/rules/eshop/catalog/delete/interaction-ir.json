@@ -1,0 +1,548 @@
+{
+  "capabilities": [
+    {
+      "evidence": [
+        "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]",
+        "operations.DeleteItem.cases[1].stmts[0]"
+      ],
+      "name": "command-execution",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.Access_AuthorizeAdministrator.params.request"
+      ],
+      "name": "data-input",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]",
+        "operations.DeleteItem.cases[1].stmts[0]"
+      ],
+      "name": "human-interaction",
+      "reasons": [
+        "The IR does not explicitly identify who initiates the operation."
+      ],
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence": [
+        "operations.Access_AuthorizeAdministrator.cases[0]",
+        "operations.Access_AuthorizeAdministrator.cases[1]",
+        "operations.DeleteItem.cases[0]",
+        "operations.Item_FindCatalogItem.cases[0]",
+        "operations.Item_FindCatalogItem.cases[1]"
+      ],
+      "name": "validation-feedback",
+      "status": "OBSERVED"
+    }
+  ],
+  "format": "upa-interaction-ir-1",
+  "inference_rules": [
+    "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+    "EXPLICIT_TO_TEXT_OF_OPERATION_PARAMETER",
+    "LOGICAL_OPERATION_PROJECTION",
+    "NAMED_OPERATION_OUTCOMES",
+    "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+    "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+    "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+    "UNCONDITIONAL_STATE_CHANGE_CASE"
+  ],
+  "language_gaps": [
+    {
+      "id": "GAP_ORPHANED_BASKET_LINES",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "Deleting a catalog item does not remove basket lines that reference it; those lines can outlive the catalog item"
+    }
+  ],
+  "operations": [
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "isAdministrator",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.isAdministrator"
+          ]
+        },
+        {
+          "parameter": "isAuthenticated",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.isAuthenticated"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.Access_AuthorizeAdministrator.params.request"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.Access_AuthorizeAdministrator.cases[0]",
+            "operations.Access_AuthorizeAdministrator.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "AccessGrant",
+          "kind": "create",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]"
+        }
+      ],
+      "id": "Access_AuthorizeAdministrator",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.request"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "AccessGrant",
+        "trace": [
+          "operations.Access_AuthorizeAdministrator.cases[2].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "NotAuthenticated",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "MissingAdministratorRole",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[1]"
+        },
+        {
+          "case_index": 2,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.Access_AuthorizeAdministrator.cases[2]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.request"
+          ],
+          "type": "id"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "isAuthenticated",
+          "required": true,
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.isAuthenticated"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "isAdministrator",
+          "required": true,
+          "trace": [
+            "operations.Access_AuthorizeAdministrator.params.isAdministrator"
+          ],
+          "type": "bool"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "NotAuthenticated",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "MissingAdministratorRole",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[1].cond"
+        }
+      ],
+      "system_values": [
+        {
+          "entity": "AccessGrant",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": true
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "granted",
+          "trace": "operations.Access_AuthorizeAdministrator.cases[2].stmts[0].inits[0]"
+        }
+      ],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.Access_AuthorizeAdministrator"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.DeleteItem.params.itemId",
+            "operations.DeleteItem.cases[0].cond.x"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.DeleteItem.cases[1].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.DeleteItem.cases[1].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.DeleteItem.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "CatalogItem",
+          "kind": "delete",
+          "trace": "operations.DeleteItem.cases[1].stmts[0]"
+        }
+      ],
+      "id": "DeleteItem",
+      "inputs": [],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.DeleteItem.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.DeleteItem.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.DeleteItem.params.itemId",
+            "operations.DeleteItem.cases[0].cond.x"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.DeleteItem.cases[0].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.DeleteItem"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.Item_FindCatalogItem.params.itemId",
+            "operations.Item_FindCatalogItem.cases[0].cond.x"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.Item_FindCatalogItem.cases[0]",
+            "operations.Item_FindCatalogItem.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [],
+      "id": "Item_FindCatalogItem",
+      "inputs": [],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.Item_FindCatalogItem.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "ItemFound",
+          "trace": "operations.Item_FindCatalogItem.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.Item_FindCatalogItem.params.itemId",
+            "operations.Item_FindCatalogItem.cases[0].cond.x"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.Item_FindCatalogItem.cases[0].cond"
+        },
+        {
+          "expression": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemFound",
+          "trace": "operations.Item_FindCatalogItem.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.Item_FindCatalogItem"
+      }
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "source": {
+    "logical_ir_version": "upa-ir-0.1",
+    "sha256": "35649dfa89975cf5fc5de5a9aa1367b9943fa6ce1b37ce9f4387d6a5041aabb8",
+    "spec": "DeleteCatalogItem"
+  }
+}

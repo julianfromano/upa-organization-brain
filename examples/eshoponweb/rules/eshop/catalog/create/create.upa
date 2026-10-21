@@ -1,0 +1,38 @@
+spec CreateCatalogItem version "0.1" tier subprocess
+// Source: src/PublicApi/CatalogItemEndpoints/CreateCatalogItemEndpoint.cs:39-75; src/ApplicationCore/Entities/CatalogItem.cs:18-31,63.
+
+component Access = eshop.access.authorization@0.1
+// CreateCatalogItemEndpoint creates an item before optionally persisting its default image.
+type Money = Int scale 2
+decision DD_DATABASE_ITEM_ID "The database assigns the new item identity; the request does not supply it"
+decision DD_CREATE_HAS_NO_DOMAIN_GUARDS "The CatalogItem constructor used for creation does not validate empty text or non-positive price values"
+assumption AS_NEW_CATALOG_ID "A newly assigned catalog identifier is not already present" owner "database identity"
+language_gap GAP_CREATE_TWO_COMMITS "The item insert and default-image update are separate commits; this compose models them as one atomic operation"
+language_gap GAP_DEFAULT_IMAGE_TIMESTAMP "The default image URI includes a timestamp derived from DateTime ticks; the model represents the observed default URI as a fixed value"
+language_gap GAP_CREATE_REQUEST_VALIDATION "The create request has no data-annotation validation; update request annotations do not constrain creation"
+entity CatalogItem { name: Text, description: Text, price: Money, brandId: Int, typeId: Int, imageUri: Text }
+operation CheckNameAvailability(nameAlreadyExists: Bool) {
+  when nameAlreadyExists outcome DuplicateName { }
+  when not nameAlreadyExists outcome NameAvailable success { }
+}
+operation InsertCatalogItem(itemId: Identifier, typeId: Int, brandId: Int, description: Text, name: Text, price: Money, imageUri: Text) {
+  otherwise { create CatalogItem[itemId] { name = name, description = description, price = price, brandId = brandId, typeId = typeId, imageUri = imageUri } }
+}
+operation SetDefaultImage(itemId: Identifier, identityAssigned: Bool) {
+  when not identityAssigned outcome IdentityNotAssigned success { }
+  otherwise { set CatalogItem.imageUri[itemId] = "images\\products\\eCatalog-item-default.png?0" }
+}
+compose atomic CreateItem(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool, nameAlreadyExists: Bool, itemId: Identifier, typeId: Int, brandId: Int, description: Text, name: Text, price: Money, imageUri: Text, identityAssigned: Bool) =
+  Access.AuthorizeAdministrator(request, isAuthenticated, isAdministrator); CheckNameAvailability(nameAlreadyExists); InsertCatalogItem(itemId, typeId, brandId, description, name, price, imageUri); SetDefaultImage(itemId, identityAssigned)
+invokes CreateItem database "SELECT COUNT(*) FROM Catalog WHERE Name = @name" sync via nameAlreadyExists evidence "PublicApi/CatalogItemEndpoints/CreateCatalogItemEndpoint.cs:43-44"
+store CatalogItem in "Catalog" key "Id" { name = "Name", description = "Description", price = "Price", brandId = "CatalogBrandId", typeId = "CatalogTypeId", imageUri = "PictureUri" } evidence "Infrastructure/Data/Config/CatalogItemConfiguration.cs"
+business_rules {
+  ensures BR_CREATE_REQUIRES_ADMIN for CreateItem origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS") "a request without an authenticated administrator does not create an item":
+    (not isAuthenticated or not isAdministrator) => ((itemId in CatalogItem) == old(itemId in CatalogItem))
+  ensures BR_DUPLICATE_NAME_IS_REJECTED for CreateItem origin literal("throw new DuplicateException($\"A catalogItem with name {request.Name} already exists\");") "a duplicate name does not create an item":
+    nameAlreadyExists => ((itemId in CatalogItem) == old(itemId in CatalogItem))
+  ensures BR_CREATE_STORES_REQUESTED_VALUES for CreateItem origin literal("var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);") "an administrator with an available name creates an item with the submitted values without validating price, brand, or type":
+    (isAuthenticated and isAdministrator and not nameAlreadyExists and not old(itemId in CatalogItem)) => (itemId in CatalogItem and CatalogItem.name[itemId] == name and CatalogItem.price[itemId] == price and CatalogItem.brandId[itemId] == brandId and CatalogItem.typeId[itemId] == typeId)
+  ensures BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE for CreateItem origin literal("newItem.UpdatePictureUri(\"eCatalog-item-default.png\");") "after the database assigns an identity, the default image replaces the submitted image":
+    (isAuthenticated and isAdministrator and not nameAlreadyExists and not old(itemId in CatalogItem) and identityAssigned) => CatalogItem.imageUri[itemId] == "images\\products\\eCatalog-item-default.png?0"
+}

@@ -1,0 +1,196 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "AccessGrant": {
+      "attributes": {
+        "granted": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "F_ACCESS_GRANTED",
+            "OP:Access_AuthorizeAdministrator"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "F_ACCESS_GRANTED",
+            "OP:Access_AuthorizeAdministrator"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "CatalogItem": {
+      "attributes": {
+        "brandId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ]
+        },
+        "description": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "OP:InsertCatalogItem"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "OP:InsertCatalogItem"
+          ]
+        },
+        "imageUri": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+            "OP:InsertCatalogItem",
+            "OP:SetDefaultImage"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+            "OP:InsertCatalogItem",
+            "OP:SetDefaultImage"
+          ]
+        },
+        "name": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ]
+        },
+        "price": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ]
+        },
+        "typeId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "BR_CREATE_STORES_REQUESTED_VALUES",
+            "OP:InsertCatalogItem"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "InsertCatalogItem"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_CREATE_REQUIRES_ADMIN",
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "BR_DUPLICATE_NAME_IS_REJECTED",
+        "OP:InsertCatalogItem",
+        "OP:SetDefaultImage"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "Access_AuthorizeAdministrator",
+      "parameter": "request",
+      "plays": [
+        "AccessGrant"
+      ],
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    {
+      "operation": "CreateItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "BR_CREATE_REQUIRES_ADMIN",
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "BR_DUPLICATE_NAME_IS_REJECTED"
+      ]
+    },
+    {
+      "operation": "InsertCatalogItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "OP:InsertCatalogItem"
+      ]
+    },
+    {
+      "operation": "SetDefaultImage",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "OP:SetDefaultImage"
+      ]
+    }
+  ],
+  "relations": []
+}

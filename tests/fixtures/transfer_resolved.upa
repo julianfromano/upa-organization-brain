@@ -1,0 +1,103 @@
+spec OrderFulfillment version "0.1"
+
+type Quantity = Natural scale 2
+enum Status { Pending, Reserved, Shipped, Rejected }
+enum Reason { NoReason, UnknownWarehouse, InsufficientStock }
+
+decision DD_1 "The requester provides each order identifier" alternatives "generate it in the service"
+decision DD_2 "Quantities use whole hundredths (Quantity = Natural with scale 2)"
+decision DD_3 "If either warehouse is missing, the order is recorded as Rejected(UnknownWarehouse)"
+decision DD_4 "Processing uses atomic Submit, Reserve, and Ship steps; it may be interrupted and resumed by safely repeating any step"
+decision DD_6 "Use a single-entity model" resolves AMB_Order = MODEL_A
+decision DD_5 "A recorded order keeps its warehouses and quantity; only its status advances"
+
+assumption AS_1 "Each step is atomic and durable" owner "persistence platform"
+assumption AS_2 "No orders exist at startup" owner "operations"
+assumption AS_3 "The environment manages warehouses; this service does not create or remove them" owner "inventory domain"
+
+question Q_1 "Is a zero quantity allowed?"
+question Q_2 "May the origin and destination be the same warehouse?"
+question Q_3 "How long are order results retained?"
+question Q_4 "What guarantees are required for concurrent processing of the same order?"
+
+facts {
+  fact FACT_SOURCE origin literal("the origin warehouse"): every Order has exactly_one origin: Warehouse
+  fact FACT_DEST origin literal("the destination warehouse"): every Order has exactly_one destination: Warehouse
+  fact FACT_IMM_SOURCE origin derived(DD_5): Order.origin is immutable
+  fact FACT_IMM_DEST origin derived(DD_5): Order.destination is immutable
+  fact FACT_IMM_AMOUNT origin derived(DD_5): Order.amount is immutable
+}
+
+initial origin assumption(AS_2): forall t: not (t in Order) and Order.reserved[t] == 0 and Order.reserved_count[t] == 0 and Order.shipped_count[t] == 0
+
+operation Submit(id: Identifier, origin: Identifier, destination: Identifier, amount: Quantity) {
+  when id in Order { }
+  when origin in Warehouse and destination in Warehouse {
+    create Order[id] { origin = origin, destination = destination, amount = amount, status = Status.Pending, reason = Reason.NoReason }
+  }
+  otherwise {
+    create Order[id] { origin = origin, destination = destination, amount = amount, status = Status.Rejected, reason = Reason.UnknownWarehouse }
+  }
+}
+
+operation Reserve(id: Identifier) {
+  when id in Order and Order.status[id] == Status.Pending and Warehouse.stock[Order.origin[id]] >= Order.amount[id] {
+    set Warehouse.stock[Order.origin[id]] = Warehouse.stock[Order.origin[id]] - Order.amount[id]
+    set Order.status[id] = Status.Reserved
+    set Order.reserved[id] = Order.amount[id]
+    set Order.reserved_count[id] = Order.reserved_count[id] + 1
+  }
+  when id in Order and Order.status[id] == Status.Pending {
+    set Order.status[id] = Status.Rejected
+    set Order.reason[id] = Reason.InsufficientStock
+  }
+}
+
+operation Ship(id: Identifier) {
+  when id in Order and Order.status[id] == Status.Reserved {
+    set Warehouse.stock[Order.destination[id]] = Warehouse.stock[Order.destination[id]] + Order.amount[id]
+    set Order.status[id] = Status.Shipped
+    set Order.reserved[id] = 0
+    set Order.shipped_count[id] = Order.shipped_count[id] + 1
+  }
+}
+
+compose Process(id: Identifier) = Reserve(id); Ship(id)
+
+query Exists(id: Identifier) -> Bool = id in Order
+query StatusOf(id: Identifier) -> Status = Order.status[id]
+query ReasonOf(id: Identifier) -> Reason = Order.reason[id]
+
+business_rules {
+  law BR_CONSERVATION origin literal("deduct stock at the origin and add it at the destination") "total stock (available plus reserved quantity) is conserved at every step":
+    sum(Warehouse.stock) + sum(Order.reserved) == old(sum(Warehouse.stock)) + old(sum(Order.reserved))
+
+  ensures BR_NO_OVERDRAFT for Reserve origin literal("Do not reserve more than the available stock") "stock is reserved only when enough is available":
+    (old(Order.status[id] != Status.Reserved) and Order.status[id] == Status.Reserved) => old(Warehouse.stock[Order.origin[id]]) >= Order.amount[id]
+
+  invariant BR_APPLY_ONCE origin literal("never apply the same order twice") "each order is reserved and shipped at most once, according to its status":
+    forall t: Order.reserved_count[t] == (if t in Order and (Order.status[t] == Status.Reserved or Order.status[t] == Status.Shipped) then 1 else 0) and Order.shipped_count[t] == (if t in Order and Order.status[t] == Status.Shipped then 1 else 0)
+
+  invariant BR_HELD origin literal("reserve the requested quantity at the origin warehouse") "reserved stock remains held until shipment":
+    forall t: Order.reserved[t] == (if t in Order and Order.status[t] == Status.Reserved then Order.amount[t] else 0)
+
+  invariant BR_WAREHOUSES_KNOWN origin derived(DD_3) "a non-rejected order refers to existing warehouses":
+    forall t: (t in Order and Order.status[t] != Status.Rejected) => (Order.origin[t] in Warehouse and Order.destination[t] in Warehouse)
+
+  law BR_RESULT_FINAL origin literal("the result of each order remains queryable") "a terminal result (Shipped or Rejected) does not change":
+    forall t: old(t in Order and (Order.status[t] == Status.Shipped or Order.status[t] == Status.Rejected)) => Order.status[t] == old(Order.status[t])
+}
+
+technical_rules {
+  repeat TR_RETRY_SAFE for Submit, Reserve, Ship origin literal("handle errors and interruptions safely") "repeating an interrupted step has the same effect as applying it once"
+
+  law TR_REGISTRY_KEPT origin literal("the result of each order remains queryable") "a recorded order remains recorded":
+    forall t: old(t in Order) => t in Order
+
+  law TR_PROGRESS origin derived(DD_4) "an order status never moves backward":
+    forall t: old(t in Order) => Order.status[t] >= old(Order.status[t])
+
+  law TR_WAREHOUSES_STABLE origin assumption(AS_3) "this service does not create or remove warehouses":
+    forall a: old(a in Warehouse) => a in Warehouse
+}
+

@@ -1,0 +1,58 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:AuthorizeAdministrator",
+    "subject": "AccessGrant"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-004",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-005",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:AuthorizeUser",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "AuthorizeUser initializes the attribute when creating AccessGrant",
+    "id": "SC-006",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:AuthorizeUser",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "AccessGrant has exactly_one granted: Bool",
+    "id": "SC-007",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-008",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  }
+]

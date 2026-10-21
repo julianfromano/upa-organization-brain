@@ -1,0 +1,9 @@
+[
+  {
+    "evidence": "declared in the UPA program",
+    "id": "AS_NO_EXISTING_ORDERS",
+    "owner": "operation",
+    "source": "user",
+    "text": "No orders or order lines exist initially"
+  }
+]

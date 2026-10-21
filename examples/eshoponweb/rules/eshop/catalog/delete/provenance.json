@@ -1,0 +1,99 @@
+{
+  "by_rule": {
+    "Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "BR_ADMIN_DELETES_EXISTING_ITEM": [
+      "CatalogItem"
+    ],
+    "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT": [
+      "CatalogItem"
+    ],
+    "BR_DELETE_REQUIRES_ADMIN": [
+      "CatalogItem"
+    ],
+    "F_ACCESS_GRANTED": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "F_ITEM_NAME": [
+      "CatalogItem",
+      "CatalogItem.name"
+    ],
+    "F_ITEM_PRICE": [
+      "CatalogItem",
+      "CatalogItem.price"
+    ],
+    "OP:Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:DeleteItem": [
+      "CatalogItem"
+    ],
+    "OP:Item_FindCatalogItem": [
+      "CatalogItem"
+    ]
+  },
+  "why": {
+    "AccessGrant": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "AccessGrant.granted": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "CatalogItem": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_DELETES_EXISTING_ITEM",
+        "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+        "BR_DELETE_REQUIRES_ADMIN",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:DeleteItem",
+        "OP:Item_FindCatalogItem"
+      ]
+    },
+    "CatalogItem.brandId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": []
+    },
+    "CatalogItem.description": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": []
+    },
+    "CatalogItem.imageUri": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": []
+    },
+    "CatalogItem.name": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ITEM_NAME"
+      ]
+    },
+    "CatalogItem.price": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ITEM_PRICE"
+      ]
+    },
+    "CatalogItem.typeId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": []
+    }
+  }
+}

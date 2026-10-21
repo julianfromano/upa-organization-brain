@@ -1,0 +1,67 @@
+{
+  "build_seconds": 2.98,
+  "composition": {
+    "components": [
+      {
+        "alias": "Access",
+        "ref": "eshop.access.authorization",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Update",
+        "ref": "eshop.basket.update",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Order",
+        "ref": "eshop.orders.order",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Lines",
+        "ref": "eshop.basket.lines",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 2,
+    "summary_total": {
+      "PROVEN": 213,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "8d8a4eedca051ebdc0a0a28970314b9abfe0f1eb28d5ee46af1b87583c62fcb5",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 8,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 1,
+    "inferred_roles": 1,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 19,
+    "ir_bytes": 73120,
+    "obligations": 84,
+    "operations": 11,
+    "properties": 25,
+    "upa_lines": 30
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 84,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

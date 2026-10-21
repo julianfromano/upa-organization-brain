@@ -1,0 +1,150 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "BuyerResolution": {
+      "attributes": {
+        "source": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+            "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+            "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+            "F_BUYER_SOURCE",
+            "OP:ResolveBuyer"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "BuyerSource",
+          "type_evidence": [
+            "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+            "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+            "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+            "F_BUYER_SOURCE",
+            "OP:ResolveBuyer"
+          ]
+        },
+        "writesCookie": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+            "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+            "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+            "F_BUYER_COOKIE",
+            "OP:ResolveBuyer"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+            "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+            "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+            "F_BUYER_COOKIE",
+            "OP:ResolveBuyer"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "ResolveBuyer"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_MISSING_IDENTITY_IS_REJECTED",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:ResolveBuyer"
+      ]
+    },
+    "LoginMergeDecision": {
+      "attributes": {
+        "deletesCookie": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_LOGIN_DELETES_PRESENT_COOKIE",
+            "F_LOGIN_COOKIE",
+            "OP:DecideLoginMerge"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "BR_LOGIN_DELETES_PRESENT_COOKIE",
+            "F_LOGIN_COOKIE",
+            "OP:DecideLoginMerge"
+          ]
+        },
+        "mergesBasket": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+            "F_LOGIN_MERGE",
+            "OP:DecideLoginMerge"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+            "F_LOGIN_MERGE",
+            "OP:DecideLoginMerge"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "DecideLoginMerge"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:DecideLoginMerge"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "DecideLoginMerge",
+      "parameter": "request",
+      "plays": [
+        "LoginMergeDecision"
+      ],
+      "required_by": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:DecideLoginMerge"
+      ]
+    },
+    {
+      "operation": "ResolveBuyer",
+      "parameter": "request",
+      "plays": [
+        "BuyerResolution"
+      ],
+      "required_by": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_MISSING_IDENTITY_IS_REJECTED",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:ResolveBuyer"
+      ]
+    }
+  ],
+  "relations": []
+}

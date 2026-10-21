@@ -1,0 +1,1354 @@
+{
+  "composes": [],
+  "entities": {
+    "CatalogItem": {
+      "attrs": [
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "brandId",
+          "type": "int"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "imageUri",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "typeId",
+          "type": "int"
+        }
+      ],
+      "block": null
+    }
+  },
+  "enums": {},
+  "externals": [],
+  "facts": [
+    {
+      "attr": "name",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Name { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "price",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal Price { get; private set; }"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "CatalogItem": {
+        "attributes": {
+          "brandId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_BRAND_MUST_BE_NONZERO",
+              "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+              "OP:UpdateItemBrand"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "OP:UpdateItemBrand"
+            ]
+          },
+          "description": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:UpdateItemDetails"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "OP:UpdateItemDetails"
+            ]
+          },
+          "imageUri": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          },
+          "name": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EMPTY_NAME_IS_REJECTED",
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "F_ITEM_NAME",
+              "OP:UpdateItemDetails"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "F_ITEM_NAME",
+              "OP:UpdateItemDetails"
+            ]
+          },
+          "price": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "F_ITEM_PRICE",
+              "OP:UpdateItemDetails"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_VALID_DETAILS_ARE_APPLIED",
+              "F_ITEM_PRICE",
+              "OP:UpdateItemDetails"
+            ]
+          },
+          "typeId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+              "BR_TYPE_MUST_BE_NONZERO",
+              "OP:UpdateItemType"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "OP:UpdateItemType"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_BRAND_MUST_BE_NONZERO",
+          "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+          "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+          "BR_EMPTY_NAME_IS_REJECTED",
+          "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+          "BR_TYPE_MUST_BE_NONZERO",
+          "BR_VALID_DETAILS_ARE_APPLIED",
+          "F_ITEM_NAME",
+          "F_ITEM_PRICE",
+          "OP:FindCatalogItem",
+          "OP:UpdateItemBrand",
+          "OP:UpdateItemDetails",
+          "OP:UpdateItemType"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "FindCatalogItem",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "OP:FindCatalogItem"
+        ]
+      },
+      {
+        "operation": "UpdateItemBrand",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_BRAND_MUST_BE_NONZERO",
+          "OP:UpdateItemBrand"
+        ]
+      },
+      {
+        "operation": "UpdateItemDetails",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+          "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+          "BR_EMPTY_NAME_IS_REJECTED",
+          "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+          "BR_VALID_DETAILS_ARE_APPLIED",
+          "OP:UpdateItemDetails"
+        ]
+      },
+      {
+        "operation": "UpdateItemType",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_TYPE_MUST_BE_NONZERO",
+          "OP:UpdateItemType"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [
+      {
+        "alternatives": "",
+        "id": "DD_PRICE_SCALE",
+        "text": "Catalog prices use decimal(18,2), represented as integer cents"
+      }
+    ],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_NAME_LENGTH",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The database limits catalog item names to 50 characters; this storage constraint is not modeled"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "ItemFound",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "FindCatalogItem",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "descriptionIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyDescription",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "NonPositivePrice",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "name",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "name",
+                "ty": "text"
+              }
+            },
+            {
+              "attr": "description",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "description",
+                "ty": "text"
+              }
+            },
+            {
+              "attr": "price",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "price",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "UpdateItemDetails",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "nameIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "descriptionIsEmpty",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "InvalidBrand",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "brandId",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "brandId",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "UpdateItemBrand",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "brandId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "outcome": "InvalidType",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "typeId",
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "var",
+                "n": "typeId",
+                "ty": "int"
+              }
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "UpdateItemType",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "typeId",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "CatalogItem",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "old",
+                  "ty": "bool",
+                  "x": {
+                    "e": "CatalogItem",
+                    "k": "in",
+                    "key": {
+                      "k": "var",
+                      "n": "itemId",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "nameIsEmpty",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "descriptionIsEmpty",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": ">",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "name",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "name",
+                "ty": "text"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "description",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "description",
+                "ty": "text"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_VALID_DETAILS_ARE_APPLIED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "targets": [
+        "UpdateItemDetails"
+      ],
+      "text": "valid name, description, and price replace the item's details"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "price",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "price",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));"
+      },
+      "targets": [
+        "UpdateItemDetails"
+      ],
+      "text": "a zero or negative price leaves the item unchanged"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "name",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "text"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "text",
+            "x": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EMPTY_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));"
+      },
+      "targets": [
+        "UpdateItemDetails"
+      ],
+      "text": "an empty name leaves the item unchanged"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "descriptionIsEmpty",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "nameIsEmpty",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "description",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "text"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "text",
+            "x": {
+              "a": "description",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));"
+      },
+      "targets": [
+        "UpdateItemDetails"
+      ],
+      "text": "an empty description leaves the item unchanged"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "e": "CatalogItem",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "itemId",
+            "ty": "id"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "brandId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "brandId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "typeId",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "typeId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "imageUri",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "text",
+              "x": {
+                "a": "imageUri",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "itemId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "targets": [
+        "UpdateItemDetails"
+      ],
+      "text": "updating details does not change the brand, type, or image"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "brandId",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "brandId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_BRAND_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));"
+      },
+      "targets": [
+        "UpdateItemBrand"
+      ],
+      "text": "a zero brand identifier is rejected"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "typeId",
+            "e": "CatalogItem",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "typeId",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_TYPE_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));"
+      },
+      "targets": [
+        "UpdateItemType"
+      ],
+      "text": "a zero type identifier is rejected"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "CatalogItem",
+  "texts": [
+    ""
+  ],
+  "tier": "atom",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

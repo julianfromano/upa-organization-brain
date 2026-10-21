@@ -1,0 +1,87 @@
+spec BasketLines version "0.1" tier atom
+// Sources: src/ApplicationCore/Entities/BasketAggregate/Basket.cs:14,22-36; BasketItem.cs:9-29; src/ApplicationCore/Services/BasketService.cs:23-84.
+
+type Money = Int scale 2
+decision DD_BASKET_LINE_KEY "A basket line is identified by its basket and catalog item; the caller resolves the line key"
+decision DD_INTEGER_QUANTITY "Basket quantities are integers in the range zero through Int32.MaxValue"
+assumption AS_DATABASE_CASCADE "Deleting a basket also deletes its basket lines through the EF Core relationship" owner "EF Core"
+assumption AS_MERGE_LINES_DIFFER "The anonymous and signed-in basket lines are distinct records" owner "formal model"
+assumption AS_EMPTY_BASKETS "No baskets or basket lines exist initially" owner "operation"
+language_gap GAP_QUANTITY_OVERFLOW "Adding quantities can overflow a signed 32-bit integer; overflow behavior is not specified by this model"
+language_gap GAP_BASKET_TOTAL_ITEMS "Basket.TotalItems sums all line quantities; an aggregate across a basket is not expressed here"
+language_gap GAP_LINE_IDENTITIES "The database assigns basket-line identities; the caller supplies the abstract key used in this model"
+language_gap GAP_MERGE_UNIT_CONSERVATION "Total units across all lines during merge were not proven within the solver budget; per-line merge behavior is modeled"
+entity Basket { buyerId: Text }
+entity BasketLine { basketId: Identifier, catalogItemId: Identifier, quantity: Int, unitPrice: Money }
+facts {
+  fact F_BASKET_BUYER origin literal("public string BuyerId { get; private set; }"): every Basket has exactly_one buyerId: Text
+  fact F_LINE_QUANTITY origin literal("public int Quantity { get; private set; }"): every BasketLine has exactly_one quantity: Int
+  fact F_LINE_UNIT_PRICE origin literal("public decimal UnitPrice { get; private set; }"): every BasketLine has exactly_one unitPrice: Money
+}
+initial origin assumption(AS_EMPTY_BASKETS): (forall x: not (x in BasketLine)) and (forall b: not (b in Basket))
+operation GetOrCreateBasket(basketId: Identifier, buyerId: Text) {
+  when basketId in Basket outcome BasketAlreadyExists success { }
+  otherwise { create Basket[basketId] { buyerId = buyerId } }
+}
+operation FindBasket(basketId: Identifier) {
+  when not (basketId in Basket) outcome BasketNotFound { }
+  when basketId in Basket outcome BasketFound success { }
+}
+operation AddBasketLine(lineId: Identifier, basketId: Identifier, itemId: Identifier, unitPrice: Money, quantity: Int) {
+  when quantity < 0 or quantity > 2147483647 outcome QuantityOutOfRange { }
+  when lineId in BasketLine { set BasketLine.quantity[lineId] = BasketLine.quantity[lineId] + quantity }
+  otherwise { create BasketLine[lineId] { basketId = basketId, catalogItemId = itemId, quantity = quantity, unitPrice = unitPrice } }
+}
+operation SetLineQuantity(lineId: Identifier, quantity: Int, isSubmitted: Bool) {
+  when not isSubmitted outcome LineNotSubmitted success { }
+  when quantity < 0 or quantity > 2147483647 outcome QuantityOutOfRange { }
+  when not (lineId in BasketLine) outcome LineNotFound { }
+  otherwise { set BasketLine.quantity[lineId] = quantity }
+}
+operation RemoveZeroQuantityLines(basketId: Identifier) {
+  otherwise { for each line in BasketLine where BasketLine.basketId[line] == basketId and BasketLine.quantity[line] == 0 delete BasketLine[line] }
+}
+operation MergeBasketLine(anonymousLine: Identifier, shopperLine: Identifier, shopperBasket: Identifier) {
+  when not (anonymousLine in BasketLine) outcome AnonymousLineNotFound { }
+  when shopperLine in BasketLine { set BasketLine.quantity[shopperLine] = BasketLine.quantity[shopperLine] + BasketLine.quantity[anonymousLine]
+                                     delete BasketLine[anonymousLine] }
+  otherwise { create BasketLine[shopperLine] { basketId = shopperBasket, catalogItemId = BasketLine.catalogItemId[anonymousLine], quantity = BasketLine.quantity[anonymousLine], unitPrice = BasketLine.unitPrice[anonymousLine] }
+              delete BasketLine[anonymousLine] }
+}
+operation DeleteBasket(basketId: Identifier) {
+  when not (basketId in Basket) outcome BasketNotFound { }
+  otherwise { for each line in BasketLine where BasketLine.basketId[line] == basketId delete BasketLine[line]
+              delete Basket[basketId] }
+}
+store Basket in "Baskets" key "Id" { buyerId = "BuyerId" } evidence "Infrastructure/Data/Config/BasketConfiguration.cs:15-16"
+store BasketLine in "BasketItems" key "Id" { basketId = "BasketId", catalogItemId = "CatalogItemId", quantity = "Quantity", unitPrice = "UnitPrice" } evidence "Infrastructure/Data/Config/BasketItemConfiguration.cs:12-13"
+business_rules {
+  invariant BR_BASKET_QUANTITY_IS_NONNEGATIVE origin literal("Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);") "basket line quantities are never negative":
+    forall line: (line in BasketLine) => BasketLine.quantity[line] >= 0
+  ensures BR_EXISTING_LINE_ADDS_QUANTITY for AddBasketLine origin literal("existingItem.AddQuantity(quantity);") "adding an existing item increases that line's quantity":
+    (lineId in BasketLine and old(lineId in BasketLine) and quantity >= 0 and quantity <= 2147483647) => BasketLine.quantity[lineId] == old(BasketLine.quantity[lineId]) + quantity
+  ensures BR_ADDING_LINE_PRESERVES_PRICE for AddBasketLine origin literal("Quantity += quantity;") "adding units to an existing line does not change its unit price":
+    (lineId in BasketLine and old(lineId in BasketLine)) => BasketLine.unitPrice[lineId] == old(BasketLine.unitPrice[lineId])
+  ensures BR_NEW_LINE_USES_SUBMITTED_VALUES for AddBasketLine origin literal("_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));") "a new line stores its basket, item, quantity, and unit price":
+    (lineId in BasketLine and not old(lineId in BasketLine)) => (BasketLine.quantity[lineId] == quantity and BasketLine.unitPrice[lineId] == unitPrice and BasketLine.catalogItemId[lineId] == itemId and BasketLine.basketId[lineId] == basketId)
+  ensures BR_INVALID_ADDITION_HAS_NO_EFFECT for AddBasketLine origin literal("Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);") "an out-of-range quantity does not create or change a line":
+    (quantity < 0 or quantity > 2147483647) => ((lineId in BasketLine) == old(lineId in BasketLine))
+  ensures BR_SUBMITTED_QUANTITY_REPLACES_EXISTING for SetLineQuantity origin literal("item.SetQuantity(quantity);") "a submitted quantity replaces the existing line quantity":
+    (isSubmitted and quantity >= 0 and quantity <= 2147483647 and lineId in BasketLine and old(lineId in BasketLine)) => BasketLine.quantity[lineId] == quantity
+  ensures BR_QUANTITY_UPDATE_PRESERVES_PRICE for SetLineQuantity origin literal("item.SetQuantity(quantity);") "changing a line quantity does not reprice it":
+    (lineId in BasketLine and old(lineId in BasketLine)) => BasketLine.unitPrice[lineId] == old(BasketLine.unitPrice[lineId])
+  ensures BR_UNSUBMITTED_LINE_IS_UNCHANGED for SetLineQuantity origin literal("if (quantities.TryGetValue(item.Id.ToString(), out var quantity))") "a line omitted from the submitted quantities is not changed":
+    (not isSubmitted and lineId in BasketLine) => BasketLine.quantity[lineId] == old(BasketLine.quantity[lineId])
+  ensures BR_ZERO_QUANTITY_LINES_ARE_REMOVED for RemoveZeroQuantityLines origin literal("_items.RemoveAll(i => i.Quantity == 0);") "cleanup removes zero-quantity lines from the selected basket":
+    forall line: (line in BasketLine and BasketLine.basketId[line] == basketId) => BasketLine.quantity[line] != 0
+  ensures BR_CLEANUP_PRESERVES_OTHER_LINES for RemoveZeroQuantityLines origin literal("_items.RemoveAll(i => i.Quantity == 0);") "cleanup preserves other baskets' lines and nonempty lines":
+    forall line: (old(line in BasketLine) and (old(BasketLine.basketId[line]) != basketId or old(BasketLine.quantity[line]) != 0)) => line in BasketLine
+  ensures BR_MERGE_ADDS_EXISTING_QUANTITY for MergeBasketLine origin literal("userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);") "merging into an existing shopper line adds the anonymous quantity":
+    (anonymousLine in BasketLine and anonymousLine != shopperLine and shopperLine in BasketLine and old(shopperLine in BasketLine)) => BasketLine.quantity[shopperLine] == old(BasketLine.quantity[shopperLine]) + old(BasketLine.quantity[anonymousLine])
+  ensures BR_MERGE_PRESERVES_SHOPPER_PRICE for MergeBasketLine origin literal("Quantity += quantity;") "when a shopper already has an item, their existing unit price takes precedence":
+    (anonymousLine != shopperLine and old(shopperLine in BasketLine)) => BasketLine.unitPrice[shopperLine] == old(BasketLine.unitPrice[shopperLine])
+  ensures BR_MERGE_CREATES_MISSING_LINE for MergeBasketLine origin literal("_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));") "an item missing from the shopper basket is copied from the anonymous line":
+    (old(anonymousLine in BasketLine) and anonymousLine != shopperLine and not old(shopperLine in BasketLine)) => (shopperLine in BasketLine and BasketLine.quantity[shopperLine] == old(BasketLine.quantity[anonymousLine]) and BasketLine.unitPrice[shopperLine] == old(BasketLine.unitPrice[anonymousLine]) and BasketLine.basketId[shopperLine] == shopperBasket)
+  ensures BR_DELETE_BASKET_CASCADES_TO_LINES for DeleteBasket origin assumption(AS_DATABASE_CASCADE) "deleting a basket removes the basket and its lines":
+    old(basketId in Basket) => (not (basketId in Basket) and (forall line: (line in BasketLine) => BasketLine.basketId[line] != basketId))
+}

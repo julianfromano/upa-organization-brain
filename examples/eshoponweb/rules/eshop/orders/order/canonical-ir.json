@@ -1,0 +1,4028 @@
+{
+  "composes": [
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            }
+          ],
+          "op": "ValidateBasketForOrder"
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "basketLineId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "numericItemId",
+              "ty": "int"
+            }
+          ],
+          "op": "CreateOrderLine"
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "buyerId",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "buyerIdIsEmpty",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "street",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "city",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "region",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "country",
+              "ty": "text"
+            },
+            {
+              "k": "var",
+              "n": "postalCode",
+              "ty": "text"
+            }
+          ],
+          "op": "InsertOrder"
+        }
+      ],
+      "layer": null,
+      "name": "CreateOrderFromBasket",
+      "outcomes": [
+        {
+          "outcome": "BasketNotFound",
+          "step": "ValidateBasketForOrder"
+        },
+        {
+          "outcome": "EmptyBasket",
+          "step": "ValidateBasketForOrder"
+        },
+        {
+          "outcome": "BasketReady",
+          "step": "ValidateBasketForOrder"
+        },
+        {
+          "outcome": "DuplicateOrderLineId",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "BasketLineNotFound",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "CatalogItemNotFound",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "ItemIdOutOfRange",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "EmptyProductName",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "EmptyProductImage",
+          "step": "CreateOrderLine"
+        },
+        {
+          "outcome": "DuplicateOrderId",
+          "step": "InsertOrder"
+        },
+        {
+          "outcome": "EmptyBuyerId",
+          "step": "InsertOrder"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "orderId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "lineId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "basketLineId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "numericItemId",
+          "type": "int"
+        },
+        {
+          "decl": "Text",
+          "name": "buyerId",
+          "type": "text"
+        },
+        {
+          "decl": "Bool",
+          "name": "buyerIdIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Text",
+          "name": "street",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "city",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "region",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "country",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "postalCode",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Lines",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "55ebb03c6c301c5990e1d61bdc8c665dbde79016ce56d9db063a2e19f93d62a7",
+        "path": "eshop/basket/lines/lines.upa",
+        "ref": "eshop.basket.lines",
+        "spec": "BasketLines",
+        "version": "0.1"
+      },
+      {
+        "alias": "Item",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "8f406d83b66eedc865fc60e1bd993933c8d65b45646e4b25e45244fa545a2073",
+        "path": "eshop/catalog/item/item.upa",
+        "ref": "eshop.catalog.item",
+        "spec": "CatalogItem",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1
+  },
+  "entities": {
+    "Basket": {
+      "attrs": [
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "buyerId",
+          "type": "text"
+        }
+      ],
+      "block": null
+    },
+    "BasketLine": {
+      "attrs": [
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "catalogItemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "quantity",
+          "type": "int"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "unitPrice",
+          "type": "int"
+        }
+      ],
+      "block": null
+    },
+    "CatalogItem": {
+      "attrs": [
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "brandId",
+          "type": "int"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "imageUri",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "typeId",
+          "type": "int"
+        }
+      ],
+      "block": null
+    },
+    "Order": {
+      "attrs": [
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "buyerId",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "city",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "country",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "postalCode",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "region",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "street",
+          "type": "text"
+        }
+      ],
+      "block": null
+    },
+    "OrderLine": {
+      "attrs": [
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "catalogItemId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "orderId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "pictureUri",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "productName",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "subtotal",
+          "type": "int"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "unitPrice",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "units",
+          "type": "int"
+        }
+      ],
+      "block": null
+    },
+    "OrderTotal": {
+      "attrs": [
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "amount",
+          "type": "int"
+        }
+      ],
+      "block": null
+    }
+  },
+  "enums": {},
+  "externals": [],
+  "facts": [
+    {
+      "attr": "buyerId",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "street",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_STREET",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Street { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "city",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_CITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string City { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "region",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_REGION",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string State { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "country",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_COUNTRY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Country { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "postalCode",
+      "card": "exactly_one",
+      "entity": "Order",
+      "id": "F_ORDER_POSTAL_CODE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ZipCode { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "productName",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string ProductName { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "pictureUri",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_IMAGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string PictureUri { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "unitPrice",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "target": "Money"
+    },
+    {
+      "attr": "units",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_UNITS",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Units { get; private set; }"
+      },
+      "target": "Int"
+    },
+    {
+      "attr": "catalogItemId",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_ITEM",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int CatalogItemId { get; private set; }"
+      },
+      "target": "Identifier"
+    },
+    {
+      "attr": "subtotal",
+      "card": "exactly_one",
+      "entity": "OrderLine",
+      "id": "F_ORDER_LINE_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "target": "Money"
+    },
+    {
+      "attr": "amount",
+      "card": "exactly_one",
+      "entity": "OrderTotal",
+      "id": "F_ORDER_TOTAL",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": {
+    "k": "bin",
+    "l": {
+      "k": "bin",
+      "l": {
+        "body": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "e": "Order",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "order",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "order"
+      },
+      "op": "and",
+      "r": {
+        "body": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "line",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "line"
+      },
+      "ty": "bool"
+    },
+    "op": "and",
+    "r": {
+      "body": {
+        "k": "un",
+        "op": "not",
+        "ty": "bool",
+        "x": {
+          "e": "OrderTotal",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "total",
+            "ty": "id"
+          },
+          "ty": "bool"
+        }
+      },
+      "e": null,
+      "k": "forall",
+      "ty": "bool",
+      "v": "total"
+    },
+    "ty": "bool"
+  },
+  "initial_origin": {
+    "kind": "assumption",
+    "ref": "AS_NO_EXISTING_ORDERS"
+  },
+  "invocations": [
+    {
+      "evidence": "ApplicationCore/Services/OrderService.cs:38-39",
+      "kind": "database",
+      "mode": "sync",
+      "name": "SELECT Catalog WHERE Id IN (...)",
+      "target": "CreateOrderFromBasket",
+      "via": []
+    }
+  ],
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "Basket": {
+        "attributes": {
+          "buyerId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_PRESERVES_BASKET"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+          "BR_ORDER_CREATION_PRESERVES_BASKET",
+          "OP:ValidateBasketForOrder"
+        ]
+      },
+      "BasketLine": {
+        "attributes": {
+          "basketId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+              "OP:ValidateBasketForOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+              "OP:ValidateBasketForOrder"
+            ]
+          },
+          "catalogItemId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [
+              "CatalogItem"
+            ],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "OP:CreateOrderLine"
+            ]
+          },
+          "quantity": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_PRESERVES_BASKET",
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "OP:CreateOrderLine"
+            ]
+          },
+          "unitPrice": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "OP:CreateOrderLine"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+          "BR_ORDER_CREATION_PRESERVES_BASKET",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "BR_ORDER_LINE_USES_BASKET_PRICE",
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "OP:CreateOrderLine",
+          "OP:ValidateBasketForOrder"
+        ]
+      },
+      "CatalogItem": {
+        "attributes": {
+          "brandId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": []
+          },
+          "description": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          },
+          "imageUri": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "OP:CreateOrderLine"
+            ]
+          },
+          "name": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "OP:CreateOrderLine"
+            ]
+          },
+          "price": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": []
+          },
+          "typeId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": []
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "OP:CreateOrderLine"
+        ]
+      },
+      "Order": {
+        "attributes": {
+          "buyerId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_BUYER",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_BUYER",
+              "OP:InsertOrder"
+            ]
+          },
+          "city": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_CITY",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_CITY",
+              "OP:InsertOrder"
+            ]
+          },
+          "country": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_COUNTRY",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_COUNTRY",
+              "OP:InsertOrder"
+            ]
+          },
+          "postalCode": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_POSTAL_CODE",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_POSTAL_CODE",
+              "OP:InsertOrder"
+            ]
+          },
+          "region": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_REGION",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_REGION",
+              "OP:InsertOrder"
+            ]
+          },
+          "street": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_STREET",
+              "OP:InsertOrder"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "BR_ORDER_STORES_SHIPPING_ADDRESS",
+              "F_ORDER_STREET",
+              "OP:InsertOrder"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "InsertOrder"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+          "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+          "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+          "BR_ORDER_STORES_SHIPPING_ADDRESS",
+          "F_ORDER_BUYER",
+          "F_ORDER_CITY",
+          "F_ORDER_COUNTRY",
+          "F_ORDER_POSTAL_CODE",
+          "F_ORDER_REGION",
+          "F_ORDER_STREET",
+          "INITIAL",
+          "OP:InsertOrder"
+        ]
+      },
+      "OrderLine": {
+        "attributes": {
+          "catalogItemId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "F_ORDER_LINE_ITEM",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "F_ORDER_LINE_ITEM"
+            ]
+          },
+          "orderId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "OP:CreateOrderLine"
+            ]
+          },
+          "pictureUri": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+              "F_ORDER_LINE_IMAGE",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "F_ORDER_LINE_IMAGE"
+            ]
+          },
+          "productName": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+              "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+              "F_ORDER_LINE_NAME",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "F_ORDER_LINE_NAME"
+            ]
+          },
+          "subtotal": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+              "BR_ORDER_LINE_SUBTOTAL",
+              "F_ORDER_LINE_TOTAL",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_ORDER_LINE_SUBTOTAL",
+              "F_ORDER_LINE_TOTAL",
+              "OP:CreateOrderLine"
+            ]
+          },
+          "unitPrice": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+              "BR_ORDER_LINE_SUBTOTAL",
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "F_ORDER_LINE_PRICE",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_ORDER_LINE_SUBTOTAL",
+              "F_ORDER_LINE_PRICE"
+            ]
+          },
+          "units": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+              "BR_ORDER_LINE_SUBTOTAL",
+              "BR_ORDER_LINE_USES_BASKET_PRICE",
+              "F_ORDER_LINE_UNITS",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "BR_ORDER_LINE_SUBTOTAL",
+              "F_ORDER_LINE_UNITS"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "CreateOrderLine"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+          "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+          "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+          "BR_ORDER_LINE_SUBTOTAL",
+          "BR_ORDER_LINE_USES_BASKET_PRICE",
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "F_ORDER_LINE_IMAGE",
+          "F_ORDER_LINE_ITEM",
+          "F_ORDER_LINE_NAME",
+          "F_ORDER_LINE_PRICE",
+          "F_ORDER_LINE_TOTAL",
+          "F_ORDER_LINE_UNITS",
+          "INITIAL",
+          "OP:CreateOrderLine"
+        ]
+      },
+      "OrderTotal": {
+        "attributes": {
+          "amount": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "F_ORDER_TOTAL",
+              "OP:CreateOrderLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+              "F_ORDER_TOTAL",
+              "OP:CreateOrderLine"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "CreateOrderLine"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "F_ORDER_TOTAL",
+          "INITIAL",
+          "OP:CreateOrderLine"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "CreateOrderFromBasket",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+          "BR_ORDER_CREATION_PRESERVES_BASKET"
+        ]
+      },
+      {
+        "operation": "CreateOrderFromBasket",
+        "parameter": "basketLineId",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "BR_ORDER_CREATION_PRESERVES_BASKET"
+        ]
+      },
+      {
+        "operation": "CreateOrderFromBasket",
+        "parameter": "lineId",
+        "plays": [
+          "OrderLine"
+        ],
+        "required_by": [
+          "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+          "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER"
+        ]
+      },
+      {
+        "operation": "CreateOrderFromBasket",
+        "parameter": "orderId",
+        "plays": [
+          "Order"
+        ],
+        "required_by": [
+          "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+          "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+          "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+          "BR_ORDER_STORES_SHIPPING_ADDRESS"
+        ]
+      },
+      {
+        "operation": "CreateOrderLine",
+        "parameter": "basketLineId",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "BR_ORDER_LINE_USES_BASKET_PRICE",
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "OP:CreateOrderLine"
+        ]
+      },
+      {
+        "operation": "CreateOrderLine",
+        "parameter": "lineId",
+        "plays": [
+          "OrderLine"
+        ],
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "BR_ORDER_LINE_USES_BASKET_PRICE",
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "OP:CreateOrderLine"
+        ]
+      },
+      {
+        "operation": "CreateOrderLine",
+        "parameter": "orderId",
+        "plays": [
+          "OrderTotal"
+        ],
+        "required_by": [
+          "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+          "OP:CreateOrderLine"
+        ]
+      },
+      {
+        "operation": "InsertOrder",
+        "parameter": "orderId",
+        "plays": [
+          "Order"
+        ],
+        "required_by": [
+          "OP:InsertOrder"
+        ]
+      },
+      {
+        "operation": "ValidateBasketForOrder",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "OP:ValidateBasketForOrder"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "cardinality": "unspecified",
+        "classification": "INFERRED_STRUCTURE",
+        "from": "BasketLine.catalogItemId",
+        "plays": "CatalogItem",
+        "required_by": [
+          "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+          "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+          "OP:CreateOrderLine"
+        ],
+        "role": "catalogItemId"
+      }
+    ]
+  },
+  "notes": {
+    "assumptions": [
+      {
+        "id": "AS_NO_EXISTING_ORDERS",
+        "owner": "operation",
+        "text": "No orders or order lines exist initially"
+      }
+    ],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [
+      {
+        "alternatives": "",
+        "id": "DD_ORDER_ITEM_SNAPSHOT",
+        "text": "An order line snapshots its catalog item's identity, name, and image at purchase time"
+      },
+      {
+        "alternatives": "",
+        "id": "DD_ORDER_PRICE_FROM_BASKET",
+        "text": "The order line uses the basket's recorded unit price, not the catalog's current price"
+      },
+      {
+        "alternatives": "",
+        "id": "DD_MATERIALIZED_ORDER_TOTAL",
+        "text": "The calculated order total is stored as a value to make it expressible in this model"
+      },
+      {
+        "alternatives": "",
+        "id": "DD_DATABASE_ORDER_IDENTITIES",
+        "text": "The database assigns unique order and order-line identities; collisions are modeled as rejected outcomes"
+      }
+    ],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_ORDER_SINGLE_LINE",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "A basket may contain multiple lines; this model handles one representative line per invocation"
+      },
+      {
+        "id": "GAP_ORDER_VALIDATION_SEQUENCE",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "Catalog lines are validated before the buyer identifier, matching the source operation order"
+      },
+      {
+        "id": "GAP_ADDRESS_VALIDATION",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The Address type has no field validation; checkout supplies a fixed address"
+      },
+      {
+        "id": "GAP_ORDER_TIMESTAMP",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "OrderDate is assigned from the current time, which is not modeled"
+      },
+      {
+        "id": "GAP_PICTURE_URI_COMPOSITION",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The URI composer may rewrite the image base URL; this model only checks for an empty image"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "BasketNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "body": {
+                "k": "bin",
+                "l": {
+                  "e": "BasketLine",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "line",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "basketId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "line",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "basketId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "e": null,
+              "k": "exists",
+              "ty": "bool",
+              "v": "line"
+            }
+          },
+          "outcome": "EmptyBasket",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "BasketReady",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "ValidateBasketForOrder",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "DuplicateOrderLineId",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketLineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "BasketLineNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "CatalogItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "numericItemId",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 1
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "numericItemId",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "ItemIdOutOfRange",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "a": "name",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "str",
+              "ty": "text",
+              "v": ""
+            },
+            "ty": "bool"
+          },
+          "outcome": "EmptyProductName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "a": "imageUri",
+              "e": "CatalogItem",
+              "k": "attr",
+              "key": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "str",
+              "ty": "text",
+              "v": ""
+            },
+            "ty": "bool"
+          },
+          "outcome": "EmptyProductImage",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "OrderTotal",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "OrderLine",
+              "inits": [
+                {
+                  "attr": "orderId",
+                  "value": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "catalogItemId",
+                  "value": {
+                    "a": "catalogItemId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "productName",
+                  "value": {
+                    "a": "name",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "a": "catalogItemId",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "pictureUri",
+                  "value": {
+                    "a": "imageUri",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "a": "catalogItemId",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "unitPrice",
+                  "value": {
+                    "a": "unitPrice",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "units",
+                  "value": {
+                    "a": "quantity",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "subtotal",
+                  "value": {
+                    "k": "bin",
+                    "l": {
+                      "a": "unitPrice",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "op": "*",
+                    "r": {
+                      "a": "quantity",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "ty": "int"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "kind": "create"
+            },
+            {
+              "attr": "amount",
+              "entity": "OrderTotal",
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "bin",
+                "l": {
+                  "a": "amount",
+                  "e": "OrderTotal",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "+",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "unitPrice",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  },
+                  "op": "*",
+                  "r": {
+                    "a": "quantity",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  },
+                  "ty": "int"
+                },
+                "ty": "int"
+              }
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "OrderLine",
+              "inits": [
+                {
+                  "attr": "orderId",
+                  "value": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "catalogItemId",
+                  "value": {
+                    "a": "catalogItemId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "productName",
+                  "value": {
+                    "a": "name",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "a": "catalogItemId",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "pictureUri",
+                  "value": {
+                    "a": "imageUri",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "a": "catalogItemId",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "unitPrice",
+                  "value": {
+                    "a": "unitPrice",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "units",
+                  "value": {
+                    "a": "quantity",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "subtotal",
+                  "value": {
+                    "k": "bin",
+                    "l": {
+                      "a": "unitPrice",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "op": "*",
+                    "r": {
+                      "a": "quantity",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "ty": "int"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "kind": "create"
+            },
+            {
+              "entity": "OrderTotal",
+              "inits": [
+                {
+                  "attr": "amount",
+                  "value": {
+                    "k": "bin",
+                    "l": {
+                      "a": "unitPrice",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "op": "*",
+                    "r": {
+                      "a": "quantity",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "basketLineId",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "ty": "int"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "CreateOrderLine",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "lineId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "orderId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "basketLineId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "name": "numericItemId",
+          "type": "int"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "e": "Order",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "DuplicateOrderId",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "buyerIdIsEmpty",
+            "ty": "bool"
+          },
+          "outcome": "EmptyBuyerId",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "Order",
+              "inits": [
+                {
+                  "attr": "buyerId",
+                  "value": {
+                    "k": "var",
+                    "n": "buyerId",
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "street",
+                  "value": {
+                    "k": "var",
+                    "n": "street",
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "city",
+                  "value": {
+                    "k": "var",
+                    "n": "city",
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "region",
+                  "value": {
+                    "k": "var",
+                    "n": "region",
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "country",
+                  "value": {
+                    "k": "var",
+                    "n": "country",
+                    "ty": "text"
+                  }
+                },
+                {
+                  "attr": "postalCode",
+                  "value": {
+                    "k": "var",
+                    "n": "postalCode",
+                    "ty": "text"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "InsertOrder",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "orderId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "buyerId",
+          "type": "text"
+        },
+        {
+          "decl": "Bool",
+          "name": "buyerIdIsEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Text",
+          "name": "street",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "city",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "region",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "country",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "name": "postalCode",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "body": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "line",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "subtotal",
+              "e": "OrderLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "line",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "unitPrice",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "line",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "*",
+              "r": {
+                "a": "units",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "line",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "line"
+      },
+      "group": "business",
+      "id": "BR_ORDER_LINE_SUBTOTAL",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "targets": [],
+      "text": "each order-line subtotal equals unit price times units"
+    },
+    {
+      "block": null,
+      "expr": {
+        "body": {
+          "k": "bin",
+          "l": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "OrderLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "line",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "a": "productName",
+                      "e": "OrderLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "line",
+                        "ty": "id"
+                      },
+                      "ty": "text"
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "old",
+                      "ty": "text",
+                      "x": {
+                        "a": "productName",
+                        "e": "OrderLine",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "line",
+                          "ty": "id"
+                        },
+                        "ty": "text"
+                      }
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "a": "pictureUri",
+                      "e": "OrderLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "line",
+                        "ty": "id"
+                      },
+                      "ty": "text"
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "old",
+                      "ty": "text",
+                      "x": {
+                        "a": "pictureUri",
+                        "e": "OrderLine",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "line",
+                          "ty": "id"
+                        },
+                        "ty": "text"
+                      }
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "unitPrice",
+                    "e": "OrderLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "line",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "old",
+                    "ty": "int",
+                    "x": {
+                      "a": "unitPrice",
+                      "e": "OrderLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "line",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "units",
+                  "e": "OrderLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "line",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "old",
+                  "ty": "int",
+                  "x": {
+                    "a": "units",
+                    "e": "OrderLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "line",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "subtotal",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "line",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "subtotal",
+                  "e": "OrderLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "line",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "line"
+      },
+      "group": "business",
+      "id": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "kind": "law",
+      "origin": {
+        "kind": "literal",
+        "ref": "/// Represents a snapshot of the item that was ordered."
+      },
+      "targets": [],
+      "text": "a recorded order line keeps its purchased name, image, price, and units"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "OrderLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "unitPrice",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "unitPrice",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "basketLineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "units",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "basketLineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "orderId",
+              "e": "OrderLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "id"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ORDER_LINE_USES_BASKET_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);"
+      },
+      "targets": [
+        "CreateOrderLine"
+      ],
+      "text": "an order line copies price and units from the basket line, not the current catalog price"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "OrderLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "a": "productName",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "text",
+                "x": {
+                  "a": "name",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "a": "catalogItemId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "pictureUri",
+                "e": "OrderLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "text",
+                "x": {
+                  "a": "imageUri",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "a": "catalogItemId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "basketLineId",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "catalogItemId",
+              "e": "OrderLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "id"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "id",
+              "x": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))"
+      },
+      "targets": [
+        "CreateOrderLine"
+      ],
+      "text": "an order line records the catalog name, image, and item identifier at purchase time"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketLineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "OrderLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);"
+      },
+      "targets": [
+        "CreateOrderLine"
+      ],
+      "text": "a basket line whose catalog item is missing does not produce an order line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "numericItemId",
+              "ty": "int"
+            },
+            "op": "<",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 1
+            },
+            "ty": "bool"
+          },
+          "op": "or",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "numericItemId",
+              "ty": "int"
+            },
+            "op": ">",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 2147483647
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "OrderLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);"
+      },
+      "targets": [
+        "CreateOrderLine"
+      ],
+      "text": "an item identifier outside the valid integer range does not produce an order line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "OrderLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "OrderLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "amount",
+            "e": "OrderTotal",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "bin",
+            "l": {
+              "c": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "OrderTotal",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "f": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "k": "if",
+              "t": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "amount",
+                  "e": "OrderTotal",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "int"
+            },
+            "op": "+",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "unitPrice",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "basketLineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "op": "*",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "basketLineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "int"
+            },
+            "ty": "int"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "targets": [
+        "CreateOrderLine"
+      ],
+      "text": "the order total increases by the subtotal of each created line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "body": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "bin",
+              "l": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "BasketLine",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "line",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "k": "old",
+                  "ty": "id",
+                  "x": {
+                    "a": "basketId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "line",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  }
+                },
+                "op": "==",
+                "r": {
+                  "k": "var",
+                  "n": "basketId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            }
+          },
+          "e": null,
+          "k": "forall",
+          "ty": "bool",
+          "v": "line"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "Order",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Order",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "orderId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "OrderLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "OrderLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.EmptyBasketOnCheckout(basket.Items);"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "an empty basket cannot produce an order or order line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "Order",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "Order",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(basket, nameof(basket));"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "a missing basket cannot produce an order"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "buyerIdIsEmpty",
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "Order",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Order",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "orderId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "OrderLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "OrderLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(buyerId, nameof(buyerId));"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "an empty buyer identifier does not produce an order or line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "Order",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "orderId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Order",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "orderId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "a": "buyerId",
+                      "e": "Order",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "orderId",
+                        "ty": "id"
+                      },
+                      "ty": "text"
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "var",
+                      "n": "buyerId",
+                      "ty": "text"
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "a": "street",
+                      "e": "Order",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "orderId",
+                        "ty": "id"
+                      },
+                      "ty": "text"
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "var",
+                      "n": "street",
+                      "ty": "text"
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "city",
+                    "e": "Order",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "orderId",
+                      "ty": "id"
+                    },
+                    "ty": "text"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "city",
+                    "ty": "text"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "region",
+                  "e": "Order",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "orderId",
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                },
+                "op": "==",
+                "r": {
+                  "k": "var",
+                  "n": "region",
+                  "ty": "text"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "country",
+                "e": "Order",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "orderId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "country",
+                "ty": "text"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "postalCode",
+              "e": "Order",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "orderId",
+                "ty": "id"
+              },
+              "ty": "text"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "postalCode",
+              "ty": "text"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order)"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "a created order records its buyer and supplied shipping address"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "basketId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "=>",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "buyerId",
+                "e": "Basket",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketId",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "text",
+                "x": {
+                  "a": "buyerId",
+                  "e": "Basket",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "basketId",
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "and",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketLineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "quantity",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "basketLineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "quantity",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "basketLineId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ORDER_CREATION_PRESERVES_BASKET",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order);"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "creating an order does not alter the basket; basket deletion occurs afterward"
+    },
+    {
+      "block": null,
+      "expr": {
+        "body": {
+          "k": "bin",
+          "l": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "item",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "k": "bin",
+                      "l": {
+                        "a": "name",
+                        "e": "CatalogItem",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "item",
+                          "ty": "id"
+                        },
+                        "ty": "text"
+                      },
+                      "op": "==",
+                      "r": {
+                        "k": "old",
+                        "ty": "text",
+                        "x": {
+                          "a": "name",
+                          "e": "CatalogItem",
+                          "k": "attr",
+                          "key": {
+                            "k": "var",
+                            "n": "item",
+                            "ty": "id"
+                          },
+                          "ty": "text"
+                        }
+                      },
+                      "ty": "bool"
+                    },
+                    "op": "and",
+                    "r": {
+                      "k": "bin",
+                      "l": {
+                        "a": "description",
+                        "e": "CatalogItem",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "item",
+                          "ty": "id"
+                        },
+                        "ty": "text"
+                      },
+                      "op": "==",
+                      "r": {
+                        "k": "old",
+                        "ty": "text",
+                        "x": {
+                          "a": "description",
+                          "e": "CatalogItem",
+                          "k": "attr",
+                          "key": {
+                            "k": "var",
+                            "n": "item",
+                            "ty": "id"
+                          },
+                          "ty": "text"
+                        }
+                      },
+                      "ty": "bool"
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "a": "price",
+                      "e": "CatalogItem",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "item",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "old",
+                      "ty": "int",
+                      "x": {
+                        "a": "price",
+                        "e": "CatalogItem",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "item",
+                          "ty": "id"
+                        },
+                        "ty": "int"
+                      }
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "a": "brandId",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "item",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "old",
+                    "ty": "int",
+                    "x": {
+                      "a": "brandId",
+                      "e": "CatalogItem",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "item",
+                        "ty": "id"
+                      },
+                      "ty": "int"
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "typeId",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "item",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "old",
+                  "ty": "int",
+                  "x": {
+                    "a": "typeId",
+                    "e": "CatalogItem",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "item",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "imageUri",
+                "e": "CatalogItem",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "item",
+                  "ty": "id"
+                },
+                "ty": "text"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "text",
+                "x": {
+                  "a": "imageUri",
+                  "e": "CatalogItem",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "item",
+                    "ty": "id"
+                  },
+                  "ty": "text"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "item"
+      },
+      "group": "business",
+      "id": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+      "kind": "ensures",
+      "origin": {
+        "kind": "derived",
+        "ref": "DD_ORDER_ITEM_SNAPSHOT"
+      },
+      "targets": [
+        "CreateOrderFromBasket"
+      ],
+      "text": "creating an order copies catalog details without changing the catalog"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "CreateOrder",
+  "stores": [
+    {
+      "columns": {
+        "buyerId": "BuyerId",
+        "city": "ShipToAddress_City",
+        "country": "ShipToAddress_Country",
+        "postalCode": "ShipToAddress_ZipCode",
+        "region": "ShipToAddress_State",
+        "street": "ShipToAddress_Street"
+      },
+      "entity": "Order",
+      "evidence": "Infrastructure/Data/Config/OrderConfiguration.cs",
+      "key": "Id",
+      "table": "Orders"
+    },
+    {
+      "columns": {
+        "catalogItemId": "ItemOrdered_CatalogItemId",
+        "orderId": "OrderId",
+        "pictureUri": "ItemOrdered_PictureUri",
+        "productName": "ItemOrdered_ProductName",
+        "unitPrice": "UnitPrice",
+        "units": "Units"
+      },
+      "entity": "OrderLine",
+      "evidence": "Infrastructure/Data/Config/OrderItemConfiguration.cs",
+      "key": "Id",
+      "table": "OrderItems"
+    }
+  ],
+  "texts": [
+    ""
+  ],
+  "tier": "subprocess",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

@@ -1,0 +1,33 @@
+{
+  "build_seconds": 0.1,
+  "ir_hash": "10d68b880fdb82f6f534067070d68eeec2d8c3806d233a203546d8cfad0c1a93",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 1,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 0,
+    "inferred_roles": 0,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 1,
+    "ir_bytes": 6079,
+    "obligations": 3,
+    "operations": 2,
+    "properties": 3,
+    "upa_lines": 28
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 3,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

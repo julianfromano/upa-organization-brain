@@ -1,0 +1,530 @@
+{
+  "assumptions": [
+    {
+      "evidence": "declared in the UPA program",
+      "id": "AS_DATABASE_CASCADE",
+      "owner": "EF Core",
+      "source": "user",
+      "text": "Deleting a basket also deletes its basket lines through the EF Core relationship"
+    },
+    {
+      "evidence": "declared in the UPA program",
+      "id": "AS_EMPTY_BASKETS",
+      "owner": "operation",
+      "source": "user",
+      "text": "No baskets or basket lines exist initially"
+    }
+  ],
+  "errors": [],
+  "ir_hash": "55ebb03c6c301c5990e1d61bdc8c665dbde79016ce56d9db063a2e19f93d62a7",
+  "obligations": [
+    {
+      "description": "the initial state establishes BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "INIT:BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "inherited_from": null,
+      "kind": "INIT",
+      "operation": null,
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "GetOrCreateBasket preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@GetOrCreateBasket",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "GetOrCreateBasket",
+      "reason": "frame: the operation leaves the rule inputs unchanged (goal identical to an assumption)",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "FindBasket preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@FindBasket",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "FindBasket",
+      "reason": "frame: the operation leaves the rule inputs unchanged (goal identical to an assumption)",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "AddBasketLine preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@AddBasketLine",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "AddBasketLine",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 6
+    },
+    {
+      "description": "AddBasketLine satisfies postcondition BR_EXISTING_LINE_ADDS_QUANTITY",
+      "id": "ENS:BR_EXISTING_LINE_ADDS_QUANTITY@AddBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AddBasketLine",
+      "rule": "BR_EXISTING_LINE_ADDS_QUANTITY",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "AddBasketLine satisfies postcondition BR_ADDING_LINE_PRESERVES_PRICE",
+      "id": "ENS:BR_ADDING_LINE_PRESERVES_PRICE@AddBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AddBasketLine",
+      "rule": "BR_ADDING_LINE_PRESERVES_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "AddBasketLine satisfies postcondition BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "id": "ENS:BR_NEW_LINE_USES_SUBMITTED_VALUES@AddBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AddBasketLine",
+      "rule": "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "AddBasketLine satisfies postcondition BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "id": "ENS:BR_INVALID_ADDITION_HAS_NO_EFFECT@AddBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AddBasketLine",
+      "rule": "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 7
+    },
+    {
+      "description": "SetLineQuantity preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@SetLineQuantity",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "SetLineQuantity",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 7
+    },
+    {
+      "description": "SetLineQuantity satisfies postcondition BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "id": "ENS:BR_SUBMITTED_QUANTITY_REPLACES_EXISTING@SetLineQuantity",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "SetLineQuantity",
+      "rule": "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "SetLineQuantity satisfies postcondition BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "id": "ENS:BR_QUANTITY_UPDATE_PRESERVES_PRICE@SetLineQuantity",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "SetLineQuantity",
+      "rule": "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "SetLineQuantity satisfies postcondition BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "id": "ENS:BR_UNSUBMITTED_LINE_IS_UNCHANGED@SetLineQuantity",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "SetLineQuantity",
+      "rule": "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "RemoveZeroQuantityLines preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@RemoveZeroQuantityLines",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "RemoveZeroQuantityLines",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "RemoveZeroQuantityLines satisfies postcondition BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "id": "ENS:BR_ZERO_QUANTITY_LINES_ARE_REMOVED@RemoveZeroQuantityLines",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "RemoveZeroQuantityLines",
+      "rule": "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "RemoveZeroQuantityLines satisfies postcondition BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "id": "ENS:BR_CLEANUP_PRESERVES_OTHER_LINES@RemoveZeroQuantityLines",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "RemoveZeroQuantityLines",
+      "rule": "BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "MergeBasketLine preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@MergeBasketLine",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "MergeBasketLine",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 6
+    },
+    {
+      "description": "MergeBasketLine satisfies postcondition BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "id": "ENS:BR_MERGE_ADDS_EXISTING_QUANTITY@MergeBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "MergeBasketLine",
+      "rule": "BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "MergeBasketLine satisfies postcondition BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "id": "ENS:BR_MERGE_PRESERVES_SHOPPER_PRICE@MergeBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "MergeBasketLine",
+      "rule": "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "MergeBasketLine satisfies postcondition BR_MERGE_CREATES_MISSING_LINE",
+      "id": "ENS:BR_MERGE_CREATES_MISSING_LINE@MergeBasketLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "MergeBasketLine",
+      "rule": "BR_MERGE_CREATES_MISSING_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "DeleteBasket preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "id": "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@DeleteBasket",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "DeleteBasket",
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "DeleteBasket satisfies postcondition BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "id": "ENS:BR_DELETE_BASKET_CASCADES_TO_LINES@DeleteBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "DeleteBasket",
+      "rule": "BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    }
+  ],
+  "proof_cache": {
+    "frame": 2,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 19
+  },
+  "rules": [
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "invariant",
+      "obligations": [
+        "INIT:BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@GetOrCreateBasket",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@FindBasket",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@AddBasketLine",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@SetLineQuantity",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@RemoveZeroQuantityLines",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@MergeBasketLine",
+        "PRES:BR_BASKET_QUANTITY_IS_NONNEGATIVE@DeleteBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "basket line quantities are never negative",
+      "user_assumptions": [
+        "AS_EMPTY_BASKETS"
+      ]
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_EXISTING_LINE_ADDS_QUANTITY@AddBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "rule": "BR_EXISTING_LINE_ADDS_QUANTITY",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "adding an existing item increases that line's quantity",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ADDING_LINE_PRESERVES_PRICE@AddBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "rule": "BR_ADDING_LINE_PRESERVES_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "adding units to an existing line does not change its unit price",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_NEW_LINE_USES_SUBMITTED_VALUES@AddBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "rule": "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a new line stores its basket, item, quantity, and unit price",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_INVALID_ADDITION_HAS_NO_EFFECT@AddBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "rule": "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an out-of-range quantity does not create or change a line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_SUBMITTED_QUANTITY_REPLACES_EXISTING@SetLineQuantity"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "rule": "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a submitted quantity replaces the existing line quantity",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_QUANTITY_UPDATE_PRESERVES_PRICE@SetLineQuantity"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "rule": "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "changing a line quantity does not reprice it",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_UNSUBMITTED_LINE_IS_UNCHANGED@SetLineQuantity"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))"
+      },
+      "rule": "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a line omitted from the submitted quantities is not changed",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ZERO_QUANTITY_LINES_ARE_REMOVED@RemoveZeroQuantityLines"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "rule": "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "cleanup removes zero-quantity lines from the selected basket",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_CLEANUP_PRESERVES_OTHER_LINES@RemoveZeroQuantityLines"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "rule": "BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "cleanup preserves other baskets' lines and nonempty lines",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_MERGE_ADDS_EXISTING_QUANTITY@MergeBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "rule": "BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "merging into an existing shopper line adds the anonymous quantity",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_MERGE_PRESERVES_SHOPPER_PRICE@MergeBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "rule": "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "when a shopper already has an item, their existing unit price takes precedence",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_MERGE_CREATES_MISSING_LINE@MergeBasketLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "rule": "BR_MERGE_CREATES_MISSING_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an item missing from the shopper basket is copied from the anonymous line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DELETE_BASKET_CASCADES_TO_LINES@DeleteBasket"
+      ],
+      "origin": {
+        "kind": "assumption",
+        "ref": "AS_DATABASE_CASCADE"
+      },
+      "rule": "BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "deleting a basket removes the basket and its lines",
+      "user_assumptions": [
+        "AS_DATABASE_CASCADE"
+      ]
+    }
+  ],
+  "summary": {
+    "PROVEN": 21,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {
+    "business": {
+      "PROVEN": 21,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

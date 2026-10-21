@@ -1,0 +1,53 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ADMIN_REQUIRES_ROLE",
+        "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "F_ACCESS_GRANTED",
+        "OP:AuthorizeAdministrator",
+        "OP:AuthorizeUser"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:AuthorizeAdministrator"
+      ],
+      "name": "AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:AuthorizeUser"
+      ],
+      "name": "AuthorizeUser",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ADMIN_REQUIRES_ROLE",
+        "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:AuthorizeAdministrator"
+      ],
+      "name": "AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "OP:AuthorizeUser"
+      ],
+      "name": "AuthorizeUser.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    }
+  ],
+  "role_notes": []
+}

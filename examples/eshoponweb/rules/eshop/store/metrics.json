@@ -1,0 +1,91 @@
+{
+  "build_seconds": 9.2,
+  "composition": {
+    "components": [
+      {
+        "alias": "Catalog",
+        "ref": "eshop.catalog.administration",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Add",
+        "ref": "eshop.basket.add",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Update",
+        "ref": "eshop.basket.update",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Merge",
+        "ref": "eshop.basket.merge",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Checkout",
+        "ref": "eshop.orders.checkout",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "CreateItem",
+        "ref": "eshop.catalog.create",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "EditItem",
+        "ref": "eshop.catalog.edit",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "DeleteItem",
+        "ref": "eshop.catalog.delete",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 3,
+    "summary_total": {
+      "PROVEN": 849,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "e5f67d42c1c6405f31b2b632a5f224839f67103165efe2c2c9c76ff8546ebe9c",
+  "scope_coverage": 0.182,
+  "scope_sha256": "ef0c27660575cb49526c65e3dee40c06660ca2fb415ab3f296542d23004b22b4",
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 9,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 1,
+    "inferred_roles": 1,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 23,
+    "ir_bytes": 165581,
+    "obligations": 378,
+    "operations": 37,
+    "properties": 59,
+    "upa_lines": 109
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 378,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

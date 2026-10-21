@@ -1,0 +1,119 @@
+{
+  "by_rule": {
+    "Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "BR_CREATE_REQUIRES_ADMIN": [
+      "CatalogItem"
+    ],
+    "BR_CREATE_STORES_REQUESTED_VALUES": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.name",
+      "CatalogItem.price",
+      "CatalogItem.typeId"
+    ],
+    "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE": [
+      "CatalogItem",
+      "CatalogItem.imageUri"
+    ],
+    "BR_DUPLICATE_NAME_IS_REJECTED": [
+      "CatalogItem"
+    ],
+    "F_ACCESS_GRANTED": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:InsertCatalogItem": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.description",
+      "CatalogItem.imageUri",
+      "CatalogItem.name",
+      "CatalogItem.price",
+      "CatalogItem.typeId"
+    ],
+    "OP:SetDefaultImage": [
+      "CatalogItem",
+      "CatalogItem.imageUri"
+    ]
+  },
+  "why": {
+    "AccessGrant": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "AccessGrant.granted": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "CatalogItem": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CREATE_REQUIRES_ADMIN",
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "BR_DUPLICATE_NAME_IS_REJECTED",
+        "OP:InsertCatalogItem",
+        "OP:SetDefaultImage"
+      ]
+    },
+    "CatalogItem.brandId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "OP:InsertCatalogItem"
+      ]
+    },
+    "CatalogItem.description": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "OP:InsertCatalogItem"
+      ]
+    },
+    "CatalogItem.imageUri": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "OP:InsertCatalogItem",
+        "OP:SetDefaultImage"
+      ]
+    },
+    "CatalogItem.name": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "OP:InsertCatalogItem"
+      ]
+    },
+    "CatalogItem.price": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "OP:InsertCatalogItem"
+      ]
+    },
+    "CatalogItem.typeId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "OP:InsertCatalogItem"
+      ]
+    }
+  }
+}

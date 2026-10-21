@@ -1,0 +1,628 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "Basket": {
+      "attributes": {
+        "buyerId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_PRESERVES_BASKET"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": []
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [],
+      "kind": "Entity",
+      "required_by": [
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET",
+        "OP:ValidateBasketForOrder"
+      ]
+    },
+    "BasketLine": {
+      "attributes": {
+        "basketId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+            "OP:ValidateBasketForOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Identifier",
+          "type_evidence": [
+            "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+            "OP:ValidateBasketForOrder"
+          ]
+        },
+        "catalogItemId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [
+            "CatalogItem"
+          ],
+          "specification_only": false,
+          "type": "Identifier",
+          "type_evidence": [
+            "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "OP:CreateOrderLine"
+          ]
+        },
+        "quantity": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_PRESERVES_BASKET",
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "OP:CreateOrderLine"
+          ]
+        },
+        "unitPrice": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "OP:CreateOrderLine"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [],
+      "kind": "Entity",
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine",
+        "OP:ValidateBasketForOrder"
+      ]
+    },
+    "CatalogItem": {
+      "attributes": {
+        "brandId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": []
+        },
+        "description": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": []
+        },
+        "imageUri": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "OP:CreateOrderLine"
+          ]
+        },
+        "name": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "OP:CreateOrderLine"
+          ]
+        },
+        "price": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": []
+        },
+        "typeId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": []
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [],
+      "kind": "Entity",
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:CreateOrderLine"
+      ]
+    },
+    "Order": {
+      "attributes": {
+        "buyerId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_BUYER",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_BUYER",
+            "OP:InsertOrder"
+          ]
+        },
+        "city": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_CITY",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_CITY",
+            "OP:InsertOrder"
+          ]
+        },
+        "country": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_COUNTRY",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_COUNTRY",
+            "OP:InsertOrder"
+          ]
+        },
+        "postalCode": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_POSTAL_CODE",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_POSTAL_CODE",
+            "OP:InsertOrder"
+          ]
+        },
+        "region": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_REGION",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_REGION",
+            "OP:InsertOrder"
+          ]
+        },
+        "street": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_STREET",
+            "OP:InsertOrder"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "BR_ORDER_STORES_SHIPPING_ADDRESS",
+            "F_ORDER_STREET",
+            "OP:InsertOrder"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "InsertOrder"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_STORES_SHIPPING_ADDRESS",
+        "F_ORDER_BUYER",
+        "F_ORDER_CITY",
+        "F_ORDER_COUNTRY",
+        "F_ORDER_POSTAL_CODE",
+        "F_ORDER_REGION",
+        "F_ORDER_STREET",
+        "INITIAL",
+        "OP:InsertOrder"
+      ]
+    },
+    "OrderLine": {
+      "attributes": {
+        "catalogItemId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "F_ORDER_LINE_ITEM",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Identifier",
+          "type_evidence": [
+            "F_ORDER_LINE_ITEM"
+          ]
+        },
+        "orderId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Identifier",
+          "type_evidence": [
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "OP:CreateOrderLine"
+          ]
+        },
+        "pictureUri": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+            "F_ORDER_LINE_IMAGE",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "F_ORDER_LINE_IMAGE"
+          ]
+        },
+        "productName": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+            "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+            "F_ORDER_LINE_NAME",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "F_ORDER_LINE_NAME"
+          ]
+        },
+        "subtotal": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+            "BR_ORDER_LINE_SUBTOTAL",
+            "F_ORDER_LINE_TOTAL",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_ORDER_LINE_SUBTOTAL",
+            "F_ORDER_LINE_TOTAL",
+            "OP:CreateOrderLine"
+          ]
+        },
+        "unitPrice": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+            "BR_ORDER_LINE_SUBTOTAL",
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "F_ORDER_LINE_PRICE",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_ORDER_LINE_SUBTOTAL",
+            "F_ORDER_LINE_PRICE"
+          ]
+        },
+        "units": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+            "BR_ORDER_LINE_SUBTOTAL",
+            "BR_ORDER_LINE_USES_BASKET_PRICE",
+            "F_ORDER_LINE_UNITS",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": [
+            "BR_ORDER_LINE_SUBTOTAL",
+            "F_ORDER_LINE_UNITS"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "CreateOrderLine"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "BR_ORDER_LINE_SUBTOTAL",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_LINE_IMAGE",
+        "F_ORDER_LINE_ITEM",
+        "F_ORDER_LINE_NAME",
+        "F_ORDER_LINE_PRICE",
+        "F_ORDER_LINE_TOTAL",
+        "F_ORDER_LINE_UNITS",
+        "INITIAL",
+        "OP:CreateOrderLine"
+      ]
+    },
+    "OrderTotal": {
+      "attributes": {
+        "amount": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "F_ORDER_TOTAL",
+            "OP:CreateOrderLine"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+            "F_ORDER_TOTAL",
+            "OP:CreateOrderLine"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "CreateOrderLine"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_TOTAL",
+        "INITIAL",
+        "OP:CreateOrderLine"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "CreateOrderFromBasket",
+      "parameter": "basketId",
+      "plays": [
+        "Basket"
+      ],
+      "required_by": [
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET"
+      ]
+    },
+    {
+      "operation": "CreateOrderFromBasket",
+      "parameter": "basketLineId",
+      "plays": [
+        "BasketLine"
+      ],
+      "required_by": [
+        "BR_ORDER_CREATION_PRESERVES_BASKET"
+      ]
+    },
+    {
+      "operation": "CreateOrderFromBasket",
+      "parameter": "lineId",
+      "plays": [
+        "OrderLine"
+      ],
+      "required_by": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER"
+      ]
+    },
+    {
+      "operation": "CreateOrderFromBasket",
+      "parameter": "orderId",
+      "plays": [
+        "Order"
+      ],
+      "required_by": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_STORES_SHIPPING_ADDRESS"
+      ]
+    },
+    {
+      "operation": "CreateOrderLine",
+      "parameter": "basketLineId",
+      "plays": [
+        "BasketLine"
+      ],
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ]
+    },
+    {
+      "operation": "CreateOrderLine",
+      "parameter": "lineId",
+      "plays": [
+        "OrderLine"
+      ],
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ]
+    },
+    {
+      "operation": "CreateOrderLine",
+      "parameter": "orderId",
+      "plays": [
+        "OrderTotal"
+      ],
+      "required_by": [
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ]
+    },
+    {
+      "operation": "InsertOrder",
+      "parameter": "orderId",
+      "plays": [
+        "Order"
+      ],
+      "required_by": [
+        "OP:InsertOrder"
+      ]
+    },
+    {
+      "operation": "ValidateBasketForOrder",
+      "parameter": "basketId",
+      "plays": [
+        "Basket"
+      ],
+      "required_by": [
+        "OP:ValidateBasketForOrder"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "cardinality": "unspecified",
+      "classification": "INFERRED_STRUCTURE",
+      "from": "BasketLine.catalogItemId",
+      "plays": "CatalogItem",
+      "required_by": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:CreateOrderLine"
+      ],
+      "role": "catalogItemId"
+    }
+  ]
+}

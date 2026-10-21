@@ -1,0 +1,186 @@
+{
+  "items": [
+    {
+      "evidence": "if (Request.Cookies.ContainsKey(Constants.BASKET_COOKIENAME))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_NO_COOKIE_NO_MERGE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "without a basket cookie, no basket is merged or deleted"
+    },
+    {
+      "evidence": "if (Guid.TryParse(anonymousId, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_NON_GUID_COOKIE_NO_TRANSFER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a cookie that is not a GUID does not start a basket transfer"
+    },
+    {
+      "evidence": "if (anonymousBasket == null) return;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "if no anonymous basket exists, the signed-in basket is not created or changed"
+    },
+    {
+      "evidence": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a successfully transferred line moves from the anonymous basket to the shopper basket"
+    },
+    {
+      "evidence": "await _basketRepository.DeleteAsync(anonymousBasket);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ANONYMOUS_BASKET_IS_DELETED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "after a successful merge, the anonymous basket is deleted and the shopper basket exists"
+    },
+    {
+      "evidence": "Quantity += quantity;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "when the shopper already had the item, their previous unit price prevails"
+    },
+    {
+      "evidence": "if (Guid.TryParse(anonymousId, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "evidence": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "merging into an existing shopper line adds the anonymous quantity"
+    },
+    {
+      "evidence": "Quantity += quantity;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "when a shopper already has an item, their existing unit price takes precedence"
+    },
+    {
+      "evidence": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_MERGE_CREATES_MISSING_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an item missing from the shopper basket is copied from the anonymous line"
+    },
+    {
+      "evidence": "AS_DATABASE_CASCADE",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "assumption",
+      "text": "deleting a basket removes the basket and its lines"
+    },
+    {
+      "evidence": "await _basketService.TransferBasketAsync(anonymousId, userName);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LOGIN_MERGE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every LoginMergeDecision has exactly_one mergesBasket: Bool"
+    },
+    {
+      "evidence": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every LoginMergeDecision has exactly_one deletesCookie: Bool"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BASKET_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Basket has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public int Quantity { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_QUANTITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one quantity: Int"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one unitPrice: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

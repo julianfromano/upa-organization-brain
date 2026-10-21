@@ -1,0 +1,25 @@
+{
+  "assumptions": [],
+  "errors": [],
+  "ir_hash": "04313fdca483d1c73e301ff33bbb5df16e284c7a37b4df8f715897ebdaaa7c37",
+  "obligations": [],
+  "proof_cache": {
+    "frame": 0,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 0
+  },
+  "rules": [],
+  "summary": {
+    "PROVEN": 0,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {},
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

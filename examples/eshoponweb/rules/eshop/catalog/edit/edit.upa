@@ -1,0 +1,46 @@
+spec EditCatalogItem version "0.1" tier subprocess
+// Sources: src/PublicApi/CatalogItemEndpoints/UpdateCatalogItemEndpoint.cs:37-66; src/Web/Pages/Admin/EditCatalogItem.cshtml.cs:11,29-37; src/Web/Services/CatalogItemViewModelService.cs:18-27.
+
+component Access = eshop.access.authorization@0.1
+component Item = eshop.catalog.item@0.1
+// The API updates details, brand, and type; the Admin page updates only name and price.
+type Money = Int scale 2
+language_gap GAP_UPDATE_ANNOTATIONS "Update request data annotations are not invoked by the minimal API endpoint; they are not modeled as guarantees"
+language_gap GAP_EDIT_PATHS_DIFFER "The API and Admin page update different fields, so their behaviors are modeled separately"
+language_gap GAP_ADMIN_MODEL_VALIDATION "The Admin page also depends on view-model annotations that were not inspected in detail"
+operation ValidateAdminModel(modelIsValid: Bool) {
+  when not modelIsValid outcome InvalidModel success { }
+  when modelIsValid outcome ValidModel success { }
+}
+operation UpdateNameAndPriceFromAdmin(itemId: Identifier, name: Text, price: Money, nameIsEmpty: Bool) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  when nameIsEmpty outcome EmptyName { }
+  when CatalogItem.description[itemId] == "" outcome ExistingDescriptionIsEmpty { }
+  when price <= 0 outcome NonPositivePrice { }
+  otherwise { set CatalogItem.name[itemId] = name
+              set CatalogItem.price[itemId] = price }
+}
+compose atomic UpdateCatalogItemApi(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool, itemId: Identifier, name: Text, description: Text, price: Money, nameIsEmpty: Bool, descriptionIsEmpty: Bool, brandId: Int, typeId: Int) =
+  Access.AuthorizeAdministrator(request, isAuthenticated, isAdministrator); Item.FindCatalogItem(itemId); Item.UpdateItemDetails(itemId, name, description, price, nameIsEmpty, descriptionIsEmpty); Item.UpdateItemBrand(itemId, brandId); Item.UpdateItemType(itemId, typeId)
+compose atomic EditCatalogItemPage(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool, modelIsValid: Bool, itemId: Identifier, name: Text, price: Money, nameIsEmpty: Bool) =
+  Access.AuthorizeAdministrator(request, isAuthenticated, isAdministrator); ValidateAdminModel(modelIsValid); Item.FindCatalogItem(itemId); UpdateNameAndPriceFromAdmin(itemId, name, price, nameIsEmpty)
+invokes UpdateCatalogItemApi database "SELECT Catalog WHERE Id = @id; UPDATE Catalog" sync evidence "PublicApi/CatalogItemEndpoints/UpdateCatalogItemEndpoint.cs:41,52"
+store CatalogItem in "Catalog" key "Id" { name = "Name", description = "Description", price = "Price", brandId = "CatalogBrandId", typeId = "CatalogTypeId", imageUri = "PictureUri" } evidence "Infrastructure/Data/Config/CatalogItemConfiguration.cs"
+business_rules {
+  ensures BR_UPDATE_API_REQUIRES_ADMIN for UpdateCatalogItemApi origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]") "a non-administrator cannot change a catalog item":
+    (not isAuthenticated or not isAdministrator) => (CatalogItem.price[itemId] == old(CatalogItem.price[itemId]) and CatalogItem.name[itemId] == old(CatalogItem.name[itemId]))
+  ensures BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT for UpdateCatalogItemApi origin literal("return Results.NotFound();") "updating a missing item does not create it":
+    (not old(itemId in CatalogItem)) => not (itemId in CatalogItem)
+  ensures BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT for UpdateCatalogItemApi origin literal("Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));") "a non-positive price leaves the existing item unchanged":
+    (price <= 0 and itemId in CatalogItem) => (CatalogItem.price[itemId] == old(CatalogItem.price[itemId]) and CatalogItem.brandId[itemId] == old(CatalogItem.brandId[itemId]))
+  ensures BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT for UpdateCatalogItemApi origin literal("existingItem.UpdateDetails(details);") "a zero brand or type prevents the API update from being persisted":
+    ((brandId == 0 or typeId == 0) and itemId in CatalogItem) => (CatalogItem.name[itemId] == old(CatalogItem.name[itemId]) and CatalogItem.price[itemId] == old(CatalogItem.price[itemId]) and CatalogItem.brandId[itemId] == old(CatalogItem.brandId[itemId]) and CatalogItem.typeId[itemId] == old(CatalogItem.typeId[itemId]))
+  ensures BR_UPDATE_API_APPLIES_ALL_FIELDS for UpdateCatalogItemApi origin literal("existingItem.UpdateBrand(request.CatalogBrandId);") "valid API input updates details, brand, and type":
+    (isAuthenticated and isAdministrator and old(itemId in CatalogItem) and not nameIsEmpty and not descriptionIsEmpty and price > 0 and brandId != 0 and typeId != 0) => (CatalogItem.name[itemId] == name and CatalogItem.description[itemId] == description and CatalogItem.price[itemId] == price and CatalogItem.brandId[itemId] == brandId and CatalogItem.typeId[itemId] == typeId)
+  ensures BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS for EditCatalogItemPage origin literal("new(viewModel.Name, existingCatalogItem.Description, viewModel.Price)") "the Admin page preserves the existing description, brand, and type":
+    (itemId in CatalogItem) => (CatalogItem.description[itemId] == old(CatalogItem.description[itemId]) and CatalogItem.brandId[itemId] == old(CatalogItem.brandId[itemId]) and CatalogItem.typeId[itemId] == old(CatalogItem.typeId[itemId]))
+  ensures BR_ADMIN_EDIT_REQUIRES_ADMIN for EditCatalogItemPage origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS)]") "a non-administrator cannot change an item through the Admin page":
+    (not isAuthenticated or not isAdministrator) => (CatalogItem.price[itemId] == old(CatalogItem.price[itemId]) and CatalogItem.name[itemId] == old(CatalogItem.name[itemId]))
+  ensures BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION for EditCatalogItemPage origin literal("Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));") "an item whose existing description is empty is not edited from the Admin page":
+    (itemId in CatalogItem and old(CatalogItem.description[itemId] == "")) => (CatalogItem.name[itemId] == old(CatalogItem.name[itemId]) and CatalogItem.price[itemId] == old(CatalogItem.price[itemId]))
+}

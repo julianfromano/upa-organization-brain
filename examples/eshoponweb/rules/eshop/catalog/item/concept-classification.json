@@ -1,0 +1,104 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_BRAND_MUST_BE_NONZERO",
+        "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "BR_EMPTY_NAME_IS_REJECTED",
+        "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "BR_TYPE_MUST_BE_NONZERO",
+        "BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:FindCatalogItem",
+        "OP:UpdateItemBrand",
+        "OP:UpdateItemDetails",
+        "OP:UpdateItemType"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:FindCatalogItem"
+      ],
+      "name": "FindCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateItemDetails"
+      ],
+      "name": "UpdateItemDetails",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateItemBrand"
+      ],
+      "name": "UpdateItemBrand",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateItemType"
+      ],
+      "name": "UpdateItemType",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:FindCatalogItem"
+      ],
+      "name": "FindCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_BRAND_MUST_BE_NONZERO",
+        "OP:UpdateItemBrand"
+      ],
+      "name": "UpdateItemBrand.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "BR_EMPTY_NAME_IS_REJECTED",
+        "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:UpdateItemDetails"
+      ],
+      "name": "UpdateItemDetails.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_TYPE_MUST_BE_NONZERO",
+        "OP:UpdateItemType"
+      ],
+      "name": "UpdateItemType.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    }
+  ],
+  "role_notes": []
+}

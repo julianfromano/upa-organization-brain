@@ -1,0 +1,163 @@
+// UPA v0 — grammar (informal EBNF). The parser uses recursive descent (upa/parser.py).
+//
+// file        = ("spec" | "block") IDENT "version" STRING { decl } ;
+// decl        = uses | component | typeDecl | enumDecl | entityDecl | initial | operation | compose | query
+//             | decision | assumption | question | languageGap | rules | systemMap | invokes | publishes | subscribes | terms | store ;
+// uses        = "uses" IDENT "@" VERSION ;   (* inheritance: merges declarations and re-proves the parent rules *)
+// component   = "component" IDENT "=" DOTTED "@" VERSION ;   (* composition: rules/a/b/c/c.upa, compiled and verified separately; see docs/components.md *)
+// typeDecl    = "type" IDENT "=" ("Natural" | "Int") [ "scale" INT ] ;
+// enumDecl    = "enum" IDENT "{" IDENT { "," IDENT } "}" ;
+// entityDecl  = "entity" IDENT "{" attr { "," attr } "}" ;
+// attr        = [ "ghost" ] IDENT ":" type ;
+// type        = "Bool" | "Int" | "Natural" | "Identifier" | "Text" | IDENT | "Option" "<" type ">" ;
+// initial     = "initial" ":" expr ;
+// operation   = "operation" IDENT "(" params ")" "{" { case } "}" ;
+// case        = ("when" expr | "otherwise") "{" { stmt } "}" ;
+// stmt        = "set" IDENT "." IDENT "[" expr "]" "=" expr
+//             | "write_file" IDENT "=" expr   (* syntactic sugar for create File[k]{content=e} *)
+//             | "create" IDENT "[" expr "]" [ "{" IDENT "=" expr { "," IDENT "=" expr } "}" ] ;
+// compose     = "compose" [ "atomic" ] IDENT "(" params ")" "=" xstep { (";" | "&") xstep } ;   (* call = [ IDENT "." ] IDENT "(" args ")" *)
+// xstep       = { "async" | "parallel" } ( [ "when" expr "then" ] call | "loop" "while" expr "do" call ) ;
+//                (* ';' = next stage (sequential), '&' = same stage (parallel);
+//                async = do not wait (another process completes it), parallel = N concurrent instances (fan-out). Execution metadata: verification composes steps in their written order. async is forbidden in compose atomic. *)
+//                (* when: the guard is a stateless Bool (parameters and pure queries only; COMPOSE_GUARD_STATE); if false, the step
+//                   has no effect. Flattening conjoins it with the parent guard; the IR records "guard" and "trail" for each call. *)
+//                (* loop: the while condition is a stateless Bool and is reevaluated before each iteration. Verification and simulation
+//                   run one representative iteration; the IR retains "loop". Forbidden in compose atomic. *)
+// invokes     = "invokes" IDENT ("database"|"api"|"service"|"queue"|"file"|"directory"|"mail") STRING ("sync"|"async")
+//               [ "via" IDENT { "," IDENT } ] [ "evidence" STRING ] ;   (* operation/composition IDENT calls an external entity;
+//                via = parameters that carry its result. Metadata only; it does not change verification. *)
+// publishes   = "publishes" IDENT "from" DOTTED
+//               "via" ("queue"|"topic"|"stream"|"event_bus") STRING [ "message" STRING ]
+//               "confirmation" ("confirmed"|"fire_and_forget"|"unspecified")
+//               "evidence" STRING ;
+// subscribes  = "subscribes" IDENT "at" DOTTED
+//               "via" ("queue"|"topic"|"stream"|"event_bus") STRING "message" STRING "subscription" STRING
+//               "durability" ("durable"|"transient")
+//               "processing" ("deferred"|"scheduled"|"event_driven")
+//               "delivery" ("at_least_once"|"at_most_once"|"exactly_once"|"unspecified")
+//               "completion" ("ack_on_return"|"explicit_ack"|"unspecified")
+//               "failure" ("reject_on_exception"|"nack_on_exception"|"dead_letter"|"unspecified")
+//               "evidence" STRING ;
+//               (* Producers and consumers are independent declarations (0..N on each side). The IR derives
+//                  correlations only when transport, channel, and message match exactly, including case.
+//                  A producer without a message is not correlated. async_transition was removed and produces a migration error
+//                  because canonical IR has no from/to fields. This is metadata and does not change the solver. *)
+// terms       = "terms" "{" { IDENT { "." IDENT } STRING [ STRING ] } "}" ;   (* business label and optional explanation for a
+//                name declared in the file (operation, compose, query, parameter, entity, Entity.attribute, enum, Enum.Value,
+//                component alias, or note id). TERM_UNKNOWN / TERM_DUPLICATE / TERM_EMPTY. Metadata only; it does not change verification. *)
+// store       = "store" IDENT "in" STRING [ "key" STRING ] [ "{" { IDENT "=" STRING [","] } "}" ] [ "evidence" STRING ] ;
+//                (* entity IDENT maps to the real table STRING, with columns mapped by attribute. STORE_UNKNOWN / STORE_DUPLICATE.
+//                   Boundary metadata; it does not change verification and is used by `upa owners`. *)
+// query       = "query" IDENT "(" params ")" "->" type "=" expr ;
+// decision    = "decision" ID STRING [ "alternatives" STRING ] ;
+// assumption  = "assumption" ID STRING [ "owner" STRING ] ;
+// question    = "question" ID STRING ;
+// languageGap = "language_gap" ID ( "kind" gapKind STRING | STRING [ "kind" gapKind ] )
+//               [ "scope" (IDENT|STRING) | "target" DOTTED ]
+//               [ "impact" ("low"|"medium"|"high"|"critical") ]
+//               [ ("required"|"needed") ("true"|"false") ] ;
+// gapKind     = "language" | "evidence" | "regeneration" ;
+//               (* Compatibility: language_gap ID STRING remains accepted and is interpreted as
+//                  kind language, impact medium, required true, with no declared regeneration coverage. *)
+// humanDecision = "human_decision" ID STRING "owner" STRING "options" "(" ID STRING {"," ID STRING} ")" ;   (a person makes the decision; it is not a guarantee)
+// persists    = "persists" ID STRING("Entity.attr") {"hint" STRING | "cache" | "normalized" STRING} ;   (justifies a value that is only persisted; hint suggests where it is stored today)
+// risk        = "risk" ID STRING {"on" STRING | "severity" STRING | "owner" STRING} ;   (a detected risk, not a formal rule)
+// concurrency = "concurrency" ID STRING {"on" STRING | "mode" STRING | "by" ID | "protects" ID {"," ID} | "on_conflict" ID} ;   (mode: serialized | optimistic | unprotected; by = parameter or entity defining the serialization unit; on_conflict: retry | reject | wait; declarative and not verified; IR lists operations that write relational-rule state without a declaration as concurrency_gaps)
+// parameter   = "parameter" ID STRING ["owner" STRING] ;   (a configurable value outside UPA; rules are checked for every value)
+// stmt        += "delete" Entity "[" key "]"
+//              | "for" "each" var "in" Entity ["where" cond] (set | delete)   (bulk operation; cascading)
+// rules       = ("business_rules" | "technical_rules") "{" { property } "}" ;
+// property    = "invariant" ID origin STRING ":" expr
+//             | "law"       ID origin STRING ":" expr                 (* two-state law that applies to every operation *)
+//             | "ensures"   ID "for" IDENT origin STRING ":" expr     (* postcondition of an operation or composition *)
+//             | "repeat"    ID "for" IDENT { "," IDENT } origin STRING  (* repeating the operation does not change the state *)
+//             ;
+// origin      = "origin" ("literal" "(" STRING ")" | "derived" "(" ID ")" | "assumption" "(" ID ")") ;
+//               ("unspecified" is valid only as a `question`; it cannot be the origin of a guarantee)
+// expr        = implies ; implies = or [ "=>" implies ] ; or = and { "or" and } ; and = not { "and" not } ;
+// not         = "not" not | cmp ; cmp = add [ ("=="|"!="|"<"|"<="|">"|">=") add | ["not"] "in" IDENT ] ;
+// add         = mul { ("+"|"-") mul } ;
+// mul         = atom { "*" atom } ;
+// atom        = INT | "true" | "false" | "None" | "Some" "(" expr ")" | "(" expr ")"
+//             | "if" expr "then" expr "else" expr
+//             | "old" "(" expr ")" | "sum" "(" IDENT "." IDENT ")"
+//             | ("forall"|"exists") IDENT [ "in" IDENT ] ":" expr
+//             | IDENT "." IDENT "[" expr "]"      (* entity attribute *)
+//             | IDENT "." IDENT                   (* enum constant *)
+//             | "substring" "(" expr "," expr "," expr ")"   (* semantica SMT str.substr *)
+//             | "mod" "(" expr "," INT ")"                    (* resto euclideo, INT > 0 *)
+//             | [ IDENT "." ] IDENT "(" [ expr { "," expr } ] ")"   (* call to a local query or one exported by a component; inlined *)
+//             | IDENT ;                           (* parameter or bound variable *)
+
+// Aggregates (rules -> minimal model):
+// facts       = "facts" "{" { "fact" ID origin ":" ( "every" ENT "has" card ATTR ":" TYPE
+//                                                   | ENT "." ATTR "is" ("immutable"|"unique") ) } "}" ;
+// card        = "exactly_one" | "zero_or_one" | "zero_or_more" | "one_or_more" | "[" INT "]" | "[" INT ".." (INT|"*") "]" ;
+// Multiplicity > 1 declares a homogeneous collection (upa/multiplicity.py); see docs/collections.md.
+// type        = ... | "List" "<" TYPE ">" ;      count(expr) = cardinality of a collection or List<T> parameter.
+// decision    = "decision" ID STRING [ "alternatives" STRING ] [ "resolves" AMB_ID "=" MODEL_ID ] ;
+// initial     = "initial" "origin" origin ":" expr ;
+// Entities ("entity") are optional; they are inferred from rules (upa/infer.py).
+
+// tier      = "tier" ("atom" | "subprocess" | "process" | "macroprocess") ;   (* after level; analysis tier, not inheritance *)
+// level     = "level" ("layer" | "organization" | "domain" | "module" | "specific") ;
+// layerAnn  = "layer" ("frontend" | "backend" | "shared") ;   (* on operation/query/compose *)
+// exclusion = "exclusion" IDENT STRING ;   (* a note, not a rule *)
+// literal   = ... | STRING   (* Text type; only == and != are supported *)
+
+// external  = "external" IDENT "version" STRING "source" STRING "hash" STRING "{" { extOp } "}" ;
+// extOp     = "operation" IDENT params [ "http" STRING ] "{" { outcome | "resolve_by" IDENT | "on" IDENT "{" {stmt} "}" } "}" ;
+// outcome   = "outcome" IDENT [ "status" STRING ] [ "uncertain" ] ;
+// stmt      = ... | "invoke" IDENT "." IDENT "(" [ expr { "," expr } ] ")" "yields" IDENT ;
+//
+// systemMap = "system_map" "{"
+//               { component | contract | flow | observation | catalog | job } "}" ;
+// component = "component" IDENT "{"
+//               "name" STRING "kind" IDENT "scope" ("included"|"boundary")
+//               "role" STRING "evidence" STRING [ "runtime" STRING ] [ "repository" STRING ]
+//               { "depends_on" IDENT } { "realizes" { IDENT "." } IDENT } "}" ;   (* realizes: operation, query, rule, fact, note, component, Alias.Element, or A.B.Element *)
+//             (* kind = service|gateway|batch|library|channel|external|web_app|database|scheduler|etl|report *)
+// contract  = "contract" IDENT "{"
+//               "owner" IDENT "service" STRING "protocol" STRING "operation" STRING
+//               "request" STRING "response" STRING "usage"
+//               ("consumer_known"|"traffic_observed"|"no_known_consumer"|"not_exercised")
+//               "source" STRING "sha256" STRING "evidence" STRING { "caller" IDENT } "}" ;
+// flow      = "flow" IDENT "{"
+//               "name" STRING "status" ("source_verified"|"production_observed"|"inferred")
+//               "evidence" STRING { "step" IDENT STRING [ "contract" IDENT ] } "}" ;
+// observation = "observation" IDENT "{"
+//               "subject" IDENT "statement" STRING
+//               "status" ("source_verified"|"runtime_observed"|"documented"|"inferred")
+//               "evidence" STRING "}" ;
+// catalog   = "catalog" IDENT "{" "owner" IDENT "source" STRING
+//               "status" ("source_verified"|"runtime_observed"|"documented"|"inferred") "evidence" STRING
+//               { "value" IDENT [ "code" STRING ] [ "meaning" STRING ] } "}" ;
+// rule      = "rule" IDENT "{" "subject" IDENT
+//               "kind" ("validation"|"decision"|"calculation"|"effect"|"error_mapping"|"state_transition")
+//               "status" ("source_verified"|"runtime_observed"|"documented"|"inferred")
+//               { "when" STRING } "then" STRING { "then" STRING } [ "error" STRING ]
+//               "source" STRING "evidence" STRING "}" ;
+//             (* subject: component, contract, or flow. An atomic rule has one condition and its literal source outcome. *)
+// job       = "job" IDENT "{" "name" STRING "owner" IDENT
+//               "kind" ("etl_workflow"|"batch_process"|"scheduled_job"|"report")
+//               "status" ("source_verified"|"runtime_observed"|"documented"|"inferred") "evidence" STRING
+//               { "reads" STRING } { "writes" STRING } "}" ;
+// The system map is source-backed architecture metadata; it does not add behavioral proof obligations.
+
+(* Business Surface *)
+surface   = "spec" IDENT "version" STRING { block } ;
+block     = "business" "{" { IDENT "{" { STRING } "}" } "}"
+          | ("technical" | "initial" | "assumptions") "{" { STRING [ "owner" STRING ] } "}"
+          | "outcomes" "for" STRING "{" { STRING } "}"
+          | "decision" IDENT STRING [ "alternatives" STRING ] [ "resolves" IDENT "=" IDENT ]
+          | "assumption" IDENT STRING "owner" STRING
+          | "question" IDENT STRING
+          | "use" "capability" STRING
+          | "use" "spec" STRING ;      (* cumulative specification: inherits statements, outcomes, and decisions; relative path *)
+(* Core: case with a named outcome *)
+case_outcome = "when" expr [ "outcome" IDENT [ "success" ] ] "{" { stmt } "}" ;
+(* outcome without effects = rejection; with "success", it succeeds without effects and does not reject (it does not empty an atomic compose) *)
+
+(* Terminology *)
+glossary_block = "glossary" "{" { STRING } "}" ;

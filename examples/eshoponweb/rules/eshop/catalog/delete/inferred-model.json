@@ -1,0 +1,166 @@
+{
+  "categories": [
+    "EXPLICIT_RULE",
+    "INFERRED_STRUCTURE",
+    "DERIVED_RULE",
+    "DESIGN_DECISION",
+    "EXTERNAL_ASSUMPTION"
+  ],
+  "entities": {
+    "AccessGrant": {
+      "attributes": {
+        "granted": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "F_ACCESS_GRANTED",
+            "OP:Access_AuthorizeAdministrator"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Bool",
+          "type_evidence": [
+            "F_ACCESS_GRANTED",
+            "OP:Access_AuthorizeAdministrator"
+          ]
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "kind": "Entity",
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    "CatalogItem": {
+      "attributes": {
+        "brandId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": []
+        },
+        "description": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": []
+        },
+        "imageUri": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": []
+        },
+        "name": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "F_ITEM_NAME"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Text",
+          "type_evidence": [
+            "F_ITEM_NAME"
+          ]
+        },
+        "price": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [
+            "F_ITEM_PRICE"
+          ],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Money",
+          "type_evidence": [
+            "F_ITEM_PRICE"
+          ]
+        },
+        "typeId": {
+          "classification": "EXPLICIT_RULE",
+          "ghost": false,
+          "required_by": [],
+          "role_of": [],
+          "specification_only": false,
+          "type": "Int",
+          "type_evidence": []
+        }
+      },
+      "classification": "EXPLICIT_RULE",
+      "created_by": [],
+      "kind": "Entity",
+      "required_by": [
+        "BR_ADMIN_DELETES_EXISTING_ITEM",
+        "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+        "BR_DELETE_REQUIRES_ADMIN",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:DeleteItem",
+        "OP:Item_FindCatalogItem"
+      ]
+    }
+  },
+  "parameter_roles": [
+    {
+      "operation": "Access_AuthorizeAdministrator",
+      "parameter": "request",
+      "plays": [
+        "AccessGrant"
+      ],
+      "required_by": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:Access_AuthorizeAdministrator"
+      ]
+    },
+    {
+      "operation": "DeleteCatalogItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "BR_ADMIN_DELETES_EXISTING_ITEM",
+        "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+        "BR_DELETE_REQUIRES_ADMIN"
+      ]
+    },
+    {
+      "operation": "DeleteItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "OP:DeleteItem"
+      ]
+    },
+    {
+      "operation": "Item_FindCatalogItem",
+      "parameter": "itemId",
+      "plays": [
+        "CatalogItem"
+      ],
+      "required_by": [
+        "OP:Item_FindCatalogItem"
+      ]
+    }
+  ],
+  "relations": []
+}

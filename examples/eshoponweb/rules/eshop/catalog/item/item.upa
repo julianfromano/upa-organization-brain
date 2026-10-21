@@ -1,0 +1,51 @@
+spec CatalogItem version "0.1" tier atom
+// Source: src/ApplicationCore/Entities/CatalogItem.cs:33-54; src/PublicApi/CatalogItemEndpoints/UpdateCatalogItemEndpoint.cs:41-45.
+
+type Money = Int scale 2
+// Domain methods reject empty names and descriptions, and non-positive prices.
+decision DD_PRICE_SCALE "Catalog prices use decimal(18,2), represented as integer cents" 
+language_gap GAP_NAME_LENGTH "The database limits catalog item names to 50 characters; this storage constraint is not modeled"
+entity CatalogItem { name: Text, description: Text, price: Money, brandId: Int, typeId: Int, imageUri: Text }
+facts {
+  fact F_ITEM_NAME origin literal("public string Name { get; private set; }"): every CatalogItem has exactly_one name: Text
+  fact F_ITEM_PRICE origin literal("public decimal Price { get; private set; }"): every CatalogItem has exactly_one price: Money
+}
+operation FindCatalogItem(itemId: Identifier) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  when itemId in CatalogItem outcome ItemFound success { }
+}
+operation UpdateItemDetails(itemId: Identifier, name: Text, description: Text, price: Money, nameIsEmpty: Bool, descriptionIsEmpty: Bool) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  when nameIsEmpty outcome EmptyName { }
+  when descriptionIsEmpty outcome EmptyDescription { }
+  when price <= 0 outcome NonPositivePrice { }
+  otherwise { set CatalogItem.name[itemId] = name
+              set CatalogItem.description[itemId] = description
+              set CatalogItem.price[itemId] = price }
+}
+operation UpdateItemBrand(itemId: Identifier, brandId: Int) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  when brandId == 0 outcome InvalidBrand { }
+  otherwise { set CatalogItem.brandId[itemId] = brandId }
+}
+operation UpdateItemType(itemId: Identifier, typeId: Int) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  when typeId == 0 outcome InvalidType { }
+  otherwise { set CatalogItem.typeId[itemId] = typeId }
+}
+business_rules {
+  ensures BR_VALID_DETAILS_ARE_APPLIED for UpdateItemDetails origin literal("Name = details.Name;") "valid name, description, and price replace the item's details":
+    (itemId in CatalogItem and old(itemId in CatalogItem) and not nameIsEmpty and not descriptionIsEmpty and price > 0) => (CatalogItem.name[itemId] == name and CatalogItem.description[itemId] == description and CatalogItem.price[itemId] == price)
+  ensures BR_NONPOSITIVE_PRICE_IS_REJECTED for UpdateItemDetails origin literal("Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));") "a zero or negative price leaves the item unchanged":
+    (price <= 0 and itemId in CatalogItem) => CatalogItem.price[itemId] == old(CatalogItem.price[itemId])
+  ensures BR_EMPTY_NAME_IS_REJECTED for UpdateItemDetails origin literal("Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));") "an empty name leaves the item unchanged":
+    (nameIsEmpty and itemId in CatalogItem) => CatalogItem.name[itemId] == old(CatalogItem.name[itemId])
+  ensures BR_EMPTY_DESCRIPTION_IS_REJECTED for UpdateItemDetails origin literal("Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));") "an empty description leaves the item unchanged":
+    (descriptionIsEmpty and not nameIsEmpty and itemId in CatalogItem) => CatalogItem.description[itemId] == old(CatalogItem.description[itemId])
+  ensures BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION for UpdateItemDetails origin literal("Name = details.Name;") "updating details does not change the brand, type, or image":
+    (itemId in CatalogItem) => (CatalogItem.brandId[itemId] == old(CatalogItem.brandId[itemId]) and CatalogItem.typeId[itemId] == old(CatalogItem.typeId[itemId]) and CatalogItem.imageUri[itemId] == old(CatalogItem.imageUri[itemId]))
+  ensures BR_BRAND_MUST_BE_NONZERO for UpdateItemBrand origin literal("Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));") "a zero brand identifier is rejected":
+    (brandId == 0 and itemId in CatalogItem) => CatalogItem.brandId[itemId] == old(CatalogItem.brandId[itemId])
+  ensures BR_TYPE_MUST_BE_NONZERO for UpdateItemType origin literal("Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));") "a zero type identifier is rejected":
+    (typeId == 0 and itemId in CatalogItem) => CatalogItem.typeId[itemId] == old(CatalogItem.typeId[itemId])
+}

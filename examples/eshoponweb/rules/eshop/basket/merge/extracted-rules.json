@@ -1,0 +1,258 @@
+{
+  "assumptions": [],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_NO_COOKIE_NO_MERGE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Request.Cookies.ContainsKey(Constants.BASKET_COOKIENAME))"
+      },
+      "text": "without a basket cookie, no basket is merged or deleted"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_NON_GUID_COOKIE_NO_TRANSFER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "text": "a cookie that is not a GUID does not start a basket transfer"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (anonymousBasket == null) return;"
+      },
+      "text": "if no anonymous basket exists, the signed-in basket is not created or changed"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "text": "a successfully transferred line moves from the anonymous basket to the shopper basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ANONYMOUS_BASKET_IS_DELETED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketRepository.DeleteAsync(anonymousBasket);"
+      },
+      "text": "after a successful merge, the anonymous basket is deleted and the shopper basket exists"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "text": "when the shopper already had the item, their previous unit price prevails"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "text": "merging into an existing shopper line adds the anonymous quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "text": "when a shopper already has an item, their existing unit price takes precedence"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Lines_BR_MERGE_CREATES_MISSING_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "text": "an item missing from the shopper basket is copied from the anonymous line"
+    },
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "assumption",
+        "ref": "AS_DATABASE_CASCADE"
+      },
+      "text": "deleting a basket removes the basket and its lines"
+    }
+  ],
+  "decisions": [],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LOGIN_MERGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.TransferBasketAsync(anonymousId, userName);"
+      },
+      "subject": "LoginMergeDecision.mergesBasket",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "subject": "LoginMergeDecision.deletesCookie",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Basket.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "subject": "BasketLine.quantity",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "BasketLine.unitPrice",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Buyer_DecideLoginMerge",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "hasCookie",
+        "cookieIsGuid",
+        "userNameEmpty"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_GetOrCreateBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId",
+        "buyerId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_MergeBasketLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "anonymousLine",
+        "shopperLine",
+        "shopperBasket"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Lines_DeleteBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "MergeOnLogin",
+      "note": "composition",
+      "params": [
+        "request",
+        "hasCookie",
+        "cookieIsGuid",
+        "userNameEmpty",
+        "anonymousBasketExists",
+        "anonymousLineExists",
+        "anonymousBasket",
+        "shopperBasket",
+        "anonymousLine",
+        "shopperLine",
+        "shopperId"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

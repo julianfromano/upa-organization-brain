@@ -1,0 +1,30 @@
+spec Checkout version "0.1" tier process
+// Sources: src/Web/Pages/Basket/Checkout.cshtml.cs:14,44-68; src/ApplicationCore/Services/OrderService.cs:30-52.
+
+component Access = eshop.access.authorization@0.1
+component Update = eshop.basket.update@0.1
+component Order = eshop.orders.order@0.1
+component Lines = eshop.basket.lines@0.1
+decision DD_FIXED_SHIPPING_ADDRESS "The checkout address is hard-coded in the page; the shopper does not enter it"
+decision DD_ORDER_BUYER_FROM_BASKET "The order buyer identifier is the basket BuyerId"
+language_gap GAP_CHECKOUT_NONATOMIC "Updating quantities, creating an order, and deleting the basket are three separate commits; this atomic compose hides partial failure"
+language_gap GAP_BASKET_CREATED_BEFORE_VALIDATION "Checkout can create a basket before validating the submitted model; this compose omits that persisted empty basket on a bad request"
+language_gap GAP_COOKIE_CHECKOUT_UNREACHABLE "The cookie-based checkout path is unreachable because the page requires authentication"
+language_gap GAP_CONCURRENT_CHECKOUTS "Concurrent checkouts can create multiple orders from the same basket; locking and concurrency are not modeled"
+compose atomic Checkout(request: Identifier, isAuthenticated: Bool, identityMissing: Bool, userNameMissing: Bool, hasCookie: Bool, cookieIsGuid: Bool, basketId: Identifier, buyerId: Text, lineId: Identifier, quantity: Int, isSubmitted: Bool, orderId: Identifier, orderLineId: Identifier, numericItemId: Int, buyerIdIsEmpty: Bool) =
+  Access.AuthorizeUser(request, isAuthenticated);
+  Update.UpdateBasketQuantities(request, identityMissing, isAuthenticated, userNameMissing, hasCookie, cookieIsGuid, basketId, buyerId, lineId, quantity, isSubmitted);
+  Order.CreateOrderFromBasket(basketId, orderId, orderLineId, lineId, numericItemId, buyerId, buyerIdIsEmpty, "123 Main St.", "Kent", "OH", "United States", "44240");
+  Lines.DeleteBasket(basketId)
+business_rules {
+  ensures BR_CHECKOUT_REQUIRES_AUTHENTICATED_USER for Checkout origin literal("[Authorize]") "an unauthenticated request creates no order and does not delete the basket":
+    (not isAuthenticated) => (((orderId in Order) == old(orderId in Order)) and ((basketId in Basket) == old(basketId in Basket)))
+  ensures BR_CHECKOUT_USES_FIXED_ADDRESS for Checkout origin derived(DD_FIXED_SHIPPING_ADDRESS) "every order created by checkout uses the address hard-coded in the page":
+    (orderId in Order and not old(orderId in Order)) => (Order.street[orderId] == "123 Main St." and Order.city[orderId] == "Kent" and Order.region[orderId] == "OH" and Order.country[orderId] == "United States" and Order.postalCode[orderId] == "44240")
+  ensures BR_CHECKOUT_DELETES_BASKET_AFTER_ORDER for Checkout origin literal("await _basketService.DeleteBasketAsync(BasketModel.Id);") "after order creation, the basket and its lines are removed":
+    (orderId in Order and not old(orderId in Order)) => (not (basketId in Basket) and (forall line: (line in BasketLine) => BasketLine.basketId[line] != basketId))
+  ensures BR_FAILED_ORDER_PRESERVES_BASKET for Checkout origin literal("catch (EmptyBasketOnCheckoutException emptyBasketOnCheckoutException)") "when checkout creates no order, an existing basket remains available":
+    (isAuthenticated and not (orderId in Order) and old(basketId in Basket)) => basketId in Basket
+  ensures BR_ORDER_LINE_USES_RECORDED_BASKET_PRICE for Checkout origin derived(DD_FIXED_SHIPPING_ADDRESS) "the purchased line keeps the price recorded in the basket":
+    (orderLineId in OrderLine and not old(orderLineId in OrderLine)) => OrderLine.unitPrice[orderLineId] == old(BasketLine.unitPrice[lineId])
+}

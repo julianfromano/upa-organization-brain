@@ -1,0 +1,41 @@
+{
+  "format": "upa-ui-ir-1",
+  "name": "order-agenda-web",
+  "title": "Order agenda",
+  "version": "1.0.0",
+  "pages": [
+    {"id": 1, "title": "Orders", "collection": "orders"}
+  ],
+  "operations": [
+    {
+      "operation": "RegisterOrder",
+      "title": "Register order",
+      "page_id": 1,
+      "action_component_id": 4,
+      "action_kind": "Button",
+      "fields": [
+        {"component_id": 1, "component_kind": "Input", "label": "Customer ID", "role": "numeric-input", "parameters": ["customerId"]},
+        {"component_id": 2, "component_kind": "Combo", "label": "Product", "role": "selection", "parameters": ["product"]},
+        {"component_id": 3, "component_kind": "Input", "label": "Quantity", "role": "numeric-input", "parameters": ["quantity"], "input_type": "number", "min": 1}
+      ],
+      "resolved_parameters": {
+        "id": {"kind": "server_generated", "reason": "The application assigns the order identifier."}
+      },
+      "feedback": {"source": "existing_application_api", "trace": "POST /api/orders -> result"}
+    }
+  ],
+  "collections": [
+    {
+      "name": "orders",
+      "source": "orders",
+      "page_id": 1,
+      "entity": "Order",
+      "fields": [
+        {"attribute": "number", "api_field": "number", "label": "Order"},
+        {"attribute": "customerId", "api_field": "customerId", "label": "Customer ID"},
+        {"attribute": "product", "api_field": "product", "label": "Product"},
+        {"attribute": "quantity", "api_field": "quantity", "label": "Quantity"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_BASKET_LINE_KEY",
+    "resolves": null,
+    "status": "decided",
+    "text": "A basket line is identified by its basket and catalog item; the caller resolves the line key"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_INTEGER_QUANTITY",
+    "resolves": null,
+    "status": "decided",
+    "text": "Basket quantities are integers in the range zero through Int32.MaxValue"
+  }
+]

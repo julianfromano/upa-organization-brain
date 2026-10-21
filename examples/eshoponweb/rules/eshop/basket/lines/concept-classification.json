@@ -1,0 +1,180 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:DeleteBasket",
+        "OP:FindBasket",
+        "OP:GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ADDING_LINE_PRESERVES_PRICE",
+        "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "BR_EXISTING_LINE_ADDS_QUANTITY",
+        "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "OP:AddBasketLine",
+        "OP:DeleteBasket",
+        "OP:MergeBasketLine",
+        "OP:RemoveZeroQuantityLines",
+        "OP:SetLineQuantity"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:GetOrCreateBasket"
+      ],
+      "name": "GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:FindBasket"
+      ],
+      "name": "FindBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:AddBasketLine"
+      ],
+      "name": "AddBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:SetLineQuantity"
+      ],
+      "name": "SetLineQuantity",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:RemoveZeroQuantityLines"
+      ],
+      "name": "RemoveZeroQuantityLines",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:MergeBasketLine"
+      ],
+      "name": "MergeBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteBasket"
+      ],
+      "name": "DeleteBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ADDING_LINE_PRESERVES_PRICE",
+        "BR_EXISTING_LINE_ADDS_QUANTITY",
+        "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:AddBasketLine"
+      ],
+      "name": "AddBasketLine.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:DeleteBasket"
+      ],
+      "name": "DeleteBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:FindBasket"
+      ],
+      "name": "FindBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:GetOrCreateBasket"
+      ],
+      "name": "GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "OP:MergeBasketLine"
+      ],
+      "name": "MergeBasketLine.anonymousLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:MergeBasketLine"
+      ],
+      "name": "MergeBasketLine.shopperLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "OP:SetLineQuantity"
+      ],
+      "name": "SetLineQuantity.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    }
+  ],
+  "role_notes": []
+}

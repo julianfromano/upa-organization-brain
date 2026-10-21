@@ -1,0 +1,209 @@
+{
+  "composes": [],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Create",
+        "components": [
+          {
+            "alias": "Access",
+            "ref": "eshop.access.authorization",
+            "version": "0.1"
+          }
+        ],
+        "depth": 1,
+        "exports": [],
+        "ir_hash": "d02faf0b1bcb9d5ca6321ebeacb8e847631dd0a53dd4818f995394ca29ffd9a8",
+        "path": "eshop/catalog/create/create.upa",
+        "ref": "eshop.catalog.create",
+        "spec": "CreateCatalogItem",
+        "version": "0.1"
+      },
+      {
+        "alias": "Edit",
+        "components": [
+          {
+            "alias": "Access",
+            "ref": "eshop.access.authorization",
+            "version": "0.1"
+          },
+          {
+            "alias": "Item",
+            "ref": "eshop.catalog.item",
+            "version": "0.1"
+          }
+        ],
+        "depth": 1,
+        "exports": [],
+        "ir_hash": "3cddd0c0f2e937a99c471021f711a226a7dbf3f1d29b92ad616ae8f946105a53",
+        "path": "eshop/catalog/edit/edit.upa",
+        "ref": "eshop.catalog.edit",
+        "spec": "EditCatalogItem",
+        "version": "0.1"
+      },
+      {
+        "alias": "Delete",
+        "components": [
+          {
+            "alias": "Access",
+            "ref": "eshop.access.authorization",
+            "version": "0.1"
+          },
+          {
+            "alias": "Item",
+            "ref": "eshop.catalog.item",
+            "version": "0.1"
+          }
+        ],
+        "depth": 1,
+        "exports": [],
+        "ir_hash": "35649dfa89975cf5fc5de5a9aa1367b9943fa6ce1b37ce9f4387d6a5041aabb8",
+        "path": "eshop/catalog/delete/delete.upa",
+        "ref": "eshop.catalog.delete",
+        "spec": "DeleteCatalogItem",
+        "version": "0.1"
+      },
+      {
+        "alias": "Filter",
+        "components": [],
+        "depth": 0,
+        "exports": [
+          {
+            "name": "MatchesCatalogFilters",
+            "params": [
+              [
+                "hasBrand",
+                "Bool"
+              ],
+              [
+                "brandFilter",
+                "Int"
+              ],
+              [
+                "itemBrand",
+                "Int"
+              ],
+              [
+                "hasType",
+                "Bool"
+              ],
+              [
+                "typeFilter",
+                "Int"
+              ],
+              [
+                "itemType",
+                "Int"
+              ]
+            ],
+            "ret": "Bool"
+          },
+          {
+            "name": "EffectivePageSize",
+            "params": [
+              [
+                "pageSize",
+                "Int"
+              ]
+            ],
+            "ret": "Int"
+          },
+          {
+            "name": "RowsToSkip",
+            "params": [
+              [
+                "pageIndex",
+                "Int"
+              ],
+              [
+                "pageSize",
+                "Int"
+              ]
+            ],
+            "ret": "Int"
+          },
+          {
+            "name": "IsLastPage",
+            "params": [
+              [
+                "currentPage",
+                "Int"
+              ],
+              [
+                "totalPages",
+                "Int"
+              ]
+            ],
+            "ret": "Bool"
+          },
+          {
+            "name": "IsFirstPage",
+            "params": [
+              [
+                "currentPage",
+                "Int"
+              ]
+            ],
+            "ret": "Bool"
+          }
+        ],
+        "ir_hash": "04313fdca483d1c73e301ff33bbb5df16e284c7a37b4df8f715897ebdaaa7c37",
+        "path": "eshop/catalog/filter/filter.upa",
+        "ref": "eshop.catalog.filter",
+        "spec": "FilterCatalog",
+        "version": "0.1"
+      }
+    ],
+    "depth": 2
+  },
+  "entities": {},
+  "enums": {},
+  "externals": [],
+  "facts": [],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {},
+    "parameter_roles": [],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [],
+  "properties": [],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "CatalogAdministration",
+  "texts": [
+    ""
+  ],
+  "tier": "process",
+  "types": {},
+  "uses": [],
+  "version": "0.1"
+}

@@ -1,0 +1,21 @@
+spec DeleteCatalogItem version "0.1" tier subprocess
+// Source: src/PublicApi/CatalogItemEndpoints/DeleteCatalogItemEndpoint.cs:30-41.
+
+component Access = eshop.access.authorization@0.1
+component Item = eshop.catalog.item@0.1
+language_gap GAP_ORPHANED_BASKET_LINES "Deleting a catalog item does not remove basket lines that reference it; those lines can outlive the catalog item"
+operation DeleteItem(itemId: Identifier) {
+  when not (itemId in CatalogItem) outcome ItemNotFound { }
+  otherwise { delete CatalogItem[itemId] }
+}
+compose atomic DeleteCatalogItem(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool, itemId: Identifier) =
+  Access.AuthorizeAdministrator(request, isAuthenticated, isAdministrator); Item.FindCatalogItem(itemId); DeleteItem(itemId)
+store CatalogItem in "Catalog" key "Id" { name = "Name", description = "Description", price = "Price", brandId = "CatalogBrandId", typeId = "CatalogTypeId", imageUri = "PictureUri" } evidence "Infrastructure/Data/Config/CatalogItemConfiguration.cs"
+business_rules {
+  ensures BR_DELETE_REQUIRES_ADMIN for DeleteCatalogItem origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]") "a non-administrator cannot delete an item":
+    (not isAuthenticated or not isAdministrator) => ((itemId in CatalogItem) == old(itemId in CatalogItem))
+  ensures BR_ADMIN_DELETES_EXISTING_ITEM for DeleteCatalogItem origin literal("await itemRepository.DeleteAsync(itemToDelete);") "an administrator deletes an existing item from the catalog":
+    (isAuthenticated and isAdministrator and old(itemId in CatalogItem)) => not (itemId in CatalogItem)
+  ensures BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT for DeleteCatalogItem origin literal("if (itemToDelete is null)") "deleting a missing item does not create a catalog entry":
+    (not old(itemId in CatalogItem)) => not (itemId in CatalogItem)
+}

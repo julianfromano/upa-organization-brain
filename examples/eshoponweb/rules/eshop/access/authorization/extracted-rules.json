@@ -1,0 +1,86 @@
+{
+  "assumptions": [
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_FRAMEWORK_AUTH",
+      "owner": "ASP.NET Core",
+      "text": "The ASP.NET Core authorization middleware rejects unauthenticated requests and requests without the required role before a handler runs"
+    }
+  ],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "text": "protected shopper operations require an authenticated user"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_CATALOG_ROLE",
+      "text": "Catalog administration requires the Administrators role; other protected shopper operations require an authenticated user"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "subject": "AccessGrant.granted",
+      "target": "Bool"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "AuthorizeAdministrator",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "isAdministrator"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "AuthorizeUser",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "isAuthenticated"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

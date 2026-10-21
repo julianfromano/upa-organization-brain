@@ -1,0 +1,28 @@
+spec Authorization version "0.1" tier atom
+// Sources: src/PublicApi/CatalogItemEndpoints/CreateCatalogItemEndpoint.cs:30; UpdateCatalogItemEndpoint.cs:28; DeleteCatalogItemEndpoint.cs:21; src/Web/Pages/Admin/EditCatalogItem.cshtml.cs:11; src/Web/Pages/Basket/Checkout.cshtml.cs:14.
+
+// ASP.NET Core authorization runs before the protected handler.
+assumption AS_FRAMEWORK_AUTH "The ASP.NET Core authorization middleware rejects unauthenticated requests and requests without the required role before a handler runs" owner "ASP.NET Core"
+decision DD_CATALOG_ROLE "Catalog administration requires the Administrators role; other protected shopper operations require an authenticated user"
+entity AccessGrant { granted: Bool }
+facts {
+  fact F_ACCESS_GRANTED origin literal("[Authorize]"): every AccessGrant has exactly_one granted: Bool
+}
+query CanManageCatalog(isAuthenticated: Bool, isAdministrator: Bool) -> Bool = isAuthenticated and isAdministrator
+operation AuthorizeAdministrator(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool) {
+  when not isAuthenticated outcome NotAuthenticated { }
+  when not isAdministrator outcome MissingAdministratorRole { }
+  otherwise { create AccessGrant[request] { granted = true } }
+}
+operation AuthorizeUser(request: Identifier, isAuthenticated: Bool) {
+  when not isAuthenticated outcome NotAuthenticated { }
+  otherwise { create AccessGrant[request] { granted = true } }
+}
+business_rules {
+  ensures BR_ADMIN_REQUIRES_ROLE for AuthorizeAdministrator origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS") "only an authenticated administrator receives catalog-management access":
+    (request in AccessGrant and not old(request in AccessGrant)) => (isAuthenticated and isAdministrator)
+  ensures BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT for AuthorizeAdministrator origin literal("[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS") "a missing identity or administrator role grants no access":
+    (not isAuthenticated or not isAdministrator) => ((request in AccessGrant) == old(request in AccessGrant))
+  ensures BR_SHOPPER_REQUIRES_AUTHENTICATION for AuthorizeUser origin literal("[Authorize]") "protected shopper operations require an authenticated user":
+    (request in AccessGrant and not old(request in AccessGrant)) => isAuthenticated
+}

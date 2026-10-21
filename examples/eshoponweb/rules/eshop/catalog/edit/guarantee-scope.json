@@ -1,0 +1,46 @@
+{
+  "pending_design_decisions": [],
+  "plane_1_formal_on_IR": {
+    "assumptions": [],
+    "does_not_prove": [
+      "business correctness beyond the formalized rules",
+      "progress/liveness (every order completes)",
+      "fidelity of the IR-to-C# translation"
+    ],
+    "not_proven": [],
+    "proven_rules": [
+      "BR_UPDATE_API_REQUIRES_ADMIN",
+      "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+      "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+      "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+      "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+      "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+      "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+      "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+      "Access_BR_ADMIN_REQUIRES_ROLE",
+      "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "Item_BR_VALID_DETAILS_ARE_APPLIED",
+      "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "Item_BR_EMPTY_NAME_IS_REJECTED",
+      "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "Item_BR_BRAND_MUST_BE_NONZERO",
+      "Item_BR_TYPE_MUST_BE_NONZERO"
+    ],
+    "what": "the verifier (Z3) proves each rule over canonical IR under the listed assumptions; two-state laws and invariants hold across every sequence of atomic operations"
+  },
+  "plane_2_validated_on_csharp": {
+    "status": "NOT_RUN",
+    "what": "C# conformance tests against the IR reference model; this is not a proof"
+  },
+  "plane_3_integration_operation": {
+    "items": [
+      "step durability and atomicity (AS_1)",
+      "concurrency (Q_4)",
+      "real persistence",
+      "performance",
+      "real process interruptions"
+    ],
+    "status": "OUT_OF_SCOPE_FOR_MVP"
+  }
+}

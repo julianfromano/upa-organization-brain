@@ -1,0 +1,321 @@
+{
+  "composes": [],
+  "entities": {},
+  "enums": {},
+  "externals": [],
+  "facts": [],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {},
+    "parameter_roles": [],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_TOTAL_PAGES",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The UI computes total pages with decimal division and ceiling; division and ceiling are not modeled"
+      },
+      {
+        "id": "GAP_RESULT_ORDER",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The query does not declare an ordering, so page order is database-dependent"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [],
+  "properties": [],
+  "queries": [
+    {
+      "body": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "hasBrand",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "itemBrand",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "brandFilter",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "and",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "hasType",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "itemType",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "typeFilter",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "decl": "Bool",
+      "layer": null,
+      "name": "MatchesCatalogFilters",
+      "params": [
+        {
+          "decl": "Bool",
+          "name": "hasBrand",
+          "type": "bool"
+        },
+        {
+          "decl": "Int",
+          "name": "brandFilter",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "itemBrand",
+          "type": "int"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasType",
+          "type": "bool"
+        },
+        {
+          "decl": "Int",
+          "name": "typeFilter",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "itemType",
+          "type": "int"
+        }
+      ],
+      "ret": "bool"
+    },
+    {
+      "body": {
+        "c": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "pageSize",
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "int",
+            "ty": "int",
+            "v": 0
+          },
+          "ty": "bool"
+        },
+        "f": {
+          "k": "var",
+          "n": "pageSize",
+          "ty": "int"
+        },
+        "k": "if",
+        "t": {
+          "k": "int",
+          "ty": "int",
+          "v": 2147483647
+        },
+        "ty": "int"
+      },
+      "decl": "Int",
+      "layer": null,
+      "name": "EffectivePageSize",
+      "params": [
+        {
+          "decl": "Int",
+          "name": "pageSize",
+          "type": "int"
+        }
+      ],
+      "ret": "int"
+    },
+    {
+      "body": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "pageSize",
+          "ty": "int"
+        },
+        "op": "*",
+        "r": {
+          "k": "var",
+          "n": "pageIndex",
+          "ty": "int"
+        },
+        "ty": "int"
+      },
+      "decl": "Int",
+      "layer": null,
+      "name": "RowsToSkip",
+      "params": [
+        {
+          "decl": "Int",
+          "name": "pageIndex",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "pageSize",
+          "type": "int"
+        }
+      ],
+      "ret": "int"
+    },
+    {
+      "body": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "currentPage",
+          "ty": "int"
+        },
+        "op": "==",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "totalPages",
+            "ty": "int"
+          },
+          "op": "-",
+          "r": {
+            "k": "int",
+            "ty": "int",
+            "v": 1
+          },
+          "ty": "int"
+        },
+        "ty": "bool"
+      },
+      "decl": "Bool",
+      "layer": null,
+      "name": "IsLastPage",
+      "params": [
+        {
+          "decl": "Int",
+          "name": "currentPage",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "totalPages",
+          "type": "int"
+        }
+      ],
+      "ret": "bool"
+    },
+    {
+      "body": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "currentPage",
+          "ty": "int"
+        },
+        "op": "==",
+        "r": {
+          "k": "int",
+          "ty": "int",
+          "v": 0
+        },
+        "ty": "bool"
+      },
+      "decl": "Bool",
+      "layer": null,
+      "name": "IsFirstPage",
+      "params": [
+        {
+          "decl": "Int",
+          "name": "currentPage",
+          "type": "int"
+        }
+      ],
+      "ret": "bool"
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "FilterCatalog",
+  "texts": [
+    ""
+  ],
+  "tier": "atom",
+  "types": {},
+  "uses": [],
+  "version": "0.1"
+}

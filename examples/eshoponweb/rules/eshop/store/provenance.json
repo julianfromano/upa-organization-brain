@@ -1,0 +1,1049 @@
+{
+  "by_rule": {
+    "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT": [
+      "BasketLine"
+    ],
+    "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION": [
+      "AccessGrant"
+    ],
+    "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE": [
+      "BasketLine",
+      "BasketLine.catalogItemId",
+      "CatalogItem",
+      "OrderLine"
+    ],
+    "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE": [
+      "OrderLine"
+    ],
+    "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM": [
+      "BasketLine",
+      "BasketLine.catalogItemId",
+      "CatalogItem",
+      "CatalogItem.imageUri",
+      "CatalogItem.name",
+      "OrderLine",
+      "OrderLine.catalogItemId",
+      "OrderLine.pictureUri",
+      "OrderLine.productName"
+    ],
+    "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE": [
+      "OrderLine",
+      "OrderLine.pictureUri",
+      "OrderLine.productName",
+      "OrderLine.subtotal",
+      "OrderLine.unitPrice",
+      "OrderLine.units"
+    ],
+    "Checkout_Order_BR_ORDER_LINE_SUBTOTAL": [
+      "OrderLine",
+      "OrderLine.subtotal",
+      "OrderLine.unitPrice",
+      "OrderLine.units"
+    ],
+    "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE": [
+      "BasketLine",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice",
+      "OrderLine",
+      "OrderLine.orderId",
+      "OrderLine.unitPrice",
+      "OrderLine.units"
+    ],
+    "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL": [
+      "BasketLine",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice",
+      "OrderLine",
+      "OrderTotal",
+      "OrderTotal.amount"
+    ],
+    "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "CreateItem_Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "EditItem_Access_BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "EditItem_Item_BR_BRAND_MUST_BE_NONZERO": [
+      "CatalogItem",
+      "CatalogItem.brandId"
+    ],
+    "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.imageUri",
+      "CatalogItem.typeId"
+    ],
+    "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.description"
+    ],
+    "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.name"
+    ],
+    "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED": [
+      "CatalogItem",
+      "CatalogItem.price"
+    ],
+    "EditItem_Item_BR_TYPE_MUST_BE_NONZERO": [
+      "CatalogItem",
+      "CatalogItem.typeId"
+    ],
+    "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "F_ACCESS_GRANTED": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "F_BASKET_BUYER": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "F_BUYER_COOKIE": [
+      "BuyerResolution",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BUYER_SOURCE": [
+      "BuyerResolution",
+      "BuyerResolution.source"
+    ],
+    "F_ITEM_NAME": [
+      "CatalogItem",
+      "CatalogItem.name"
+    ],
+    "F_ITEM_PRICE": [
+      "CatalogItem",
+      "CatalogItem.price"
+    ],
+    "F_LINE_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "F_LINE_UNIT_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "F_LOGIN_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "F_LOGIN_MERGE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "F_ORDER_BUYER": [
+      "Order",
+      "Order.buyerId"
+    ],
+    "F_ORDER_CITY": [
+      "Order",
+      "Order.city"
+    ],
+    "F_ORDER_COUNTRY": [
+      "Order",
+      "Order.country"
+    ],
+    "F_ORDER_LINE_IMAGE": [
+      "OrderLine",
+      "OrderLine.pictureUri"
+    ],
+    "F_ORDER_LINE_ITEM": [
+      "OrderLine",
+      "OrderLine.catalogItemId"
+    ],
+    "F_ORDER_LINE_NAME": [
+      "OrderLine",
+      "OrderLine.productName"
+    ],
+    "F_ORDER_LINE_PRICE": [
+      "OrderLine",
+      "OrderLine.unitPrice"
+    ],
+    "F_ORDER_LINE_TOTAL": [
+      "OrderLine",
+      "OrderLine.subtotal"
+    ],
+    "F_ORDER_LINE_UNITS": [
+      "OrderLine",
+      "OrderLine.units"
+    ],
+    "F_ORDER_POSTAL_CODE": [
+      "Order",
+      "Order.postalCode"
+    ],
+    "F_ORDER_REGION": [
+      "Order",
+      "Order.region"
+    ],
+    "F_ORDER_STREET": [
+      "Order",
+      "Order.street"
+    ],
+    "F_ORDER_TOTAL": [
+      "OrderTotal",
+      "OrderTotal.amount"
+    ],
+    "INITIAL": [
+      "Basket",
+      "BasketLine",
+      "Order",
+      "OrderLine",
+      "OrderTotal"
+    ],
+    "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Add_Buyer_ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "OP:Add_Lines_AddBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Add_Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Checkout_Access_AuthorizeUser": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:Checkout_Lines_DeleteBasket": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "OP:Checkout_Order_CreateOrderLine": [
+      "BasketLine",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice",
+      "CatalogItem",
+      "CatalogItem.imageUri",
+      "CatalogItem.name",
+      "OrderLine",
+      "OrderLine.catalogItemId",
+      "OrderLine.orderId",
+      "OrderLine.pictureUri",
+      "OrderLine.productName",
+      "OrderLine.subtotal",
+      "OrderLine.unitPrice",
+      "OrderLine.units",
+      "OrderTotal",
+      "OrderTotal.amount"
+    ],
+    "OP:Checkout_Order_InsertOrder": [
+      "Order",
+      "Order.buyerId",
+      "Order.city",
+      "Order.country",
+      "Order.postalCode",
+      "Order.region",
+      "Order.street"
+    ],
+    "OP:Checkout_Order_ValidateBasketForOrder": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "OP:Checkout_Update_Buyer_ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "OP:Checkout_Update_Lines_FindBasket": [
+      "Basket"
+    ],
+    "OP:Checkout_Update_Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Checkout_Update_Lines_RemoveZeroQuantityLines": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "OP:Checkout_Update_Lines_SetLineQuantity": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "OP:CreateItem_Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:CreateItem_InsertCatalogItem": [
+      "CatalogItem",
+      "CatalogItem.brandId",
+      "CatalogItem.description",
+      "CatalogItem.imageUri",
+      "CatalogItem.name",
+      "CatalogItem.price",
+      "CatalogItem.typeId"
+    ],
+    "OP:CreateItem_SetDefaultImage": [
+      "CatalogItem",
+      "CatalogItem.imageUri"
+    ],
+    "OP:DeleteItem_Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:DeleteItem_DeleteItem": [
+      "CatalogItem"
+    ],
+    "OP:DeleteItem_Item_FindCatalogItem": [
+      "CatalogItem"
+    ],
+    "OP:EditItem_Access_AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:EditItem_Item_FindCatalogItem": [
+      "CatalogItem"
+    ],
+    "OP:EditItem_Item_UpdateItemBrand": [
+      "CatalogItem",
+      "CatalogItem.brandId"
+    ],
+    "OP:EditItem_Item_UpdateItemDetails": [
+      "CatalogItem",
+      "CatalogItem.description",
+      "CatalogItem.name",
+      "CatalogItem.price"
+    ],
+    "OP:EditItem_Item_UpdateItemType": [
+      "CatalogItem",
+      "CatalogItem.typeId"
+    ],
+    "OP:Merge_Buyer_DecideLoginMerge": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "OP:Merge_Lines_DeleteBasket": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "OP:Merge_Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Merge_Lines_MergeBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Update_Buyer_ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "OP:Update_Lines_FindBasket": [
+      "Basket"
+    ],
+    "OP:Update_Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Update_Lines_RemoveZeroQuantityLines": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "OP:Update_Lines_SetLineQuantity": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ]
+  },
+  "why": {
+    "AccessGrant": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "CreateItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "EditItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Checkout_Access_AuthorizeUser",
+        "OP:CreateItem_Access_AuthorizeAdministrator",
+        "OP:DeleteItem_Access_AuthorizeAdministrator",
+        "OP:EditItem_Access_AuthorizeAdministrator"
+      ]
+    },
+    "AccessGrant.granted": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ACCESS_GRANTED",
+        "OP:Checkout_Access_AuthorizeUser",
+        "OP:CreateItem_Access_AuthorizeAdministrator",
+        "OP:DeleteItem_Access_AuthorizeAdministrator",
+        "OP:EditItem_Access_AuthorizeAdministrator"
+      ]
+    },
+    "Basket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Add_Lines_GetOrCreateBasket",
+        "OP:Checkout_Lines_DeleteBasket",
+        "OP:Checkout_Order_ValidateBasketForOrder",
+        "OP:Checkout_Update_Lines_FindBasket",
+        "OP:Checkout_Update_Lines_GetOrCreateBasket",
+        "OP:Merge_Lines_DeleteBasket",
+        "OP:Merge_Lines_GetOrCreateBasket",
+        "OP:Update_Lines_FindBasket",
+        "OP:Update_Lines_GetOrCreateBasket"
+      ]
+    },
+    "Basket.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "OP:Add_Lines_GetOrCreateBasket",
+        "OP:Checkout_Update_Lines_GetOrCreateBasket",
+        "OP:Merge_Lines_GetOrCreateBasket",
+        "OP:Update_Lines_GetOrCreateBasket"
+      ]
+    },
+    "BasketLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Lines_DeleteBasket",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:Checkout_Order_ValidateBasketForOrder",
+        "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+        "OP:Checkout_Update_Lines_SetLineQuantity",
+        "OP:Merge_Lines_DeleteBasket",
+        "OP:Merge_Lines_MergeBasketLine",
+        "OP:Update_Lines_RemoveZeroQuantityLines",
+        "OP:Update_Lines_SetLineQuantity",
+        "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED"
+      ]
+    },
+    "BasketLine.basketId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Lines_DeleteBasket",
+        "OP:Checkout_Order_ValidateBasketForOrder",
+        "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+        "OP:Merge_Lines_DeleteBasket",
+        "OP:Merge_Lines_MergeBasketLine",
+        "OP:Update_Lines_RemoveZeroQuantityLines",
+        "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED"
+      ]
+    },
+    "BasketLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:Merge_Lines_MergeBasketLine"
+      ]
+    },
+    "BasketLine.quantity": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+        "OP:Checkout_Update_Lines_SetLineQuantity",
+        "OP:Merge_Lines_MergeBasketLine",
+        "OP:Update_Lines_RemoveZeroQuantityLines",
+        "OP:Update_Lines_SetLineQuantity",
+        "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED"
+      ]
+    },
+    "BasketLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "F_LINE_UNIT_PRICE",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:Merge_Lines_MergeBasketLine",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE"
+      ]
+    },
+    "BuyerResolution": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Add_Buyer_ResolveBuyer",
+        "OP:Checkout_Update_Buyer_ResolveBuyer",
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ]
+    },
+    "BuyerResolution.source": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_SOURCE",
+        "OP:Add_Buyer_ResolveBuyer",
+        "OP:Checkout_Update_Buyer_ResolveBuyer",
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ]
+    },
+    "BuyerResolution.writesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "OP:Add_Buyer_ResolveBuyer",
+        "OP:Checkout_Update_Buyer_ResolveBuyer",
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ]
+    },
+    "CatalogItem": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
+        "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:CreateItem_SetDefaultImage",
+        "OP:DeleteItem_DeleteItem",
+        "OP:DeleteItem_Item_FindCatalogItem",
+        "OP:EditItem_Item_FindCatalogItem",
+        "OP:EditItem_Item_UpdateItemBrand",
+        "OP:EditItem_Item_UpdateItemDetails",
+        "OP:EditItem_Item_UpdateItemType"
+      ]
+    },
+    "CatalogItem.brandId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:EditItem_Item_UpdateItemBrand"
+      ]
+    },
+    "CatalogItem.description": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:EditItem_Item_UpdateItemDetails"
+      ]
+    },
+    "CatalogItem.imageUri": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:CreateItem_SetDefaultImage"
+      ]
+    },
+    "CatalogItem.name": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_NAME",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:EditItem_Item_UpdateItemDetails"
+      ]
+    },
+    "CatalogItem.price": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_PRICE",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:EditItem_Item_UpdateItemDetails"
+      ]
+    },
+    "CatalogItem.typeId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:EditItem_Item_UpdateItemType"
+      ]
+    },
+    "LoginMergeDecision": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.deletesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_LOGIN_COOKIE",
+        "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.mergesBasket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_LOGIN_MERGE",
+        "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ]
+    },
+    "Order": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_BUYER",
+        "F_ORDER_CITY",
+        "F_ORDER_COUNTRY",
+        "F_ORDER_POSTAL_CODE",
+        "F_ORDER_REGION",
+        "F_ORDER_STREET",
+        "INITIAL",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_BUYER",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.city": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_CITY",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.country": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_COUNTRY",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.postalCode": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_POSTAL_CODE",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.region": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_REGION",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "Order.street": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ORDER_STREET",
+        "OP:Checkout_Order_InsertOrder"
+      ]
+    },
+    "OrderLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_LINE_IMAGE",
+        "F_ORDER_LINE_ITEM",
+        "F_ORDER_LINE_NAME",
+        "F_ORDER_LINE_PRICE",
+        "F_ORDER_LINE_TOTAL",
+        "F_ORDER_LINE_UNITS",
+        "INITIAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "F_ORDER_LINE_ITEM",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.orderId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.pictureUri": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "F_ORDER_LINE_IMAGE",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.productName": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "F_ORDER_LINE_NAME",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.subtotal": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+        "F_ORDER_LINE_TOTAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "F_ORDER_LINE_PRICE",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderLine.units": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "F_ORDER_LINE_UNITS",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderTotal": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_TOTAL",
+        "INITIAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    },
+    "OrderTotal.amount": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_TOTAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ]
+    }
+  }
+}

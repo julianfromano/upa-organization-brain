@@ -1,0 +1,975 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:ValidateBasketForOrder",
+    "subject": "Basket"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-002",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:ValidateBasketForOrder",
+    "subject": "BasketLine"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-003",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:ValidateBasketForOrder",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-004",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ValidateBasketForOrder",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-005",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-006",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-007",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "CatalogItem"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-008",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-009",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-010",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-011",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-012",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-013",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-014",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-015",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-016",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-017",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-018",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-019",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-020",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-021",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-022",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-023",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-024",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-025",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-026",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-027",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-028",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-029",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-030",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-031",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-032",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-033",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-034",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-035",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-036",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-037",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-038",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-039",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-040",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-041",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-042",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-043",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-044",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-045",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-046",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-047",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-048",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-049",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-050",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-051",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-052",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-053",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-054",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-055",
+    "kind": "REFERENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-056",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-057",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-058",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-059",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-060",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-061",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderLine",
+    "id": "SC-062",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-063",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-064",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-065",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "CreateOrderLine initializes the attribute when creating OrderTotal",
+    "id": "SC-066",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:CreateOrderLine",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-067",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-068",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-069",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-070",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-071",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-072",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-073",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-074",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-075",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-076",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-077",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-078",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-079",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-080",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-081",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-082",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-083",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-084",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "InsertOrder initializes the attribute when creating Order",
+    "id": "SC-085",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertOrder",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-086",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-087",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-088",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_SUBTOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-089",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_USES_BASKET_PRICE",
+    "subject": "OrderLine.orderId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-090",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-091",
+    "kind": "REFERENCE",
+    "source": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-092",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-093",
+    "kind": "REFERENCE",
+    "source": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-094",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "reference to CatalogItem",
+    "id": "SC-095",
+    "kind": "REFERENCE",
+    "source": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-096",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-097",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-098",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-099",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-100",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-101",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-102",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-103",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-104",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-105",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-106",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-107",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_ORDER_CREATION_PRESERVES_BASKET",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-108",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-109",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-110",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-111",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "Order has exactly_one buyerId: Text",
+    "id": "SC-112",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_BUYER",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-113",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_BUYER",
+    "subject": "Order.buyerId"
+  },
+  {
+    "detail": "Order has exactly_one street: Text",
+    "id": "SC-114",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_STREET",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-115",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_STREET",
+    "subject": "Order.street"
+  },
+  {
+    "detail": "Order has exactly_one city: Text",
+    "id": "SC-116",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_CITY",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-117",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_CITY",
+    "subject": "Order.city"
+  },
+  {
+    "detail": "Order has exactly_one region: Text",
+    "id": "SC-118",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_REGION",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-119",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_REGION",
+    "subject": "Order.region"
+  },
+  {
+    "detail": "Order has exactly_one country: Text",
+    "id": "SC-120",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_COUNTRY",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-121",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_COUNTRY",
+    "subject": "Order.country"
+  },
+  {
+    "detail": "Order has exactly_one postalCode: Text",
+    "id": "SC-122",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_POSTAL_CODE",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-123",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_POSTAL_CODE",
+    "subject": "Order.postalCode"
+  },
+  {
+    "detail": "OrderLine has exactly_one productName: Text",
+    "id": "SC-124",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_NAME",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-125",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_NAME",
+    "subject": "OrderLine.productName"
+  },
+  {
+    "detail": "OrderLine has exactly_one pictureUri: Text",
+    "id": "SC-126",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_IMAGE",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-127",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_IMAGE",
+    "subject": "OrderLine.pictureUri"
+  },
+  {
+    "detail": "OrderLine has exactly_one unitPrice: Money",
+    "id": "SC-128",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_PRICE",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-129",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_PRICE",
+    "subject": "OrderLine.unitPrice"
+  },
+  {
+    "detail": "OrderLine has exactly_one units: Int",
+    "id": "SC-130",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_UNITS",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-131",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_UNITS",
+    "subject": "OrderLine.units"
+  },
+  {
+    "detail": "OrderLine has exactly_one catalogItemId: Identifier",
+    "id": "SC-132",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_ITEM",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-133",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_ITEM",
+    "subject": "OrderLine.catalogItemId"
+  },
+  {
+    "detail": "OrderLine has exactly_one subtotal: Money",
+    "id": "SC-134",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_LINE_TOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-135",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_LINE_TOTAL",
+    "subject": "OrderLine.subtotal"
+  },
+  {
+    "detail": "OrderTotal has exactly_one amount: Money",
+    "id": "SC-136",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ORDER_TOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-137",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ORDER_TOTAL",
+    "subject": "OrderTotal.amount"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-138",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:CreateOrderLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-139",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ORDER_LINE_USES_BASKET_PRICE",
+    "subject": "BasketLine.unitPrice"
+  }
+]

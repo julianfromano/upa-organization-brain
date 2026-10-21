@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CREATE_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a request without an authenticated administrator does not create an item"
+    },
+    {
+      "evidence": "throw new DuplicateException($\"A catalogItem with name {request.Name} already exists\");",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_DUPLICATE_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a duplicate name does not create an item"
+    },
+    {
+      "evidence": "var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CREATE_STORES_REQUESTED_VALUES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an administrator with an available name creates an item with the submitted values without validating price, brand, or type"
+    },
+    {
+      "evidence": "newItem.UpdatePictureUri(\"eCatalog-item-default.png\");",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "after the database assigns an identity, the default image replaces the submitted image"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every AccessGrant has exactly_one granted: Bool"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

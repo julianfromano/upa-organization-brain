@@ -1,0 +1,27 @@
+spec MergeBasketOnLogin version "0.1" tier subprocess
+// Sources: src/Web/Areas/Identity/Pages/Account/Login.cshtml.cs:80-84,106-118; src/ApplicationCore/Services/BasketService.cs:66-84.
+
+component Buyer = eshop.basket.buyer@0.1
+component Lines = eshop.basket.lines@0.1
+language_gap GAP_MERGE_SINGLE_LINE "An anonymous basket can contain multiple lines; one representative line is modeled per invocation"
+language_gap GAP_MERGE_TWO_COMMITS "The shopper basket update and anonymous basket deletion are separate commits; the compose treats them atomically"
+compose atomic MergeOnLogin(request: Identifier, hasCookie: Bool, cookieIsGuid: Bool, userNameEmpty: Bool, anonymousBasketExists: Bool, anonymousLineExists: Bool, anonymousBasket: Identifier, shopperBasket: Identifier, anonymousLine: Identifier, shopperLine: Identifier, shopperId: Text) =
+  Buyer.DecideLoginMerge(request, hasCookie, cookieIsGuid, userNameEmpty);
+  when hasCookie and cookieIsGuid and not userNameEmpty and anonymousBasketExists then Lines.GetOrCreateBasket(shopperBasket, shopperId);
+  when hasCookie and cookieIsGuid and not userNameEmpty and anonymousBasketExists and anonymousLineExists then Lines.MergeBasketLine(anonymousLine, shopperLine, shopperBasket);
+  when hasCookie and cookieIsGuid and not userNameEmpty and anonymousBasketExists then Lines.DeleteBasket(anonymousBasket)
+invokes MergeOnLogin database "SELECT Baskets WHERE BuyerId = @anonymousId" sync via anonymousBasketExists, anonymousLineExists evidence "ApplicationCore/Services/BasketService.cs:68-70"
+business_rules {
+  ensures BR_NO_COOKIE_NO_MERGE for MergeOnLogin origin literal("if (Request.Cookies.ContainsKey(Constants.BASKET_COOKIENAME))") "without a basket cookie, no basket is merged or deleted":
+    (not hasCookie) => ((shopperLine in BasketLine) == old(shopperLine in BasketLine) and (anonymousBasket in Basket) == old(anonymousBasket in Basket) and (shopperBasket in Basket) == old(shopperBasket in Basket))
+  ensures BR_NON_GUID_COOKIE_NO_TRANSFER for MergeOnLogin origin literal("if (Guid.TryParse(anonymousId, out var _))") "a cookie that is not a GUID does not start a basket transfer":
+    (hasCookie and not cookieIsGuid) => ((shopperLine in BasketLine) == old(shopperLine in BasketLine) and (anonymousBasket in Basket) == old(anonymousBasket in Basket))
+  ensures BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT for MergeOnLogin origin literal("if (anonymousBasket == null) return;") "if no anonymous basket exists, the signed-in basket is not created or changed":
+    (not anonymousBasketExists) => ((shopperBasket in Basket) == old(shopperBasket in Basket) and (shopperLine in BasketLine) == old(shopperLine in BasketLine))
+  ensures BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER for MergeOnLogin origin literal("userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);") "a successfully transferred line moves from the anonymous basket to the shopper basket":
+    (hasCookie and cookieIsGuid and not userNameEmpty and anonymousBasketExists and anonymousLineExists and old(anonymousLine in BasketLine) and old(BasketLine.basketId[anonymousLine]) == anonymousBasket and (old(shopperLine in BasketLine) => old(BasketLine.basketId[shopperLine]) == shopperBasket) and anonymousLine != shopperLine and old(anonymousBasket in Basket) and anonymousBasket != shopperBasket) => (shopperLine in BasketLine and not (anonymousLine in BasketLine))
+  ensures BR_ANONYMOUS_BASKET_IS_DELETED for MergeOnLogin origin literal("await _basketRepository.DeleteAsync(anonymousBasket);") "after a successful merge, the anonymous basket is deleted and the shopper basket exists":
+    (hasCookie and cookieIsGuid and not userNameEmpty and anonymousBasketExists and old(anonymousBasket in Basket) and anonymousBasket != shopperBasket and (anonymousLineExists => (old(anonymousLine in BasketLine) and old(BasketLine.basketId[anonymousLine]) == anonymousBasket and anonymousLine != shopperLine and (old(shopperLine in BasketLine) => old(BasketLine.basketId[shopperLine]) == shopperBasket)))) => (not (anonymousBasket in Basket) and shopperBasket in Basket)
+  ensures BR_EXISTING_SHOPPER_PRICE_PREVAILS for MergeOnLogin origin literal("Quantity += quantity;") "when the shopper already had the item, their previous unit price prevails":
+    (hasCookie and cookieIsGuid and anonymousBasketExists and anonymousLineExists and anonymousLine != shopperLine and old(shopperLine in BasketLine)) => BasketLine.unitPrice[shopperLine] == old(BasketLine.unitPrice[shopperLine])
+}

@@ -1,0 +1,109 @@
+spec EShopOnWebStore version "0.1" tier macroprocess
+
+type Money = Int scale 2
+
+component Catalog = eshop.catalog.administration@0.1
+component Add = eshop.basket.add@0.1
+component Update = eshop.basket.update@0.1
+component Merge = eshop.basket.merge@0.1
+component Checkout = eshop.orders.checkout@0.1
+component CreateItem = eshop.catalog.create@0.1
+component EditItem = eshop.catalog.edit@0.1
+component DeleteItem = eshop.catalog.delete@0.1
+
+// End-to-end user journeys retain one resolved shopper and basket identity through each flow.
+compose atomic AddAndCheckout(request: Identifier, itemExists: Bool, identityMissing: Bool, isAuthenticated: Bool, userNameMissing: Bool, hasCookie: Bool, cookieIsGuid: Bool, basketId: Identifier, buyerId: Text, lineId: Identifier, itemId: Identifier, unitPrice: Money, quantity: Int, isSubmitted: Bool, orderId: Identifier, orderLineId: Identifier, numericItemId: Int, buyerIdIsEmpty: Bool) =
+  Add.AddItemToBasket(request, itemExists, identityMissing, isAuthenticated, userNameMissing, hasCookie, cookieIsGuid, basketId, buyerId, lineId, itemId, unitPrice);
+  Update.UpdateBasketQuantities(request, identityMissing, isAuthenticated, userNameMissing, hasCookie, cookieIsGuid, basketId, buyerId, lineId, quantity, isSubmitted);
+  Checkout.Checkout(request, isAuthenticated, identityMissing, userNameMissing, hasCookie, cookieIsGuid, basketId, buyerId, lineId, quantity, isSubmitted, orderId, orderLineId, numericItemId, buyerIdIsEmpty)
+compose atomic MergeOnLogin(request: Identifier, hasCookie: Bool, cookieIsGuid: Bool, userNameEmpty: Bool, anonymousBasketExists: Bool, anonymousLineExists: Bool, anonymousBasket: Identifier, shopperBasket: Identifier, anonymousLine: Identifier, shopperLine: Identifier, shopperId: Text) =
+  Merge.MergeOnLogin(request, hasCookie, cookieIsGuid, userNameEmpty, anonymousBasketExists, anonymousLineExists, anonymousBasket, shopperBasket, anonymousLine, shopperLine, shopperId)
+compose atomic ManageCatalog(request: Identifier, isAuthenticated: Bool, isAdministrator: Bool, duplicateName: Bool, itemId: Identifier, typeId: Int, brandId: Int, description: Text, name: Text, price: Money, imageUri: Text, identityAssigned: Bool, nameIsEmpty: Bool, descriptionIsEmpty: Bool) =
+  CreateItem.CreateItem(request, isAuthenticated, isAdministrator, duplicateName, itemId, typeId, brandId, description, name, price, imageUri, identityAssigned);
+  EditItem.UpdateCatalogItemApi(request, isAuthenticated, isAdministrator, itemId, name, description, price, nameIsEmpty, descriptionIsEmpty, brandId, typeId);
+  DeleteItem.DeleteCatalogItem(request, isAuthenticated, isAdministrator, itemId)
+
+terms {
+  AddAndCheckout "Add an item and check out" "A shopper adds an item, adjusts basket quantities, and places an order"
+  MergeOnLogin "Merge a basket at sign-in" "Eligible anonymous basket lines move into the signed-in shopper's basket"
+  ManageCatalog "Manage the catalog" "An administrator creates, edits, and deletes catalog items"
+}
+system_map {
+  component Storefront {
+    name "eShopOnWeb storefront (Razor Pages and MVC)"
+    kind web_app
+    scope included
+    role "Catalog browsing, baskets, checkout, sign-in basket merge, and shopper-facing administration pages"
+    runtime "ASP.NET Core; src/Web"
+    evidence "src/Web/Pages/Basket/Index.cshtml.cs, Checkout.cshtml.cs; Areas/Identity/Pages/Account/Login.cshtml.cs; Services/CatalogViewModelService.cs"
+    realizes Add
+    realizes Update
+    realizes Merge
+    realizes Checkout
+  }
+  component CatalogApi {
+    name "Catalog API (minimal API)"
+    kind service
+    scope included
+    role "Create, update, and delete catalog items for administrators"
+    runtime "ASP.NET Core minimal API; src/PublicApi/CatalogItemEndpoints"
+    evidence "CreateCatalogItemEndpoint.cs, UpdateCatalogItemEndpoint.cs, DeleteCatalogItemEndpoint.cs, ExceptionMiddleware.cs"
+    realizes Catalog
+  }
+  component ApplicationCore {
+    name "ApplicationCore domain model and services"
+    kind service
+    scope included
+    role "Basket, basket service, order service, order, catalog item, and domain guards"
+    runtime "src/ApplicationCore"
+    evidence "Entities/*.cs, Services/BasketService.cs, Services/OrderService.cs"
+    realizes Checkout
+    realizes Merge
+  }
+  component SqlServer {
+    name "EF Core and SQL Server persistence"
+    kind database
+    scope included
+    role "Persistence for catalog items, baskets, basket lines, orders, and order lines"
+    evidence "src/Infrastructure/Data/Config/*.cs"
+    depends_on Storefront
+    depends_on CatalogApi
+    depends_on ApplicationCore
+  }
+  flow AddAndCheckout {
+    name "Add an item and check out"
+    status source_verified
+    evidence "Basket/Index.cshtml.cs OnPost; BasketService.AddItemToBasket; Checkout.cshtml.cs OnPost; OrderService.CreateOrderAsync"
+    step Storefront "OnPost adds a catalog item for the resolved shopper"
+    step ApplicationCore "AddItemToBasket increments an existing line and preserves its unit price"
+    step Storefront "Checkout applies submitted quantities before creating an order"
+    step ApplicationCore "CreateOrderAsync snapshots catalog details and uses the basket price"
+    step SqlServer "The order insert and basket deletion are separate commits"
+  }
+  flow MergeOnLogin {
+    name "Merge an anonymous basket at sign-in"
+    status source_verified
+    evidence "Login.cshtml.cs:80-84,106-118; BasketService.TransferBasketAsync"
+    step Storefront "TransferAnonymousBasketAsync runs for a GUID basket cookie"
+    step ApplicationCore "TransferBasketAsync adds each anonymous line to the shopper basket, then deletes the anonymous basket"
+  }
+  flow ManageCatalog {
+    name "Create, edit, and delete catalog items"
+    status source_verified
+    evidence "CreateCatalogItemEndpoint.cs:50; UpdateCatalogItemEndpoint.cs; DeleteCatalogItemEndpoint.cs"
+    step CatalogApi "The API checks the Administrators role and applies the requested catalog operation"
+    step SqlServer "The catalog item is inserted, updated, or deleted"
+  }
+  observation OBS_CHECKOUT_NOT_ATOMIC {
+    subject AddAndCheckout
+    statement "Checkout updates quantities, creates an order, and deletes the basket in three separate commits; a failure can leave partial effects, while the formal compose is atomic."
+    status source_verified
+    evidence "src/Web/Pages/Basket/Checkout.cshtml.cs:55-58"
+  }
+  observation OBS_FIXED_SHIPPING_ADDRESS {
+    subject AddAndCheckout
+    statement "The shipping address is hard-coded in the checkout page rather than entered by the shopper."
+    status source_verified
+    evidence "src/Web/Pages/Basket/Checkout.cshtml.cs:57"
+  }
+}

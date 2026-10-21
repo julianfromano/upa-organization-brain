@@ -1,0 +1,135 @@
+{
+  "assumptions": [],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DELETE_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]"
+      },
+      "text": "a non-administrator cannot delete an item"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ADMIN_DELETES_EXISTING_ITEM",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await itemRepository.DeleteAsync(itemToDelete);"
+      },
+      "text": "an administrator deletes an existing item from the catalog"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (itemToDelete is null)"
+      },
+      "text": "deleting a missing item does not create a catalog entry"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "text": "a missing identity or administrator role grants no access"
+    }
+  ],
+  "decisions": [],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "subject": "AccessGrant.granted",
+      "target": "Bool"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ITEM_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Name { get; private set; }"
+      },
+      "subject": "CatalogItem.name",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_ITEM_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal Price { get; private set; }"
+      },
+      "subject": "CatalogItem.price",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "DeleteItem",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Access_AuthorizeAdministrator",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "isAdministrator"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "Item_FindCatalogItem",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "itemId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "DeleteCatalogItem",
+      "note": "composition",
+      "params": [
+        "request",
+        "isAuthenticated",
+        "isAdministrator",
+        "itemId"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

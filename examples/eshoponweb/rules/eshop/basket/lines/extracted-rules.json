@@ -1,0 +1,283 @@
+{
+  "assumptions": [
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_DATABASE_CASCADE",
+      "owner": "EF Core",
+      "text": "Deleting a basket also deletes its basket lines through the EF Core relationship"
+    },
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_MERGE_LINES_DIFFER",
+      "owner": "formal model",
+      "text": "The anonymous and signed-in basket lines are distinct records"
+    },
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "AS_EMPTY_BASKETS",
+      "owner": "operation",
+      "text": "No baskets or basket lines exist initially"
+    }
+  ],
+  "business_rules": [
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_EXISTING_LINE_ADDS_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "text": "adding an existing item increases that line's quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ADDING_LINE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "text": "adding units to an existing line does not change its unit price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "text": "a new line stores its basket, item, quantity, and unit price"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "text": "an out-of-range quantity does not create or change a line"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "text": "a submitted quantity replaces the existing line quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "item.SetQuantity(quantity);"
+      },
+      "text": "changing a line quantity does not reprice it"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))"
+      },
+      "text": "a line omitted from the submitted quantities is not changed"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "text": "cleanup removes zero-quantity lines from the selected basket"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.RemoveAll(i => i.Quantity == 0);"
+      },
+      "text": "cleanup preserves other baskets' lines and nonempty lines"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "text": "merging into an existing shopper line adds the anonymous quantity"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "text": "when a shopper already has an item, their existing unit price takes precedence"
+    },
+    {
+      "classification": "EXPLICIT_RULE",
+      "id": "BR_MERGE_CREATES_MISSING_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "text": "an item missing from the shopper basket is copied from the anonymous line"
+    },
+    {
+      "classification": "EXTERNAL_ASSUMPTION",
+      "id": "BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "assumption",
+        "ref": "AS_DATABASE_CASCADE"
+      },
+      "text": "deleting a basket removes the basket and its lines"
+    }
+  ],
+  "decisions": [
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_BASKET_LINE_KEY",
+      "text": "A basket line is identified by its basket and catalog item; the caller resolves the line key"
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "id": "DD_INTEGER_QUANTITY",
+      "text": "Basket quantities are integers in the range zero through Int32.MaxValue"
+    }
+  ],
+  "facts": [
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "subject": "Basket.buyerId",
+      "target": "Text"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "subject": "BasketLine.quantity",
+      "target": "Int"
+    },
+    {
+      "card": "exactly_one",
+      "classification": "EXPLICIT_RULE",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "subject": "BasketLine.unitPrice",
+      "target": "Money"
+    }
+  ],
+  "open_questions": [],
+  "operations": [
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "GetOrCreateBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId",
+        "buyerId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "FindBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "AddBasketLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "basketId",
+        "itemId",
+        "unitPrice",
+        "quantity"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "SetLineQuantity",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "lineId",
+        "quantity",
+        "isSubmitted"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "RemoveZeroQuantityLines",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "MergeBasketLine",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "anonymousLine",
+        "shopperLine",
+        "shopperBasket"
+      ]
+    },
+    {
+      "classification": "DESIGN_DECISION",
+      "name": "DeleteBasket",
+      "note": "operational decomposition chosen by the spec author",
+      "params": [
+        "basketId"
+      ]
+    }
+  ],
+  "technical_rules": []
+}

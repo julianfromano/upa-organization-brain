@@ -1,0 +1,219 @@
+{
+  "by_rule": {
+    "BR_ADDING_LINE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_CLEANUP_PRESERVES_OTHER_LINES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "BR_DELETE_BASKET_CASCADES_TO_LINES": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "BR_EXISTING_LINE_ADDS_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_INVALID_ADDITION_HAS_NO_EFFECT": [
+      "BasketLine"
+    ],
+    "BR_MERGE_ADDS_EXISTING_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_MERGE_CREATES_MISSING_LINE": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "BR_MERGE_PRESERVES_SHOPPER_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "BR_NEW_LINE_USES_SUBMITTED_VALUES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "BR_QUANTITY_UPDATE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_UNSUBMITTED_LINE_IS_UNCHANGED": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_ZERO_QUANTITY_LINES_ARE_REMOVED": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "F_BASKET_BUYER": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "F_LINE_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "F_LINE_UNIT_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "INITIAL": [
+      "Basket",
+      "BasketLine"
+    ],
+    "OP:AddBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:DeleteBasket": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "OP:FindBasket": [
+      "Basket"
+    ],
+    "OP:GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:MergeBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "OP:RemoveZeroQuantityLines": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "OP:SetLineQuantity": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ]
+  },
+  "why": {
+    "Basket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:DeleteBasket",
+        "OP:FindBasket",
+        "OP:GetOrCreateBasket"
+      ]
+    },
+    "Basket.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "OP:GetOrCreateBasket"
+      ]
+    },
+    "BasketLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADDING_LINE_PRESERVES_PRICE",
+        "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "BR_EXISTING_LINE_ADDS_QUANTITY",
+        "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "OP:AddBasketLine",
+        "OP:DeleteBasket",
+        "OP:MergeBasketLine",
+        "OP:RemoveZeroQuantityLines",
+        "OP:SetLineQuantity"
+      ]
+    },
+    "BasketLine.basketId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "OP:AddBasketLine",
+        "OP:DeleteBasket",
+        "OP:MergeBasketLine",
+        "OP:RemoveZeroQuantityLines"
+      ]
+    },
+    "BasketLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:AddBasketLine",
+        "OP:MergeBasketLine"
+      ]
+    },
+    "BasketLine.quantity": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "BR_EXISTING_LINE_ADDS_QUANTITY",
+        "BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "OP:AddBasketLine",
+        "OP:MergeBasketLine",
+        "OP:RemoveZeroQuantityLines",
+        "OP:SetLineQuantity"
+      ]
+    },
+    "BasketLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADDING_LINE_PRESERVES_PRICE",
+        "BR_MERGE_CREATES_MISSING_LINE",
+        "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "F_LINE_UNIT_PRICE",
+        "OP:AddBasketLine",
+        "OP:MergeBasketLine"
+      ]
+    }
+  }
+}

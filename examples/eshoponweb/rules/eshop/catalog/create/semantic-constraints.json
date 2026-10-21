@@ -1,0 +1,219 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-004",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-005",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-006",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-007",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-008",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-009",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-010",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-011",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-013",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-014",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-015",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-016",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-017",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-018",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "InsertCatalogItem initializes the attribute when creating CatalogItem",
+    "id": "SC-019",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:InsertCatalogItem",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-020",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:SetDefaultImage",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-021",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-022",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-023",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "Access_AuthorizeAdministrator initializes the attribute when creating AccessGrant",
+    "id": "SC-024",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Access_AuthorizeAdministrator",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-025",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_CREATE_STORES_REQUESTED_VALUES",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-026",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_CREATE_STORES_REQUESTED_VALUES",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-027",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_CREATE_STORES_REQUESTED_VALUES",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-028",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_CREATE_STORES_REQUESTED_VALUES",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-029",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "AccessGrant has exactly_one granted: Bool",
+    "id": "SC-030",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-031",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ACCESS_GRANTED",
+    "subject": "AccessGrant.granted"
+  }
+]

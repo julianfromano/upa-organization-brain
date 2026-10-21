@@ -1,0 +1,46 @@
+{
+  "by_rule": {
+    "BR_ADMIN_REQUIRES_ROLE": [
+      "AccessGrant"
+    ],
+    "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT": [
+      "AccessGrant"
+    ],
+    "BR_SHOPPER_REQUIRES_AUTHENTICATION": [
+      "AccessGrant"
+    ],
+    "F_ACCESS_GRANTED": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:AuthorizeAdministrator": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ],
+    "OP:AuthorizeUser": [
+      "AccessGrant",
+      "AccessGrant.granted"
+    ]
+  },
+  "why": {
+    "AccessGrant": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ADMIN_REQUIRES_ROLE",
+        "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "F_ACCESS_GRANTED",
+        "OP:AuthorizeAdministrator",
+        "OP:AuthorizeUser"
+      ]
+    },
+    "AccessGrant.granted": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_ACCESS_GRANTED",
+        "OP:AuthorizeAdministrator",
+        "OP:AuthorizeUser"
+      ]
+    }
+  }
+}

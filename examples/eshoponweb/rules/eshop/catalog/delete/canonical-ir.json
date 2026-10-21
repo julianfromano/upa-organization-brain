@@ -1,0 +1,978 @@
+{
+  "composes": [
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          ],
+          "op": "Access_AuthorizeAdministrator",
+          "trail": [
+            "Access.AuthorizeAdministrator"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            }
+          ],
+          "op": "Item_FindCatalogItem",
+          "trail": [
+            "Item.FindCatalogItem"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            }
+          ],
+          "op": "DeleteItem"
+        }
+      ],
+      "layer": null,
+      "name": "DeleteCatalogItem",
+      "outcomes": [
+        {
+          "outcome": "NotAuthenticated",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "MissingAdministratorRole",
+          "step": "Access_AuthorizeAdministrator"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemFound",
+          "step": "Item_FindCatalogItem"
+        },
+        {
+          "outcome": "ItemNotFound",
+          "step": "DeleteItem"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        },
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        }
+      ]
+    }
+  ],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Access",
+        "components": [],
+        "depth": 0,
+        "exports": [
+          {
+            "name": "CanManageCatalog",
+            "params": [
+              [
+                "isAuthenticated",
+                "Bool"
+              ],
+              [
+                "isAdministrator",
+                "Bool"
+              ]
+            ],
+            "ret": "Bool"
+          }
+        ],
+        "ir_hash": "10d68b880fdb82f6f534067070d68eeec2d8c3806d233a203546d8cfad0c1a93",
+        "path": "eshop/access/authorization/authorization.upa",
+        "ref": "eshop.access.authorization",
+        "spec": "Authorization",
+        "version": "0.1"
+      },
+      {
+        "alias": "Item",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "8f406d83b66eedc865fc60e1bd993933c8d65b45646e4b25e45244fa545a2073",
+        "path": "eshop/catalog/item/item.upa",
+        "ref": "eshop.catalog.item",
+        "spec": "CatalogItem",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1
+  },
+  "entities": {
+    "AccessGrant": {
+      "attrs": [
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "granted",
+          "type": "bool"
+        }
+      ],
+      "block": "Access=eshop.access.authorization"
+    },
+    "CatalogItem": {
+      "attrs": [
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "brandId",
+          "type": "int"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "imageUri",
+          "type": "text"
+        },
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "price",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "typeId",
+          "type": "int"
+        }
+      ],
+      "block": "Item=eshop.catalog.item"
+    }
+  },
+  "enums": {},
+  "externals": [],
+  "facts": [
+    {
+      "attr": "granted",
+      "card": "exactly_one",
+      "entity": "AccessGrant",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "name",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_NAME",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string Name { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "price",
+      "card": "exactly_one",
+      "entity": "CatalogItem",
+      "id": "F_ITEM_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal Price { get; private set; }"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "AccessGrant": {
+        "attributes": {
+          "granted": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_ACCESS_GRANTED",
+              "OP:Access_AuthorizeAdministrator"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "F_ACCESS_GRANTED",
+              "OP:Access_AuthorizeAdministrator"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Access_AuthorizeAdministrator"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "Access_BR_ADMIN_REQUIRES_ROLE",
+          "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "F_ACCESS_GRANTED",
+          "OP:Access_AuthorizeAdministrator"
+        ]
+      },
+      "CatalogItem": {
+        "attributes": {
+          "brandId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": []
+          },
+          "description": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          },
+          "imageUri": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": []
+          },
+          "name": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_ITEM_NAME"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "F_ITEM_NAME"
+            ]
+          },
+          "price": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_ITEM_PRICE"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "F_ITEM_PRICE"
+            ]
+          },
+          "typeId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": []
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ADMIN_DELETES_EXISTING_ITEM",
+          "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+          "BR_DELETE_REQUIRES_ADMIN",
+          "F_ITEM_NAME",
+          "F_ITEM_PRICE",
+          "OP:DeleteItem",
+          "OP:Item_FindCatalogItem"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "Access_AuthorizeAdministrator",
+        "parameter": "request",
+        "plays": [
+          "AccessGrant"
+        ],
+        "required_by": [
+          "Access_BR_ADMIN_REQUIRES_ROLE",
+          "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+          "OP:Access_AuthorizeAdministrator"
+        ]
+      },
+      {
+        "operation": "DeleteCatalogItem",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "BR_ADMIN_DELETES_EXISTING_ITEM",
+          "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+          "BR_DELETE_REQUIRES_ADMIN"
+        ]
+      },
+      {
+        "operation": "DeleteItem",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "OP:DeleteItem"
+        ]
+      },
+      {
+        "operation": "Item_FindCatalogItem",
+        "parameter": "itemId",
+        "plays": [
+          "CatalogItem"
+        ],
+        "required_by": [
+          "OP:Item_FindCatalogItem"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_ORPHANED_BASKET_LINES",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "Deleting a catalog item does not remove basket lines that reference it; those lines can outlive the catalog item"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "CatalogItem",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "kind": "delete"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "DeleteItem",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        }
+      ]
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "outcome": "NotAuthenticated",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "outcome": "MissingAdministratorRole",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "AccessGrant",
+              "inits": [
+                {
+                  "attr": "granted",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Access_AuthorizeAdministrator",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAdministrator",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Item=eshop.catalog.item",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "ItemFound",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "Item_FindCatalogItem",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_DELETE_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]"
+      },
+      "targets": [
+        "DeleteCatalogItem"
+      ],
+      "text": "a non-administrator cannot delete an item"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ADMIN_DELETES_EXISTING_ITEM",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await itemRepository.DeleteAsync(itemToDelete);"
+      },
+      "targets": [
+        "DeleteCatalogItem"
+      ],
+      "text": "an administrator deletes an existing item from the catalog"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (itemToDelete is null)"
+      },
+      "targets": [
+        "DeleteCatalogItem"
+      ],
+      "text": "deleting a missing item does not create a catalog entry"
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "AccessGrant",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "request",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "var",
+            "n": "isAdministrator",
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "block": "Access=eshop.access.authorization",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            }
+          },
+          "op": "or",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "isAdministrator",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "AccessGrant",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "AccessGrant",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "targets": [
+        "Access_AuthorizeAdministrator"
+      ],
+      "text": "a missing identity or administrator role grants no access"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "DeleteCatalogItem",
+  "stores": [
+    {
+      "columns": {
+        "brandId": "CatalogBrandId",
+        "description": "Description",
+        "imageUri": "PictureUri",
+        "name": "Name",
+        "price": "Price",
+        "typeId": "CatalogTypeId"
+      },
+      "entity": "CatalogItem",
+      "evidence": "Infrastructure/Data/Config/CatalogItemConfiguration.cs",
+      "key": "Id",
+      "table": "Catalog"
+    }
+  ],
+  "texts": [
+    ""
+  ],
+  "tier": "subprocess",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

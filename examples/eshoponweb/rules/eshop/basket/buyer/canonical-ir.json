@@ -1,0 +1,1324 @@
+{
+  "composes": [],
+  "entities": {
+    "BuyerResolution": {
+      "attrs": [
+        {
+          "decl": "BuyerSource",
+          "ghost": false,
+          "name": "source",
+          "type": "enum:BuyerSource"
+        },
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "writesCookie",
+          "type": "bool"
+        }
+      ],
+      "block": null
+    },
+    "LoginMergeDecision": {
+      "attrs": [
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "deletesCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "mergesBasket",
+          "type": "bool"
+        }
+      ],
+      "block": null
+    }
+  },
+  "enums": {
+    "BuyerSource": [
+      "SignedInUser",
+      "ExistingCookie",
+      "NewCookie"
+    ]
+  },
+  "externals": [],
+  "facts": [
+    {
+      "attr": "source",
+      "card": "exactly_one",
+      "entity": "BuyerResolution",
+      "id": "F_BUYER_SOURCE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "string? userName = null;"
+      },
+      "target": "BuyerSource"
+    },
+    {
+      "attr": "writesCookie",
+      "card": "exactly_one",
+      "entity": "BuyerResolution",
+      "id": "F_BUYER_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "mergesBasket",
+      "card": "exactly_one",
+      "entity": "LoginMergeDecision",
+      "id": "F_LOGIN_MERGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.TransferBasketAsync(anonymousId, userName);"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "deletesCookie",
+      "card": "exactly_one",
+      "entity": "LoginMergeDecision",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "target": "Bool"
+    }
+  ],
+  "inherited": [],
+  "initial": null,
+  "initial_origin": null,
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "BuyerResolution": {
+        "attributes": {
+          "source": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_SOURCE",
+              "OP:ResolveBuyer"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "BuyerSource",
+            "type_evidence": [
+              "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_SOURCE",
+              "OP:ResolveBuyer"
+            ]
+          },
+          "writesCookie": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_COOKIE",
+              "OP:ResolveBuyer"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_COOKIE",
+              "OP:ResolveBuyer"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "ResolveBuyer"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+          "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+          "BR_MISSING_IDENTITY_IS_REJECTED",
+          "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+          "F_BUYER_COOKIE",
+          "F_BUYER_SOURCE",
+          "OP:ResolveBuyer"
+        ]
+      },
+      "LoginMergeDecision": {
+        "attributes": {
+          "deletesCookie": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_LOGIN_DELETES_PRESENT_COOKIE",
+              "F_LOGIN_COOKIE",
+              "OP:DecideLoginMerge"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "BR_LOGIN_DELETES_PRESENT_COOKIE",
+              "F_LOGIN_COOKIE",
+              "OP:DecideLoginMerge"
+            ]
+          },
+          "mergesBasket": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+              "F_LOGIN_MERGE",
+              "OP:DecideLoginMerge"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+              "F_LOGIN_MERGE",
+              "OP:DecideLoginMerge"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "DecideLoginMerge"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_LOGIN_DELETES_PRESENT_COOKIE",
+          "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+          "F_LOGIN_COOKIE",
+          "F_LOGIN_MERGE",
+          "OP:DecideLoginMerge"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "DecideLoginMerge",
+        "parameter": "request",
+        "plays": [
+          "LoginMergeDecision"
+        ],
+        "required_by": [
+          "BR_LOGIN_DELETES_PRESENT_COOKIE",
+          "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+          "OP:DecideLoginMerge"
+        ]
+      },
+      {
+        "operation": "ResolveBuyer",
+        "parameter": "request",
+        "plays": [
+          "BuyerResolution"
+        ],
+        "required_by": [
+          "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+          "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+          "BR_MISSING_IDENTITY_IS_REJECTED",
+          "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+          "OP:ResolveBuyer"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "var",
+            "n": "identityMissing",
+            "ty": "bool"
+          },
+          "outcome": "IdentityMissing",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "UserNameMissing",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "SignedInUser"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "ExistingCookie"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "NewCookie"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "ResolveBuyer",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "identityMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "EmptyUserName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "DecideLoginMerge",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameEmpty",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "BuyerResolution",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BuyerResolution",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "request",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "isAuthenticated",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "identityMissing",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "SignedInUser"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": false
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Request.HttpContext.User.Identity.Name!;"
+      },
+      "targets": [
+        "ResolveBuyer"
+      ],
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "e": "BuyerResolution",
+                    "k": "in",
+                    "key": {
+                      "k": "var",
+                      "n": "request",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "un",
+                    "op": "not",
+                    "ty": "bool",
+                    "x": {
+                      "k": "old",
+                      "ty": "bool",
+                      "x": {
+                        "e": "BuyerResolution",
+                        "k": "in",
+                        "key": {
+                          "k": "var",
+                          "n": "request",
+                          "ty": "id"
+                        },
+                        "ty": "bool"
+                      }
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "var",
+                    "n": "identityMissing",
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "isAuthenticated",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "var",
+            "n": "cookieIsGuid",
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "ExistingCookie"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": false
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (!Guid.TryParse(userName, out var _))"
+      },
+      "targets": [
+        "ResolveBuyer"
+      ],
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "BuyerResolution",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BuyerResolution",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "request",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "identityMissing",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "isAuthenticated",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              }
+            },
+            "op": "or",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "NewCookie"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": true
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userName = Guid.NewGuid().ToString();"
+      },
+      "targets": [
+        "ResolveBuyer"
+      ],
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "identityMissing",
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "BuyerResolution",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BuyerResolution",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));"
+      },
+      "targets": [
+        "ResolveBuyer"
+      ],
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "LoginMergeDecision",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "LoginMergeDecision",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "a": "mergesBasket",
+            "e": "LoginMergeDecision",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "targets": [
+        "DecideLoginMerge"
+      ],
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "userNameEmpty",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "LoginMergeDecision",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "a": "deletesCookie",
+            "e": "LoginMergeDecision",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "targets": [
+        "DecideLoginMerge"
+      ],
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "BasketBuyer",
+  "texts": [
+    ""
+  ],
+  "tier": "atom",
+  "types": {},
+  "uses": [],
+  "version": "0.1"
+}

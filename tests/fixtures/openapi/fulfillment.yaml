@@ -1,0 +1,31 @@
+openapi: 3.0.3
+info: {title: Fulfillment API, version: "3"}
+paths:
+  /inventory/reservations:
+    post:
+      operationId: Reserve
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/ReservationRequest"}
+      responses:
+        "200": {description: accepted}
+        "409": {description: rejected}
+  /inventory/reservations/{operationId}:
+    get:
+      operationId: GetReservation
+      parameters:
+        - {name: operationId, in: path, required: true, schema: {type: string}}
+      responses:
+        "200": {description: found}
+        "404": {description: reservation not found}
+components:
+  schemas:
+    ReservationRequest:
+      type: object
+      required: [operationId, quantity]
+      properties:
+        operationId: {type: string}
+        quantity: {type: integer, minimum: 1}
+        note: {type: string}

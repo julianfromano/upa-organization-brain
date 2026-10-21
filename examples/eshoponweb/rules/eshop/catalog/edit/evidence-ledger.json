@@ -1,0 +1,206 @@
+{
+  "items": [
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UPDATE_API_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a non-administrator cannot change a catalog item"
+    },
+    {
+      "evidence": "return Results.NotFound();",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "updating a missing item does not create it"
+    },
+    {
+      "evidence": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UPDATE_INVALID_PRICE_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a non-positive price leaves the existing item unchanged"
+    },
+    {
+      "evidence": "existingItem.UpdateDetails(details);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero brand or type prevents the API update from being persisted"
+    },
+    {
+      "evidence": "existingItem.UpdateBrand(request.CatalogBrandId);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UPDATE_API_APPLIES_ALL_FIELDS",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "valid API input updates details, brand, and type"
+    },
+    {
+      "evidence": "new(viewModel.Name, existingCatalogItem.Description, viewModel.Price)",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "the Admin page preserves the existing description, brand, and type"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS)]",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_REQUIRES_ADMIN",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a non-administrator cannot change an item through the Admin page"
+    },
+    {
+      "evidence": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an item whose existing description is empty is not edited from the Admin page"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Access_BR_ADMIN_REQUIRES_ROLE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "only an authenticated administrator receives catalog-management access"
+    },
+    {
+      "evidence": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing identity or administrator role grants no access"
+    },
+    {
+      "evidence": "Name = details.Name;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_VALID_DETAILS_ARE_APPLIED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "valid name, description, and price replace the item's details"
+    },
+    {
+      "evidence": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero or negative price leaves the item unchanged"
+    },
+    {
+      "evidence": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_EMPTY_NAME_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an empty name leaves the item unchanged"
+    },
+    {
+      "evidence": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an empty description leaves the item unchanged"
+    },
+    {
+      "evidence": "Name = details.Name;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "updating details does not change the brand, type, or image"
+    },
+    {
+      "evidence": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_BRAND_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero brand identifier is rejected"
+    },
+    {
+      "evidence": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Item_BR_TYPE_MUST_BE_NONZERO",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a zero type identifier is rejected"
+    },
+    {
+      "evidence": "[Authorize]",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ACCESS_GRANTED",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every AccessGrant has exactly_one granted: Bool"
+    },
+    {
+      "evidence": "public string Name { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ITEM_NAME",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every CatalogItem has exactly_one name: Text"
+    },
+    {
+      "evidence": "public decimal Price { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_ITEM_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every CatalogItem has exactly_one price: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

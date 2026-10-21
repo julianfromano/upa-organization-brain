@@ -1,0 +1,15 @@
+[
+  {
+    "evidence": "declared; guaranteed by the environment providing the initial state; not verified",
+    "id": "AX_TYPED_INITIAL",
+    "source": "stdlib",
+    "text": "the initial state conforms to attribute types (Natural >= 0, enums in range)"
+  },
+  {
+    "evidence": "declared in the UPA program",
+    "id": "AS_DATABASE_CASCADE",
+    "owner": "",
+    "source": "user",
+    "text": ""
+  }
+]

@@ -1,0 +1,387 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-004",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-005",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-006",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-007",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-008",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-009",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-010",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-011",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-013",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-014",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Buyer_DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-015",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Buyer_DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-016",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Lines_GetOrCreateBasket",
+    "subject": "Basket"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-017",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-018",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "Lines_GetOrCreateBasket initializes the attribute when creating Basket",
+    "id": "SC-019",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Lines_GetOrCreateBasket",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-020",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-021",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-022",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-023",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-024",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-025",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-026",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-027",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-028",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-029",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.catalogItemId"
+  },
+  {
+    "detail": "Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-030",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-031",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "Lines_MergeBasketLine initializes the attribute when creating BasketLine",
+    "id": "SC-032",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:Lines_MergeBasketLine",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-033",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:Lines_DeleteBasket",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-034",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-035",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-036",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_BASKET_IS_DELETED",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-037",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_BASKET_IS_DELETED",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-038",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-039",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-040",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-041",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-042",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with int",
+    "id": "SC-043",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-044",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_MERGE_CREATES_MISSING_LINE",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "compatible with Identifier",
+    "id": "SC-045",
+    "kind": "TYPE_EVIDENCE",
+    "source": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+    "subject": "BasketLine.basketId"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one mergesBasket: Bool",
+    "id": "SC-046",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-047",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one deletesCookie: Bool",
+    "id": "SC-048",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-049",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "Basket has exactly_one buyerId: Text",
+    "id": "SC-050",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BASKET_BUYER",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-051",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BASKET_BUYER",
+    "subject": "Basket.buyerId"
+  },
+  {
+    "detail": "BasketLine has exactly_one quantity: Int",
+    "id": "SC-052",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LINE_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-053",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LINE_QUANTITY",
+    "subject": "BasketLine.quantity"
+  },
+  {
+    "detail": "BasketLine has exactly_one unitPrice: Money",
+    "id": "SC-054",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LINE_UNIT_PRICE",
+    "subject": "BasketLine.unitPrice"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-055",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LINE_UNIT_PRICE",
+    "subject": "BasketLine.unitPrice"
+  }
+]

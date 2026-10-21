@@ -1,0 +1,232 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET",
+        "OP:ValidateBasketForOrder"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine",
+        "OP:ValidateBasketForOrder"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:CreateOrderLine"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_STORES_SHIPPING_ADDRESS",
+        "F_ORDER_BUYER",
+        "F_ORDER_CITY",
+        "F_ORDER_COUNTRY",
+        "F_ORDER_POSTAL_CODE",
+        "F_ORDER_REGION",
+        "F_ORDER_STREET",
+        "INITIAL",
+        "OP:InsertOrder"
+      ],
+      "name": "Order",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "BR_ORDER_LINE_SUBTOTAL",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_LINE_IMAGE",
+        "F_ORDER_LINE_ITEM",
+        "F_ORDER_LINE_NAME",
+        "F_ORDER_LINE_PRICE",
+        "F_ORDER_LINE_TOTAL",
+        "F_ORDER_LINE_UNITS",
+        "INITIAL",
+        "OP:CreateOrderLine"
+      ],
+      "name": "OrderLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_TOTAL",
+        "INITIAL",
+        "OP:CreateOrderLine"
+      ],
+      "name": "OrderTotal",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ValidateBasketForOrder"
+      ],
+      "name": "ValidateBasketForOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateOrderLine"
+      ],
+      "name": "CreateOrderLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:InsertOrder"
+      ],
+      "name": "InsertOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateOrderFromBasket"
+      ],
+      "name": "CreateOrderFromBasket",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:CreateOrderLine"
+      ],
+      "name": "BasketLine.catalogItemId",
+      "reason": "attribute used as the identifier for CatalogItem: contextual role, not a class"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_CREATION_PRESERVES_BASKET"
+      ],
+      "name": "CreateOrderFromBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ORDER_CREATION_PRESERVES_BASKET"
+      ],
+      "name": "CreateOrderFromBasket.basketLineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER"
+      ],
+      "name": "CreateOrderFromBasket.lineId",
+      "reason": "parameter used as the identifier for ['OrderLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+        "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+        "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+        "BR_ORDER_STORES_SHIPPING_ADDRESS"
+      ],
+      "name": "CreateOrderFromBasket.orderId",
+      "reason": "parameter used as the identifier for ['Order']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ],
+      "name": "CreateOrderLine.basketLineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "BR_ORDER_LINE_USES_BASKET_PRICE",
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ],
+      "name": "CreateOrderLine.lineId",
+      "reason": "parameter used as the identifier for ['OrderLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:CreateOrderLine"
+      ],
+      "name": "CreateOrderLine.orderId",
+      "reason": "parameter used as the identifier for ['OrderTotal']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:InsertOrder"
+      ],
+      "name": "InsertOrder.orderId",
+      "reason": "parameter used as the identifier for ['Order']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:ValidateBasketForOrder"
+      ],
+      "name": "ValidateBasketForOrder.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    }
+  ],
+  "role_notes": []
+}

@@ -1,0 +1,324 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-004",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-005",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-006",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-007",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-008",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-009",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-010",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-011",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-013",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-014",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "ResolveBuyer initializes the attribute when creating BuyerResolution",
+    "id": "SC-015",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:ResolveBuyer",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-016",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-017",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-018",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-019",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-020",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-021",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-022",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-023",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-024",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-025",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-026",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-027",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-028",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-029",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "DecideLoginMerge initializes the attribute when creating LoginMergeDecision",
+    "id": "SC-030",
+    "kind": "CREATE_INITIALIZES",
+    "source": "OP:DecideLoginMerge",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-031",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-032",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-033",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-034",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-035",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with bool",
+    "id": "SC-036",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-037",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-038",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_LOGIN_DELETES_PRESENT_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "BuyerResolution has exactly_one source: BuyerSource",
+    "id": "SC-039",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BUYER_SOURCE",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "compatible with BuyerSource",
+    "id": "SC-040",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BUYER_SOURCE",
+    "subject": "BuyerResolution.source"
+  },
+  {
+    "detail": "BuyerResolution has exactly_one writesCookie: Bool",
+    "id": "SC-041",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_BUYER_COOKIE",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-042",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_BUYER_COOKIE",
+    "subject": "BuyerResolution.writesCookie"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one mergesBasket: Bool",
+    "id": "SC-043",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-044",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_MERGE",
+    "subject": "LoginMergeDecision.mergesBasket"
+  },
+  {
+    "detail": "LoginMergeDecision has exactly_one deletesCookie: Bool",
+    "id": "SC-045",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  },
+  {
+    "detail": "compatible with Bool",
+    "id": "SC-046",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_LOGIN_COOKIE",
+    "subject": "LoginMergeDecision.deletesCookie"
+  }
+]

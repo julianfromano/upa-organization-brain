@@ -1,0 +1,214 @@
+{
+  "by_rule": {
+    "BR_ANONYMOUS_BASKET_IS_DELETED": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "BR_EXISTING_SHOPPER_PRICE_PREVAILS": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT": [
+      "Basket",
+      "BasketLine"
+    ],
+    "BR_NON_GUID_COOKIE_NO_TRANSFER": [
+      "Basket",
+      "BasketLine"
+    ],
+    "BR_NO_COOKIE_NO_MERGE": [
+      "Basket",
+      "BasketLine"
+    ],
+    "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "F_BASKET_BUYER": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "F_LINE_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "F_LINE_UNIT_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "F_LOGIN_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "F_LOGIN_MERGE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "INITIAL": [
+      "Basket",
+      "BasketLine"
+    ],
+    "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_MERGE_CREATES_MISSING_LINE": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ],
+    "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "OP:Buyer_DecideLoginMerge": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "OP:Lines_DeleteBasket": [
+      "Basket",
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "OP:Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Lines_MergeBasketLine": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.catalogItemId",
+      "BasketLine.quantity",
+      "BasketLine.unitPrice"
+    ]
+  },
+  "why": {
+    "Basket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Lines_DeleteBasket",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "Basket.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "BasketLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+        "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+        "BR_NON_GUID_COOKIE_NO_TRANSFER",
+        "BR_NO_COOKIE_NO_MERGE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Lines_DeleteBasket",
+        "OP:Lines_MergeBasketLine"
+      ]
+    },
+    "BasketLine.basketId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_BASKET_IS_DELETED",
+        "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+        "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Lines_DeleteBasket",
+        "OP:Lines_MergeBasketLine"
+      ]
+    },
+    "BasketLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "OP:Lines_MergeBasketLine"
+      ]
+    },
+    "BasketLine.quantity": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_LINE_QUANTITY",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Lines_MergeBasketLine"
+      ]
+    },
+    "BasketLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+        "F_LINE_UNIT_PRICE",
+        "Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Lines_MergeBasketLine"
+      ]
+    },
+    "LoginMergeDecision": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:Buyer_DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.deletesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "F_LOGIN_COOKIE",
+        "OP:Buyer_DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.mergesBasket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:Buyer_DecideLoginMerge"
+      ]
+    }
+  }
+}

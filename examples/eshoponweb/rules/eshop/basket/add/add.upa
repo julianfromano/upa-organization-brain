@@ -1,0 +1,29 @@
+spec AddToBasket version "0.1" tier subprocess
+// Sources: src/Web/Pages/Basket/Index.cshtml.cs:33-53; src/ApplicationCore/Services/BasketService.cs:23-38.
+
+component Buyer = eshop.basket.buyer@0.1
+component Lines = eshop.basket.lines@0.1
+type Money = Int scale 2
+decision DD_ADD_ONE_UNIT "The basket page omits the quantity argument, so AddItemToBasket uses its default quantity of one"
+decision DD_CAPTURE_CATALOG_PRICE "A new basket line records the catalog price read when the item is added"
+assumption AS_PRICE_FROM_CATALOG "The supplied unit price is read from the catalog item returned by GetByIdAsync" owner "catalog repository"
+language_gap GAP_NULL_PRODUCT_ID "The nullable product identifier check is unreachable for the view-model integer identifier"
+language_gap GAP_MISSING_PRODUCT_REDIRECT "A missing catalog item redirects to the home page without a message; it is modeled as a rejection with no effect"
+operation ValidateCatalogItem(itemExists: Bool) {
+  when not itemExists outcome ItemNotFound { }
+  when itemExists outcome ItemFound success { }
+}
+compose atomic AddItemToBasket(request: Identifier, itemExists: Bool, identityMissing: Bool, isAuthenticated: Bool, userNameMissing: Bool, hasCookie: Bool, cookieIsGuid: Bool, basketId: Identifier, buyerId: Text, lineId: Identifier, itemId: Identifier, unitPrice: Money) =
+  ValidateCatalogItem(itemExists); Buyer.ResolveBuyer(request, identityMissing, isAuthenticated, userNameMissing, hasCookie, cookieIsGuid); Lines.GetOrCreateBasket(basketId, buyerId); Lines.AddBasketLine(lineId, basketId, itemId, unitPrice, 1)
+invokes AddItemToBasket database "SELECT Catalog WHERE Id = @id" sync via itemExists, unitPrice evidence "Web/Pages/Basket/Index.cshtml.cs:40"
+invokes AddItemToBasket database "SELECT Baskets JOIN BasketItems WHERE BuyerId = @user" sync via basketId, lineId evidence "ApplicationCore/Services/BasketService.cs:25-26"
+business_rules {
+  ensures BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT for AddItemToBasket origin literal("if (item == null)") "a missing item creates neither a basket nor a basket line":
+    (not itemExists) => (((basketId in Basket) == old(basketId in Basket)) and ((lineId in BasketLine) == old(lineId in BasketLine)))
+  ensures BR_NEW_BASKET_LINE_HAS_ONE_UNIT for AddItemToBasket origin literal("await _basketService.AddItemToBasket(username,") "a new basket line stores one unit at the catalog price":
+    (itemExists and lineId in BasketLine and not old(lineId in BasketLine)) => (BasketLine.quantity[lineId] == 1 and BasketLine.unitPrice[lineId] == unitPrice)
+  ensures BR_EXISTING_BASKET_LINE_ADDS_ONE for AddItemToBasket origin literal("existingItem.AddQuantity(quantity);") "adding an item that is already present adds one unit without changing its price":
+    (itemExists and not identityMissing and not (isAuthenticated and userNameMissing) and lineId in BasketLine and old(lineId in BasketLine)) => (BasketLine.quantity[lineId] == old(BasketLine.quantity[lineId]) + 1 and BasketLine.unitPrice[lineId] == old(BasketLine.unitPrice[lineId]))
+  ensures BR_SUCCESSFUL_ADD_HAS_BASKET for AddItemToBasket origin literal("basket = new Basket(username);") "a successful add leaves a basket for the resolved shopper":
+    (itemExists and not identityMissing and not (isAuthenticated and userNameMissing)) => basketId in Basket
+}

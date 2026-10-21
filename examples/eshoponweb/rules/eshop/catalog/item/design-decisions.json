@@ -1,0 +1,11 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_PRICE_SCALE",
+    "resolves": null,
+    "status": "decided",
+    "text": "Catalog prices use decimal(18,2), represented as integer cents"
+  }
+]

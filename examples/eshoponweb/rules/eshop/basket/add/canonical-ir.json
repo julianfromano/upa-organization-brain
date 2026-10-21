@@ -1,0 +1,2672 @@
+{
+  "composes": [
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "itemExists",
+              "ty": "bool"
+            }
+          ],
+          "op": "ValidateCatalogItem"
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "identityMissing",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            }
+          ],
+          "op": "Buyer_ResolveBuyer",
+          "trail": [
+            "Buyer.ResolveBuyer"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "buyerId",
+              "ty": "text"
+            }
+          ],
+          "op": "Lines_GetOrCreateBasket",
+          "trail": [
+            "Lines.GetOrCreateBasket"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "unitPrice",
+              "ty": "int"
+            },
+            {
+              "k": "int",
+              "ty": "int",
+              "v": 1
+            }
+          ],
+          "op": "Lines_AddBasketLine",
+          "trail": [
+            "Lines.AddBasketLine"
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "AddItemToBasket",
+      "outcomes": [
+        {
+          "outcome": "ItemNotFound",
+          "step": "ValidateCatalogItem"
+        },
+        {
+          "outcome": "ItemFound",
+          "step": "ValidateCatalogItem"
+        },
+        {
+          "outcome": "IdentityMissing",
+          "step": "Buyer_ResolveBuyer"
+        },
+        {
+          "outcome": "UserNameMissing",
+          "step": "Buyer_ResolveBuyer"
+        },
+        {
+          "outcome": "BasketAlreadyExists",
+          "step": "Lines_GetOrCreateBasket"
+        },
+        {
+          "outcome": "QuantityOutOfRange",
+          "step": "Lines_AddBasketLine"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "itemExists",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "identityMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        },
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "buyerId",
+          "type": "text"
+        },
+        {
+          "decl": "Identifier",
+          "name": "lineId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Money",
+          "name": "unitPrice",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Buyer",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "442ea949d4cf247ef9f06f69b1beff306b4797a1ac85c4927a6ef2b476610462",
+        "path": "eshop/basket/buyer/buyer.upa",
+        "ref": "eshop.basket.buyer",
+        "spec": "BasketBuyer",
+        "version": "0.1"
+      },
+      {
+        "alias": "Lines",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "55ebb03c6c301c5990e1d61bdc8c665dbde79016ce56d9db063a2e19f93d62a7",
+        "path": "eshop/basket/lines/lines.upa",
+        "ref": "eshop.basket.lines",
+        "spec": "BasketLines",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1
+  },
+  "entities": {
+    "Basket": {
+      "attrs": [
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "buyerId",
+          "type": "text"
+        }
+      ],
+      "block": "Lines=eshop.basket.lines"
+    },
+    "BasketLine": {
+      "attrs": [
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "catalogItemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "quantity",
+          "type": "int"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "unitPrice",
+          "type": "int"
+        }
+      ],
+      "block": "Lines=eshop.basket.lines"
+    },
+    "BuyerResolution": {
+      "attrs": [
+        {
+          "decl": "BuyerSource",
+          "ghost": false,
+          "name": "source",
+          "type": "enum:BuyerSource"
+        },
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "writesCookie",
+          "type": "bool"
+        }
+      ],
+      "block": "Buyer=eshop.basket.buyer"
+    }
+  },
+  "enums": {
+    "BuyerSource": [
+      "SignedInUser",
+      "ExistingCookie",
+      "NewCookie"
+    ]
+  },
+  "externals": [],
+  "facts": [
+    {
+      "attr": "source",
+      "card": "exactly_one",
+      "entity": "BuyerResolution",
+      "id": "F_BUYER_SOURCE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "string? userName = null;"
+      },
+      "target": "BuyerSource"
+    },
+    {
+      "attr": "writesCookie",
+      "card": "exactly_one",
+      "entity": "BuyerResolution",
+      "id": "F_BUYER_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "buyerId",
+      "card": "exactly_one",
+      "entity": "Basket",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "quantity",
+      "card": "exactly_one",
+      "entity": "BasketLine",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "target": "Int"
+    },
+    {
+      "attr": "unitPrice",
+      "card": "exactly_one",
+      "entity": "BasketLine",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": {
+    "k": "bin",
+    "l": {
+      "body": {
+        "k": "un",
+        "op": "not",
+        "ty": "bool",
+        "x": {
+          "e": "BasketLine",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "x",
+            "ty": "id"
+          },
+          "ty": "bool"
+        }
+      },
+      "e": null,
+      "k": "forall",
+      "ty": "bool",
+      "v": "x"
+    },
+    "op": "and",
+    "r": {
+      "body": {
+        "k": "un",
+        "op": "not",
+        "ty": "bool",
+        "x": {
+          "e": "Basket",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "b",
+            "ty": "id"
+          },
+          "ty": "bool"
+        }
+      },
+      "e": null,
+      "k": "forall",
+      "ty": "bool",
+      "v": "b"
+    },
+    "ty": "bool"
+  },
+  "initial_origin": null,
+  "invocations": [
+    {
+      "evidence": "Web/Pages/Basket/Index.cshtml.cs:40",
+      "kind": "database",
+      "mode": "sync",
+      "name": "SELECT Catalog WHERE Id = @id",
+      "target": "AddItemToBasket",
+      "via": [
+        "itemExists",
+        "unitPrice"
+      ]
+    },
+    {
+      "evidence": "ApplicationCore/Services/BasketService.cs:25-26",
+      "kind": "database",
+      "mode": "sync",
+      "name": "SELECT Baskets JOIN BasketItems WHERE BuyerId = @user",
+      "target": "AddItemToBasket",
+      "via": [
+        "basketId",
+        "lineId"
+      ]
+    }
+  ],
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "Basket": {
+        "attributes": {
+          "buyerId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_BASKET_BUYER",
+              "OP:Lines_GetOrCreateBasket"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "F_BASKET_BUYER",
+              "OP:Lines_GetOrCreateBasket"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Lines_GetOrCreateBasket"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+          "BR_SUCCESSFUL_ADD_HAS_BASKET",
+          "F_BASKET_BUYER",
+          "INITIAL",
+          "OP:Lines_GetOrCreateBasket"
+        ]
+      },
+      "BasketLine": {
+        "attributes": {
+          "basketId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ]
+          },
+          "catalogItemId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ]
+          },
+          "quantity": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+              "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+              "F_LINE_QUANTITY",
+              "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+              "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+              "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+              "F_LINE_QUANTITY",
+              "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+              "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ]
+          },
+          "unitPrice": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+              "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+              "F_LINE_UNIT_PRICE",
+              "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+              "F_LINE_UNIT_PRICE",
+              "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+              "OP:Lines_AddBasketLine"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Lines_AddBasketLine"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+          "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+          "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+          "F_LINE_QUANTITY",
+          "F_LINE_UNIT_PRICE",
+          "INITIAL",
+          "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+          "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+          "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+          "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+          "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+          "OP:Lines_AddBasketLine"
+        ]
+      },
+      "BuyerResolution": {
+        "attributes": {
+          "source": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_SOURCE",
+              "OP:Buyer_ResolveBuyer"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "BuyerSource",
+            "type_evidence": [
+              "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_SOURCE",
+              "OP:Buyer_ResolveBuyer"
+            ]
+          },
+          "writesCookie": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_COOKIE",
+              "OP:Buyer_ResolveBuyer"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+              "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+              "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+              "F_BUYER_COOKIE",
+              "OP:Buyer_ResolveBuyer"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Buyer_ResolveBuyer"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+          "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+          "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+          "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+          "F_BUYER_COOKIE",
+          "F_BUYER_SOURCE",
+          "OP:Buyer_ResolveBuyer"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "AddItemToBasket",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+          "BR_SUCCESSFUL_ADD_HAS_BASKET"
+        ]
+      },
+      {
+        "operation": "AddItemToBasket",
+        "parameter": "lineId",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+          "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+          "BR_NEW_BASKET_LINE_HAS_ONE_UNIT"
+        ]
+      },
+      {
+        "operation": "Buyer_ResolveBuyer",
+        "parameter": "request",
+        "plays": [
+          "BuyerResolution"
+        ],
+        "required_by": [
+          "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+          "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+          "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+          "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+          "OP:Buyer_ResolveBuyer"
+        ]
+      },
+      {
+        "operation": "Lines_AddBasketLine",
+        "parameter": "lineId",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+          "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+          "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+          "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+          "OP:Lines_AddBasketLine"
+        ]
+      },
+      {
+        "operation": "Lines_GetOrCreateBasket",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "OP:Lines_GetOrCreateBasket"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [
+      {
+        "id": "AS_PRICE_FROM_CATALOG",
+        "owner": "catalog repository",
+        "text": "The supplied unit price is read from the catalog item returned by GetByIdAsync"
+      }
+    ],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [
+      {
+        "alternatives": "",
+        "id": "DD_ADD_ONE_UNIT",
+        "text": "The basket page omits the quantity argument, so AddItemToBasket uses its default quantity of one"
+      },
+      {
+        "alternatives": "",
+        "id": "DD_CAPTURE_CATALOG_PRICE",
+        "text": "A new basket line records the catalog price read when the item is added"
+      }
+    ],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_NULL_PRODUCT_ID",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The nullable product identifier check is unreachable for the view-model integer identifier"
+      },
+      {
+        "id": "GAP_MISSING_PRODUCT_REDIRECT",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "A missing catalog item redirects to the home page without a message; it is modeled as a rejection with no effect"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": null,
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "itemExists",
+              "ty": "bool"
+            }
+          },
+          "outcome": "ItemNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "itemExists",
+            "ty": "bool"
+          },
+          "outcome": "ItemFound",
+          "stmts": [],
+          "success": true
+        }
+      ],
+      "layer": null,
+      "name": "ValidateCatalogItem",
+      "params": [
+        {
+          "decl": "Bool",
+          "name": "itemExists",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "cases": [
+        {
+          "cond": {
+            "k": "var",
+            "n": "identityMissing",
+            "ty": "bool"
+          },
+          "outcome": "IdentityMissing",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "UserNameMissing",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "SignedInUser"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "ExistingCookie"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BuyerResolution",
+              "inits": [
+                {
+                  "attr": "source",
+                  "value": {
+                    "e": "BuyerSource",
+                    "k": "enum",
+                    "ty": "enum:BuyerSource",
+                    "v": "NewCookie"
+                  }
+                },
+                {
+                  "attr": "writesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Buyer_ResolveBuyer",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "identityMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "isAuthenticated",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameMissing",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "cases": [
+        {
+          "cond": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "BasketAlreadyExists",
+          "stmts": [],
+          "success": true
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "Basket",
+              "inits": [
+                {
+                  "attr": "buyerId",
+                  "value": {
+                    "k": "var",
+                    "n": "buyerId",
+                    "ty": "text"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Lines_GetOrCreateBasket",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "buyerId",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "cases": [
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": "<",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "op": "or",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 2147483647
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "QuantityOutOfRange",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "quantity",
+              "entity": "BasketLine",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "bin",
+                "l": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "lineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "+",
+                "r": {
+                  "k": "var",
+                  "n": "quantity",
+                  "ty": "int"
+                },
+                "ty": "int"
+              }
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BasketLine",
+              "inits": [
+                {
+                  "attr": "basketId",
+                  "value": {
+                    "k": "var",
+                    "n": "basketId",
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "catalogItemId",
+                  "value": {
+                    "k": "var",
+                    "n": "itemId",
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "quantity",
+                  "value": {
+                    "k": "var",
+                    "n": "quantity",
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "unitPrice",
+                  "value": {
+                    "k": "var",
+                    "n": "unitPrice",
+                    "ty": "int"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Lines_AddBasketLine",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "lineId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "itemId",
+          "type": "id"
+        },
+        {
+          "decl": "Money",
+          "name": "unitPrice",
+          "type": "int"
+        },
+        {
+          "decl": "Int",
+          "name": "quantity",
+          "type": "int"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "var",
+            "n": "itemExists",
+            "ty": "bool"
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "basketId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (item == null)"
+      },
+      "targets": [
+        "AddItemToBasket"
+      ],
+      "text": "a missing item creates neither a basket nor a basket line"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "itemExists",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "quantity",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 1
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "unitPrice",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "unitPrice",
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.AddItemToBasket(username,"
+      },
+      "targets": [
+        "AddItemToBasket"
+      ],
+      "text": "a new basket line stores one unit at the catalog price"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "itemExists",
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "var",
+                    "n": "identityMissing",
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "bin",
+                  "l": {
+                    "k": "var",
+                    "n": "isAuthenticated",
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "var",
+                    "n": "userNameMissing",
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "quantity",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "lineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "op": "+",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 1
+              },
+              "ty": "int"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "unitPrice",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "unitPrice",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "targets": [
+        "AddItemToBasket"
+      ],
+      "text": "adding an item that is already present adds one unit without changing its price"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "itemExists",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "identityMissing",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "isAuthenticated",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "userNameMissing",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "e": "Basket",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "basketId",
+            "ty": "id"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_SUCCESSFUL_ADD_HAS_BASKET",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "basket = new Basket(username);"
+      },
+      "targets": [
+        "AddItemToBasket"
+      ],
+      "text": "a successful add leaves a basket for the resolved shopper"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "BuyerResolution",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BuyerResolution",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "request",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "isAuthenticated",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "identityMissing",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "SignedInUser"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": false
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "return Request.HttpContext.User.Identity.Name!;"
+      },
+      "targets": [
+        "Buyer_ResolveBuyer"
+      ],
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "e": "BuyerResolution",
+                    "k": "in",
+                    "key": {
+                      "k": "var",
+                      "n": "request",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "un",
+                    "op": "not",
+                    "ty": "bool",
+                    "x": {
+                      "k": "old",
+                      "ty": "bool",
+                      "x": {
+                        "e": "BuyerResolution",
+                        "k": "in",
+                        "key": {
+                          "k": "var",
+                          "n": "request",
+                          "ty": "id"
+                        },
+                        "ty": "bool"
+                      }
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "var",
+                    "n": "identityMissing",
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "isAuthenticated",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "var",
+            "n": "cookieIsGuid",
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "ExistingCookie"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": false
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (!Guid.TryParse(userName, out var _))"
+      },
+      "targets": [
+        "Buyer_ResolveBuyer"
+      ],
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "e": "BuyerResolution",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BuyerResolution",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "request",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "identityMissing",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "isAuthenticated",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              }
+            },
+            "op": "or",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "a": "source",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "enum:BuyerSource"
+            },
+            "op": "==",
+            "r": {
+              "e": "BuyerSource",
+              "k": "enum",
+              "ty": "enum:BuyerSource",
+              "v": "NewCookie"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "writesCookie",
+              "e": "BuyerResolution",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "bool",
+              "ty": "bool",
+              "v": true
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userName = Guid.NewGuid().ToString();"
+      },
+      "targets": [
+        "Buyer_ResolveBuyer"
+      ],
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "var",
+          "n": "identityMissing",
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "BuyerResolution",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BuyerResolution",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));"
+      },
+      "targets": [
+        "Buyer_ResolveBuyer"
+      ],
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "body": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "line",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "quantity",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "line",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": ">=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "line"
+      },
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "targets": [],
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "BasketLine",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "lineId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "quantity",
+                "ty": "int"
+              },
+              "op": ">=",
+              "r": {
+                "k": "int",
+                "ty": "int",
+                "v": 0
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "quantity",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 2147483647
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "quantity",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "quantity",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "op": "+",
+            "r": {
+              "k": "var",
+              "n": "quantity",
+              "ty": "int"
+            },
+            "ty": "int"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "existingItem.AddQuantity(quantity);"
+      },
+      "targets": [
+        "Lines_AddBasketLine"
+      ],
+      "text": "adding an existing item increases that line's quantity"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "unitPrice",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "unitPrice",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "targets": [
+        "Lines_AddBasketLine"
+      ],
+      "text": "adding units to an existing line does not change its unit price"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "lineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "var",
+                  "n": "quantity",
+                  "ty": "int"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "unitPrice",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "lineId",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "var",
+                  "n": "unitPrice",
+                  "ty": "int"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "catalogItemId",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "lineId",
+                  "ty": "id"
+                },
+                "ty": "id"
+              },
+              "op": "==",
+              "r": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "basketId",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "id"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "targets": [
+        "Lines_AddBasketLine"
+      ],
+      "text": "a new line stores its basket, item, quantity, and unit price"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "quantity",
+              "ty": "int"
+            },
+            "op": "<",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "op": "or",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "quantity",
+              "ty": "int"
+            },
+            "op": ">",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 2147483647
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "lineId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "lineId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "targets": [
+        "Lines_AddBasketLine"
+      ],
+      "text": "an out-of-range quantity does not create or change a line"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "AddToBasket",
+  "texts": [
+    ""
+  ],
+  "tier": "subprocess",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

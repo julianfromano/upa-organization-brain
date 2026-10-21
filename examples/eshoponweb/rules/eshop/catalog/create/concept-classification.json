@@ -1,0 +1,114 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_CREATE_REQUIRES_ADMIN",
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "BR_DUPLICATE_NAME_IS_REJECTED",
+        "OP:InsertCatalogItem",
+        "OP:SetDefaultImage"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CheckNameAvailability"
+      ],
+      "name": "CheckNameAvailability",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:InsertCatalogItem"
+      ],
+      "name": "InsertCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:SetDefaultImage"
+      ],
+      "name": "SetDefaultImage",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateItem"
+      ],
+      "name": "CreateItem",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_CREATE_REQUIRES_ADMIN",
+        "BR_CREATE_STORES_REQUESTED_VALUES",
+        "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+        "BR_DUPLICATE_NAME_IS_REJECTED"
+      ],
+      "name": "CreateItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:InsertCatalogItem"
+      ],
+      "name": "InsertCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:SetDefaultImage"
+      ],
+      "name": "SetDefaultImage.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    }
+  ],
+  "role_notes": []
+}

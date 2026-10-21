@@ -1,0 +1,48 @@
+{
+  "capabilities": [],
+  "format": "upa-interaction-ir-1",
+  "inference_rules": [
+    "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+    "EXPLICIT_TO_TEXT_OF_OPERATION_PARAMETER",
+    "LOGICAL_OPERATION_PROJECTION",
+    "NAMED_OPERATION_OUTCOMES",
+    "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+    "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+    "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+    "UNCONDITIONAL_STATE_CHANGE_CASE"
+  ],
+  "language_gaps": [
+    {
+      "id": "GAP_TOTAL_PAGES",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "The UI computes total pages with decimal division and ceiling; division and ceiling are not modeled"
+    },
+    {
+      "id": "GAP_RESULT_ORDER",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "The query does not declare an ordering, so page order is database-dependent"
+    }
+  ],
+  "operations": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "source": {
+    "logical_ir_version": "upa-ir-0.1",
+    "sha256": "04313fdca483d1c73e301ff33bbb5df16e284c7a37b4df8f715897ebdaaa7c37",
+    "spec": "FilterCatalog"
+  }
+}

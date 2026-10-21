@@ -1,0 +1,106 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_ADMIN_DELETES_EXISTING_ITEM",
+        "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+        "BR_DELETE_REQUIRES_ADMIN",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:DeleteItem",
+        "OP:Item_FindCatalogItem"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteItem"
+      ],
+      "name": "DeleteItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Item_FindCatalogItem"
+      ],
+      "name": "Item_FindCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteCatalogItem"
+      ],
+      "name": "DeleteCatalogItem",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Access_BR_ADMIN_REQUIRES_ROLE",
+        "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:Access_AuthorizeAdministrator"
+      ],
+      "name": "Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_ADMIN_DELETES_EXISTING_ITEM",
+        "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
+        "BR_DELETE_REQUIRES_ADMIN"
+      ],
+      "name": "DeleteCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:DeleteItem"
+      ],
+      "name": "DeleteItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Item_FindCatalogItem"
+      ],
+      "name": "Item_FindCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    }
+  ],
+  "role_notes": []
+}

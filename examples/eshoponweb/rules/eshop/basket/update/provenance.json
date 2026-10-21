@@ -1,0 +1,217 @@
+{
+  "by_rule": {
+    "BR_INVALID_FORM_HAS_NO_EFFECT": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "BR_POSITIVE_QUANTITY_REPLACES_LINE": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE": [
+      "BasketLine",
+      "BasketLine.basketId"
+    ],
+    "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "Buyer_BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BASKET_BUYER": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "F_BUYER_COOKIE": [
+      "BuyerResolution",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BUYER_SOURCE": [
+      "BuyerResolution",
+      "BuyerResolution.source"
+    ],
+    "F_LINE_QUANTITY": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "F_LINE_UNIT_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "INITIAL": [
+      "Basket",
+      "BasketLine"
+    ],
+    "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE": [
+      "BasketLine",
+      "BasketLine.unitPrice"
+    ],
+    "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ],
+    "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "OP:Buyer_ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "OP:Lines_FindBasket": [
+      "Basket"
+    ],
+    "OP:Lines_GetOrCreateBasket": [
+      "Basket",
+      "Basket.buyerId"
+    ],
+    "OP:Lines_RemoveZeroQuantityLines": [
+      "BasketLine",
+      "BasketLine.basketId",
+      "BasketLine.quantity"
+    ],
+    "OP:Lines_SetLineQuantity": [
+      "BasketLine",
+      "BasketLine.quantity"
+    ]
+  },
+  "why": {
+    "Basket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:Lines_FindBasket",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "Basket.buyerId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "F_BASKET_BUYER",
+        "OP:Lines_GetOrCreateBasket"
+      ]
+    },
+    "BasketLine": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_INVALID_FORM_HAS_NO_EFFECT",
+        "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+        "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
+        "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "OP:Lines_RemoveZeroQuantityLines",
+        "OP:Lines_SetLineQuantity"
+      ]
+    },
+    "BasketLine.basketId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+        "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE",
+        "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "OP:Lines_RemoveZeroQuantityLines"
+      ]
+    },
+    "BasketLine.catalogItemId": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": []
+    },
+    "BasketLine.quantity": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_INVALID_FORM_HAS_NO_EFFECT",
+        "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+        "F_LINE_QUANTITY",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "OP:Lines_RemoveZeroQuantityLines",
+        "OP:Lines_SetLineQuantity"
+      ]
+    },
+    "BasketLine.unitPrice": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
+        "F_LINE_UNIT_PRICE",
+        "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE"
+      ]
+    },
+    "BuyerResolution": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.source": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.writesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "OP:Buyer_ResolveBuyer"
+      ]
+    }
+  }
+}

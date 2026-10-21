@@ -1,0 +1,117 @@
+{
+  "assumptions": [],
+  "errors": [],
+  "ir_hash": "10d68b880fdb82f6f534067070d68eeec2d8c3806d233a203546d8cfad0c1a93",
+  "obligations": [
+    {
+      "description": "AuthorizeAdministrator satisfies postcondition BR_ADMIN_REQUIRES_ROLE",
+      "id": "ENS:BR_ADMIN_REQUIRES_ROLE@AuthorizeAdministrator",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AuthorizeAdministrator",
+      "rule": "BR_ADMIN_REQUIRES_ROLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "AuthorizeAdministrator satisfies postcondition BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "id": "ENS:BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@AuthorizeAdministrator",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AuthorizeAdministrator",
+      "rule": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 6
+    },
+    {
+      "description": "AuthorizeUser satisfies postcondition BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "id": "ENS:BR_SHOPPER_REQUIRES_AUTHENTICATION@AuthorizeUser",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "AuthorizeUser",
+      "rule": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    }
+  ],
+  "proof_cache": {
+    "frame": 0,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 3
+  },
+  "rules": [
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ADMIN_REQUIRES_ROLE@AuthorizeAdministrator"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "rule": "BR_ADMIN_REQUIRES_ROLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "only an authenticated administrator receives catalog-management access",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@AuthorizeAdministrator"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS"
+      },
+      "rule": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a missing identity or administrator role grants no access",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_SHOPPER_REQUIRES_AUTHENTICATION@AuthorizeUser"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "[Authorize]"
+      },
+      "rule": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "protected shopper operations require an authenticated user",
+      "user_assumptions": []
+    }
+  ],
+  "summary": {
+    "PROVEN": 3,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {
+    "business": {
+      "PROVEN": 3,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

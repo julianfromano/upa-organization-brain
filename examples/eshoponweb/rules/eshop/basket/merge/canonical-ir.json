@@ -1,0 +1,3057 @@
+{
+  "composes": [
+    {
+      "atomic": true,
+      "calls": [
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            }
+          ],
+          "op": "Buyer_DecideLoginMerge",
+          "trail": [
+            "Buyer.DecideLoginMerge"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "shopperBasket",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "shopperId",
+              "ty": "text"
+            }
+          ],
+          "guard": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "hasCookie",
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "var",
+                  "n": "cookieIsGuid",
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "userNameEmpty",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "anonymousBasketExists",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "Lines_GetOrCreateBasket",
+          "trail": [
+            "Lines.GetOrCreateBasket"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "anonymousLine",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            {
+              "k": "var",
+              "n": "shopperBasket",
+              "ty": "id"
+            }
+          ],
+          "guard": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "var",
+                    "n": "hasCookie",
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "var",
+                    "n": "cookieIsGuid",
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "un",
+                  "op": "not",
+                  "ty": "bool",
+                  "x": {
+                    "k": "var",
+                    "n": "userNameEmpty",
+                    "ty": "bool"
+                  }
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "anonymousBasketExists",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "anonymousLineExists",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "Lines_MergeBasketLine",
+          "trail": [
+            "Lines.MergeBasketLine"
+          ]
+        },
+        {
+          "args": [
+            {
+              "k": "var",
+              "n": "anonymousBasket",
+              "ty": "id"
+            }
+          ],
+          "guard": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "hasCookie",
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "var",
+                  "n": "cookieIsGuid",
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "un",
+                "op": "not",
+                "ty": "bool",
+                "x": {
+                  "k": "var",
+                  "n": "userNameEmpty",
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "anonymousBasketExists",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "Lines_DeleteBasket",
+          "trail": [
+            "Lines.DeleteBasket"
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "MergeOnLogin",
+      "outcomes": [
+        {
+          "outcome": "EmptyUserName",
+          "step": "Buyer_DecideLoginMerge"
+        },
+        {
+          "outcome": "BasketAlreadyExists",
+          "step": "Lines_GetOrCreateBasket"
+        },
+        {
+          "outcome": "AnonymousLineNotFound",
+          "step": "Lines_MergeBasketLine"
+        },
+        {
+          "outcome": "BasketNotFound",
+          "step": "Lines_DeleteBasket"
+        }
+      ],
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameEmpty",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "anonymousBasketExists",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "anonymousLineExists",
+          "type": "bool"
+        },
+        {
+          "decl": "Identifier",
+          "name": "anonymousBasket",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "shopperBasket",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "anonymousLine",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "shopperLine",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "shopperId",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "composition": {
+    "calls": [],
+    "components": [
+      {
+        "alias": "Buyer",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "442ea949d4cf247ef9f06f69b1beff306b4797a1ac85c4927a6ef2b476610462",
+        "path": "eshop/basket/buyer/buyer.upa",
+        "ref": "eshop.basket.buyer",
+        "spec": "BasketBuyer",
+        "version": "0.1"
+      },
+      {
+        "alias": "Lines",
+        "components": [],
+        "depth": 0,
+        "exports": [],
+        "ir_hash": "55ebb03c6c301c5990e1d61bdc8c665dbde79016ce56d9db063a2e19f93d62a7",
+        "path": "eshop/basket/lines/lines.upa",
+        "ref": "eshop.basket.lines",
+        "spec": "BasketLines",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1
+  },
+  "entities": {
+    "Basket": {
+      "attrs": [
+        {
+          "decl": "Text",
+          "ghost": false,
+          "name": "buyerId",
+          "type": "text"
+        }
+      ],
+      "block": "Lines=eshop.basket.lines"
+    },
+    "BasketLine": {
+      "attrs": [
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "ghost": false,
+          "name": "catalogItemId",
+          "type": "id"
+        },
+        {
+          "decl": "Int",
+          "ghost": false,
+          "name": "quantity",
+          "type": "int"
+        },
+        {
+          "decl": "Money",
+          "ghost": false,
+          "name": "unitPrice",
+          "type": "int"
+        }
+      ],
+      "block": "Lines=eshop.basket.lines"
+    },
+    "LoginMergeDecision": {
+      "attrs": [
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "deletesCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "ghost": false,
+          "name": "mergesBasket",
+          "type": "bool"
+        }
+      ],
+      "block": "Buyer=eshop.basket.buyer"
+    }
+  },
+  "enums": {
+    "BuyerSource": [
+      "SignedInUser",
+      "ExistingCookie",
+      "NewCookie"
+    ]
+  },
+  "externals": [],
+  "facts": [
+    {
+      "attr": "mergesBasket",
+      "card": "exactly_one",
+      "entity": "LoginMergeDecision",
+      "id": "F_LOGIN_MERGE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketService.TransferBasketAsync(anonymousId, userName);"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "deletesCookie",
+      "card": "exactly_one",
+      "entity": "LoginMergeDecision",
+      "id": "F_LOGIN_COOKIE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "target": "Bool"
+    },
+    {
+      "attr": "buyerId",
+      "card": "exactly_one",
+      "entity": "Basket",
+      "id": "F_BASKET_BUYER",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public string BuyerId { get; private set; }"
+      },
+      "target": "Text"
+    },
+    {
+      "attr": "quantity",
+      "card": "exactly_one",
+      "entity": "BasketLine",
+      "id": "F_LINE_QUANTITY",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public int Quantity { get; private set; }"
+      },
+      "target": "Int"
+    },
+    {
+      "attr": "unitPrice",
+      "card": "exactly_one",
+      "entity": "BasketLine",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "has",
+      "origin": {
+        "kind": "literal",
+        "ref": "public decimal UnitPrice { get; private set; }"
+      },
+      "target": "Money"
+    }
+  ],
+  "inherited": [],
+  "initial": {
+    "k": "bin",
+    "l": {
+      "body": {
+        "k": "un",
+        "op": "not",
+        "ty": "bool",
+        "x": {
+          "e": "BasketLine",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "x",
+            "ty": "id"
+          },
+          "ty": "bool"
+        }
+      },
+      "e": null,
+      "k": "forall",
+      "ty": "bool",
+      "v": "x"
+    },
+    "op": "and",
+    "r": {
+      "body": {
+        "k": "un",
+        "op": "not",
+        "ty": "bool",
+        "x": {
+          "e": "Basket",
+          "k": "in",
+          "key": {
+            "k": "var",
+            "n": "b",
+            "ty": "id"
+          },
+          "ty": "bool"
+        }
+      },
+      "e": null,
+      "k": "forall",
+      "ty": "bool",
+      "v": "b"
+    },
+    "ty": "bool"
+  },
+  "initial_origin": null,
+  "invocations": [
+    {
+      "evidence": "ApplicationCore/Services/BasketService.cs:68-70",
+      "kind": "database",
+      "mode": "sync",
+      "name": "SELECT Baskets WHERE BuyerId = @anonymousId",
+      "target": "MergeOnLogin",
+      "via": [
+        "anonymousBasketExists",
+        "anonymousLineExists"
+      ]
+    }
+  ],
+  "ir_version": "upa-ir-0.1",
+  "kind": "spec",
+  "level": null,
+  "model": {
+    "ambiguities": [],
+    "entities": {
+      "Basket": {
+        "attributes": {
+          "buyerId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_BASKET_BUYER",
+              "OP:Lines_GetOrCreateBasket"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Text",
+            "type_evidence": [
+              "F_BASKET_BUYER",
+              "OP:Lines_GetOrCreateBasket"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Lines_GetOrCreateBasket"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+          "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+          "BR_NON_GUID_COOKIE_NO_TRANSFER",
+          "BR_NO_COOKIE_NO_MERGE",
+          "F_BASKET_BUYER",
+          "INITIAL",
+          "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+          "OP:Lines_DeleteBasket",
+          "OP:Lines_GetOrCreateBasket"
+        ]
+      },
+      "BasketLine": {
+        "attributes": {
+          "basketId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_ANONYMOUS_BASKET_IS_DELETED",
+              "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+              "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+              "Lines_BR_MERGE_CREATES_MISSING_LINE",
+              "OP:Lines_DeleteBasket",
+              "OP:Lines_MergeBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": [
+              "BR_ANONYMOUS_BASKET_IS_DELETED",
+              "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+              "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+              "Lines_BR_MERGE_CREATES_MISSING_LINE",
+              "OP:Lines_DeleteBasket",
+              "OP:Lines_MergeBasketLine"
+            ]
+          },
+          "catalogItemId": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "OP:Lines_MergeBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Identifier",
+            "type_evidence": []
+          },
+          "quantity": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "F_LINE_QUANTITY",
+              "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+              "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+              "Lines_BR_MERGE_CREATES_MISSING_LINE",
+              "OP:Lines_MergeBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Int",
+            "type_evidence": [
+              "F_LINE_QUANTITY",
+              "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+              "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+              "OP:Lines_MergeBasketLine"
+            ]
+          },
+          "unitPrice": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+              "F_LINE_UNIT_PRICE",
+              "Lines_BR_MERGE_CREATES_MISSING_LINE",
+              "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+              "OP:Lines_MergeBasketLine"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Money",
+            "type_evidence": [
+              "F_LINE_UNIT_PRICE"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Lines_MergeBasketLine"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+          "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+          "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+          "BR_NON_GUID_COOKIE_NO_TRANSFER",
+          "BR_NO_COOKIE_NO_MERGE",
+          "F_LINE_QUANTITY",
+          "F_LINE_UNIT_PRICE",
+          "INITIAL",
+          "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+          "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+          "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+          "Lines_BR_MERGE_CREATES_MISSING_LINE",
+          "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+          "OP:Lines_DeleteBasket",
+          "OP:Lines_MergeBasketLine"
+        ]
+      },
+      "LoginMergeDecision": {
+        "attributes": {
+          "deletesCookie": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+              "F_LOGIN_COOKIE",
+              "OP:Buyer_DecideLoginMerge"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+              "F_LOGIN_COOKIE",
+              "OP:Buyer_DecideLoginMerge"
+            ]
+          },
+          "mergesBasket": {
+            "classification": "EXPLICIT_RULE",
+            "ghost": false,
+            "required_by": [
+              "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+              "F_LOGIN_MERGE",
+              "OP:Buyer_DecideLoginMerge"
+            ],
+            "role_of": [],
+            "specification_only": false,
+            "type": "Bool",
+            "type_evidence": [
+              "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+              "F_LOGIN_MERGE",
+              "OP:Buyer_DecideLoginMerge"
+            ]
+          }
+        },
+        "classification": "EXPLICIT_RULE",
+        "created_by": [
+          "Buyer_DecideLoginMerge"
+        ],
+        "kind": "Entity",
+        "required_by": [
+          "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+          "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+          "F_LOGIN_COOKIE",
+          "F_LOGIN_MERGE",
+          "OP:Buyer_DecideLoginMerge"
+        ]
+      }
+    },
+    "parameter_roles": [
+      {
+        "operation": "Buyer_DecideLoginMerge",
+        "parameter": "request",
+        "plays": [
+          "LoginMergeDecision"
+        ],
+        "required_by": [
+          "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+          "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+          "OP:Buyer_DecideLoginMerge"
+        ]
+      },
+      {
+        "operation": "Lines_DeleteBasket",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+          "OP:Lines_DeleteBasket"
+        ]
+      },
+      {
+        "operation": "Lines_GetOrCreateBasket",
+        "parameter": "basketId",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "OP:Lines_GetOrCreateBasket"
+        ]
+      },
+      {
+        "operation": "Lines_MergeBasketLine",
+        "parameter": "anonymousLine",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+          "Lines_BR_MERGE_CREATES_MISSING_LINE",
+          "OP:Lines_MergeBasketLine"
+        ]
+      },
+      {
+        "operation": "Lines_MergeBasketLine",
+        "parameter": "shopperLine",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+          "Lines_BR_MERGE_CREATES_MISSING_LINE",
+          "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+          "OP:Lines_MergeBasketLine"
+        ]
+      },
+      {
+        "operation": "MergeOnLogin",
+        "parameter": "anonymousBasket",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+          "BR_NON_GUID_COOKIE_NO_TRANSFER",
+          "BR_NO_COOKIE_NO_MERGE"
+        ]
+      },
+      {
+        "operation": "MergeOnLogin",
+        "parameter": "anonymousLine",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER"
+        ]
+      },
+      {
+        "operation": "MergeOnLogin",
+        "parameter": "shopperBasket",
+        "plays": [
+          "Basket"
+        ],
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+          "BR_NO_COOKIE_NO_MERGE"
+        ]
+      },
+      {
+        "operation": "MergeOnLogin",
+        "parameter": "shopperLine",
+        "plays": [
+          "BasketLine"
+        ],
+        "required_by": [
+          "BR_ANONYMOUS_BASKET_IS_DELETED",
+          "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+          "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+          "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+          "BR_NON_GUID_COOKIE_NO_TRANSFER",
+          "BR_NO_COOKIE_NO_MERGE"
+        ]
+      }
+    ],
+    "relations": []
+  },
+  "notes": {
+    "assumptions": [],
+    "concurrency": [],
+    "concurrency_gaps": [],
+    "decisions": [],
+    "exclusions": [],
+    "human_decisions": [],
+    "language_gaps": [
+      {
+        "id": "GAP_MERGE_SINGLE_LINE",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "An anonymous basket can contain multiple lines; one representative line is modeled per invocation"
+      },
+      {
+        "id": "GAP_MERGE_TWO_COMMITS",
+        "impact": "medium",
+        "kind": "language",
+        "legacy": true,
+        "required": true,
+        "status": "LANGUAGE_GAP",
+        "text": "The shopper basket update and anonymous basket deletion are separate commits; the compose treats them atomically"
+      }
+    ],
+    "parameters": [],
+    "pending_design_decisions": [],
+    "persists": [],
+    "questions": [],
+    "risks": []
+  },
+  "operations": [
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "cases": [
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": "EmptyUserName",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": true
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "LoginMergeDecision",
+              "inits": [
+                {
+                  "attr": "mergesBasket",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                },
+                {
+                  "attr": "deletesCookie",
+                  "value": {
+                    "k": "bool",
+                    "ty": "bool",
+                    "v": false
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Buyer_DecideLoginMerge",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "request",
+          "type": "id"
+        },
+        {
+          "decl": "Bool",
+          "name": "hasCookie",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "cookieIsGuid",
+          "type": "bool"
+        },
+        {
+          "decl": "Bool",
+          "name": "userNameEmpty",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "cases": [
+        {
+          "cond": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": "BasketAlreadyExists",
+          "stmts": [],
+          "success": true
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "Basket",
+              "inits": [
+                {
+                  "attr": "buyerId",
+                  "value": {
+                    "k": "var",
+                    "n": "buyerId",
+                    "ty": "text"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "kind": "create"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Lines_GetOrCreateBasket",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        },
+        {
+          "decl": "Text",
+          "name": "buyerId",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "AnonymousLineNotFound",
+          "stmts": []
+        },
+        {
+          "cond": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "outcome": null,
+          "stmts": [
+            {
+              "attr": "quantity",
+              "entity": "BasketLine",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "kind": "set",
+              "value": {
+                "k": "bin",
+                "l": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "shopperLine",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "+",
+                "r": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "anonymousLine",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "ty": "int"
+              }
+            },
+            {
+              "entity": "BasketLine",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "kind": "delete"
+            }
+          ]
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "entity": "BasketLine",
+              "inits": [
+                {
+                  "attr": "basketId",
+                  "value": {
+                    "k": "var",
+                    "n": "shopperBasket",
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "catalogItemId",
+                  "value": {
+                    "a": "catalogItemId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "anonymousLine",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  }
+                },
+                {
+                  "attr": "quantity",
+                  "value": {
+                    "a": "quantity",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "anonymousLine",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                {
+                  "attr": "unitPrice",
+                  "value": {
+                    "a": "unitPrice",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "anonymousLine",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                }
+              ],
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "kind": "create"
+            },
+            {
+              "entity": "BasketLine",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "kind": "delete"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Lines_MergeBasketLine",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "anonymousLine",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "shopperLine",
+          "type": "id"
+        },
+        {
+          "decl": "Identifier",
+          "name": "shopperBasket",
+          "type": "id"
+        }
+      ]
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "cases": [
+        {
+          "cond": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "outcome": "BasketNotFound",
+          "stmts": []
+        },
+        {
+          "cond": null,
+          "outcome": null,
+          "stmts": [
+            {
+              "each": {
+                "cond": {
+                  "k": "bin",
+                  "l": {
+                    "a": "basketId",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "line",
+                      "ty": "id"
+                    },
+                    "ty": "id"
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "basketId",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "var": "line"
+              },
+              "entity": "BasketLine",
+              "key": {
+                "k": "var",
+                "n": "line",
+                "ty": "id"
+              },
+              "kind": "delete"
+            },
+            {
+              "entity": "Basket",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "kind": "delete"
+            }
+          ]
+        }
+      ],
+      "layer": null,
+      "name": "Lines_DeleteBasket",
+      "params": [
+        {
+          "decl": "Identifier",
+          "name": "basketId",
+          "type": "id"
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "BasketLine",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "shopperLine",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousBasket",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "Basket",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "anonymousBasket",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperBasket",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperBasket",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_NO_COOKIE_NO_MERGE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Request.Cookies.ContainsKey(Constants.BASKET_COOKIENAME))"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "without a basket cookie, no basket is merged or deleted"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousBasket",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousBasket",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_NON_GUID_COOKIE_NO_TRANSFER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "a cookie that is not a GUID does not start a basket transfer"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "un",
+          "op": "not",
+          "ty": "bool",
+          "x": {
+            "k": "var",
+            "n": "anonymousBasketExists",
+            "ty": "bool"
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperBasket",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperBasket",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "==",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_MISSING_ANONYMOUS_BASKET_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (anonymousBasket == null) return;"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "if no anonymous basket exists, the signed-in basket is not created or changed"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "k": "bin",
+                      "l": {
+                        "k": "bin",
+                        "l": {
+                          "k": "bin",
+                          "l": {
+                            "k": "bin",
+                            "l": {
+                              "k": "var",
+                              "n": "hasCookie",
+                              "ty": "bool"
+                            },
+                            "op": "and",
+                            "r": {
+                              "k": "var",
+                              "n": "cookieIsGuid",
+                              "ty": "bool"
+                            },
+                            "ty": "bool"
+                          },
+                          "op": "and",
+                          "r": {
+                            "k": "un",
+                            "op": "not",
+                            "ty": "bool",
+                            "x": {
+                              "k": "var",
+                              "n": "userNameEmpty",
+                              "ty": "bool"
+                            }
+                          },
+                          "ty": "bool"
+                        },
+                        "op": "and",
+                        "r": {
+                          "k": "var",
+                          "n": "anonymousBasketExists",
+                          "ty": "bool"
+                        },
+                        "ty": "bool"
+                      },
+                      "op": "and",
+                      "r": {
+                        "k": "var",
+                        "n": "anonymousLineExists",
+                        "ty": "bool"
+                      },
+                      "ty": "bool"
+                    },
+                    "op": "and",
+                    "r": {
+                      "k": "old",
+                      "ty": "bool",
+                      "x": {
+                        "e": "BasketLine",
+                        "k": "in",
+                        "key": {
+                          "k": "var",
+                          "n": "anonymousLine",
+                          "ty": "id"
+                        },
+                        "ty": "bool"
+                      }
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "k": "old",
+                      "ty": "id",
+                      "x": {
+                        "a": "basketId",
+                        "e": "BasketLine",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "anonymousLine",
+                          "ty": "id"
+                        },
+                        "ty": "id"
+                      }
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "var",
+                      "n": "anonymousBasket",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BasketLine",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "shopperLine",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  },
+                  "op": "=>",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "k": "old",
+                      "ty": "id",
+                      "x": {
+                        "a": "basketId",
+                        "e": "BasketLine",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "shopperLine",
+                          "ty": "id"
+                        },
+                        "ty": "id"
+                      }
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "var",
+                      "n": "shopperBasket",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "anonymousLine",
+                  "ty": "id"
+                },
+                "op": "!=",
+                "r": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "Basket",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousBasket",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "anonymousBasket",
+              "ty": "id"
+            },
+            "op": "!=",
+            "r": {
+              "k": "var",
+              "n": "shopperBasket",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ANONYMOUS_LINE_MOVES_TO_SHOPPER",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "a successfully transferred line moves from the anonymous basket to the shopper basket"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "bin",
+                    "l": {
+                      "k": "var",
+                      "n": "hasCookie",
+                      "ty": "bool"
+                    },
+                    "op": "and",
+                    "r": {
+                      "k": "var",
+                      "n": "cookieIsGuid",
+                      "ty": "bool"
+                    },
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "un",
+                    "op": "not",
+                    "ty": "bool",
+                    "x": {
+                      "k": "var",
+                      "n": "userNameEmpty",
+                      "ty": "bool"
+                    }
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "var",
+                  "n": "anonymousBasketExists",
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "Basket",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "anonymousBasket",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "anonymousBasket",
+                "ty": "id"
+              },
+              "op": "!=",
+              "r": {
+                "k": "var",
+                "n": "shopperBasket",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "anonymousLineExists",
+              "ty": "bool"
+            },
+            "op": "=>",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "old",
+                    "ty": "bool",
+                    "x": {
+                      "e": "BasketLine",
+                      "k": "in",
+                      "key": {
+                        "k": "var",
+                        "n": "anonymousLine",
+                        "ty": "id"
+                      },
+                      "ty": "bool"
+                    }
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "bin",
+                    "l": {
+                      "k": "old",
+                      "ty": "id",
+                      "x": {
+                        "a": "basketId",
+                        "e": "BasketLine",
+                        "k": "attr",
+                        "key": {
+                          "k": "var",
+                          "n": "anonymousLine",
+                          "ty": "id"
+                        },
+                        "ty": "id"
+                      }
+                    },
+                    "op": "==",
+                    "r": {
+                      "k": "var",
+                      "n": "anonymousBasket",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "k": "var",
+                    "n": "anonymousLine",
+                    "ty": "id"
+                  },
+                  "op": "!=",
+                  "r": {
+                    "k": "var",
+                    "n": "shopperLine",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "k": "old",
+                  "ty": "bool",
+                  "x": {
+                    "e": "BasketLine",
+                    "k": "in",
+                    "key": {
+                      "k": "var",
+                      "n": "shopperLine",
+                      "ty": "id"
+                    },
+                    "ty": "bool"
+                  }
+                },
+                "op": "=>",
+                "r": {
+                  "k": "bin",
+                  "l": {
+                    "k": "old",
+                    "ty": "id",
+                    "x": {
+                      "a": "basketId",
+                      "e": "BasketLine",
+                      "k": "attr",
+                      "key": {
+                        "k": "var",
+                        "n": "shopperLine",
+                        "ty": "id"
+                      },
+                      "ty": "id"
+                    }
+                  },
+                  "op": "==",
+                  "r": {
+                    "k": "var",
+                    "n": "shopperBasket",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "anonymousBasket",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "op": "and",
+          "r": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "shopperBasket",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_ANONYMOUS_BASKET_IS_DELETED",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "await _basketRepository.DeleteAsync(anonymousBasket);"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "after a successful merge, the anonymous basket is deleted and the shopper basket exists"
+    },
+    {
+      "block": null,
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "bin",
+                "l": {
+                  "k": "bin",
+                  "l": {
+                    "k": "var",
+                    "n": "hasCookie",
+                    "ty": "bool"
+                  },
+                  "op": "and",
+                  "r": {
+                    "k": "var",
+                    "n": "cookieIsGuid",
+                    "ty": "bool"
+                  },
+                  "ty": "bool"
+                },
+                "op": "and",
+                "r": {
+                  "k": "var",
+                  "n": "anonymousBasketExists",
+                  "ty": "bool"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "anonymousLineExists",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "op": "!=",
+              "r": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "unitPrice",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "unitPrice",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "BR_EXISTING_SHOPPER_PRICE_PREVAILS",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "targets": [
+        "MergeOnLogin"
+      ],
+      "text": "when the shopper already had the item, their previous unit price prevails"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "e": "LoginMergeDecision",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "request",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "un",
+              "op": "not",
+              "ty": "bool",
+              "x": {
+                "k": "old",
+                "ty": "bool",
+                "x": {
+                  "e": "LoginMergeDecision",
+                  "k": "in",
+                  "key": {
+                    "k": "var",
+                    "n": "request",
+                    "ty": "id"
+                  },
+                  "ty": "bool"
+                }
+              }
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "a": "mergesBasket",
+            "e": "LoginMergeDecision",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "if (Guid.TryParse(anonymousId, out var _))"
+      },
+      "targets": [
+        "Buyer_DecideLoginMerge"
+      ],
+      "text": "login transfers a basket only when a cookie exists and contains a GUID"
+    },
+    {
+      "block": "Buyer=eshop.basket.buyer",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "userNameEmpty",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "e": "LoginMergeDecision",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "a": "deletesCookie",
+            "e": "LoginMergeDecision",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "request",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Response.Cookies.Delete(Constants.BASKET_COOKIENAME);"
+      },
+      "targets": [
+        "Buyer_DecideLoginMerge"
+      ],
+      "text": "login deletes a present cookie unless an empty user name aborts the transfer"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "body": {
+          "k": "bin",
+          "l": {
+            "e": "BasketLine",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "line",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "=>",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "quantity",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "line",
+                "ty": "id"
+              },
+              "ty": "int"
+            },
+            "op": ">=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "e": null,
+        "k": "forall",
+        "ty": "bool",
+        "v": "line"
+      },
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);"
+      },
+      "targets": [],
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "k": "var",
+                  "n": "anonymousLine",
+                  "ty": "id"
+                },
+                "op": "!=",
+                "r": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "quantity",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "bin",
+            "l": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "quantity",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "op": "+",
+            "r": {
+              "k": "old",
+              "ty": "int",
+              "x": {
+                "a": "quantity",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousLine",
+                  "ty": "id"
+                },
+                "ty": "int"
+              }
+            },
+            "ty": "int"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);"
+      },
+      "targets": [
+        "Lines_MergeBasketLine"
+      ],
+      "text": "merging into an existing shopper line adds the anonymous quantity"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "anonymousLine",
+              "ty": "id"
+            },
+            "op": "!=",
+            "r": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "old",
+            "ty": "bool",
+            "x": {
+              "e": "BasketLine",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "a": "unitPrice",
+            "e": "BasketLine",
+            "k": "attr",
+            "key": {
+              "k": "var",
+              "n": "shopperLine",
+              "ty": "id"
+            },
+            "ty": "int"
+          },
+          "op": "==",
+          "r": {
+            "k": "old",
+            "ty": "int",
+            "x": {
+              "a": "unitPrice",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "int"
+            }
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "Quantity += quantity;"
+      },
+      "targets": [
+        "Lines_MergeBasketLine"
+      ],
+      "text": "when a shopper already has an item, their existing unit price takes precedence"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "anonymousLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "anonymousLine",
+                "ty": "id"
+              },
+              "op": "!=",
+              "r": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "k": "old",
+              "ty": "bool",
+              "x": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              }
+            }
+          },
+          "ty": "bool"
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "quantity",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "shopperLine",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                },
+                "op": "==",
+                "r": {
+                  "k": "old",
+                  "ty": "int",
+                  "x": {
+                    "a": "quantity",
+                    "e": "BasketLine",
+                    "k": "attr",
+                    "key": {
+                      "k": "var",
+                      "n": "anonymousLine",
+                      "ty": "id"
+                    },
+                    "ty": "int"
+                  }
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "bin",
+              "l": {
+                "a": "unitPrice",
+                "e": "BasketLine",
+                "k": "attr",
+                "key": {
+                  "k": "var",
+                  "n": "shopperLine",
+                  "ty": "id"
+                },
+                "ty": "int"
+              },
+              "op": "==",
+              "r": {
+                "k": "old",
+                "ty": "int",
+                "x": {
+                  "a": "unitPrice",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "anonymousLine",
+                    "ty": "id"
+                  },
+                  "ty": "int"
+                }
+              },
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "op": "and",
+          "r": {
+            "k": "bin",
+            "l": {
+              "a": "basketId",
+              "e": "BasketLine",
+              "k": "attr",
+              "key": {
+                "k": "var",
+                "n": "shopperLine",
+                "ty": "id"
+              },
+              "ty": "id"
+            },
+            "op": "==",
+            "r": {
+              "k": "var",
+              "n": "shopperBasket",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_MERGE_CREATES_MISSING_LINE",
+      "kind": "ensures",
+      "origin": {
+        "kind": "literal",
+        "ref": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));"
+      },
+      "targets": [
+        "Lines_MergeBasketLine"
+      ],
+      "text": "an item missing from the shopper basket is copied from the anonymous line"
+    },
+    {
+      "block": "Lines=eshop.basket.lines",
+      "expr": {
+        "k": "bin",
+        "l": {
+          "k": "old",
+          "ty": "bool",
+          "x": {
+            "e": "Basket",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "basketId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          }
+        },
+        "op": "=>",
+        "r": {
+          "k": "bin",
+          "l": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "Basket",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "basketId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "op": "and",
+          "r": {
+            "body": {
+              "k": "bin",
+              "l": {
+                "e": "BasketLine",
+                "k": "in",
+                "key": {
+                  "k": "var",
+                  "n": "line",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "op": "=>",
+              "r": {
+                "k": "bin",
+                "l": {
+                  "a": "basketId",
+                  "e": "BasketLine",
+                  "k": "attr",
+                  "key": {
+                    "k": "var",
+                    "n": "line",
+                    "ty": "id"
+                  },
+                  "ty": "id"
+                },
+                "op": "!=",
+                "r": {
+                  "k": "var",
+                  "n": "basketId",
+                  "ty": "id"
+                },
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "e": null,
+            "k": "forall",
+            "ty": "bool",
+            "v": "line"
+          },
+          "ty": "bool"
+        },
+        "ty": "bool"
+      },
+      "group": "business",
+      "id": "Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "origin": {
+        "kind": "assumption",
+        "ref": "AS_DATABASE_CASCADE"
+      },
+      "targets": [
+        "Lines_DeleteBasket"
+      ],
+      "text": "deleting a basket removes the basket and its lines"
+    }
+  ],
+  "queries": [],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "spec": "MergeBasketOnLogin",
+  "texts": [
+    ""
+  ],
+  "tier": "subprocess",
+  "types": {
+    "Money": {
+      "base": "int",
+      "scale": 2
+    }
+  },
+  "uses": [],
+  "version": "0.1"
+}

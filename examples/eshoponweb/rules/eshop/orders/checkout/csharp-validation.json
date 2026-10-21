@@ -1,0 +1,13 @@
+{
+  "status": "PASSED",
+  "kind": "validated-not-proven",
+  "functional_checks_passed": 2,
+  "failures": 0,
+  "conformance": {
+    "traces": 200,
+    "steps": 2400,
+    "property_violations": 0,
+    "state_mismatches": 0
+  },
+  "what": "C# conformance against an IR-independent reference interpreter, with runtime monitoring of every property; this is not a proof"
+}

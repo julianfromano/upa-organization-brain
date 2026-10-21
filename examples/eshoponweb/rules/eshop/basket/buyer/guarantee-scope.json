@@ -1,0 +1,38 @@
+{
+  "pending_design_decisions": [],
+  "plane_1_formal_on_IR": {
+    "assumptions": [
+      "AX_TYPED_INITIAL"
+    ],
+    "does_not_prove": [
+      "business correctness beyond the formalized rules",
+      "progress/liveness (every order completes)",
+      "fidelity of the IR-to-C# translation"
+    ],
+    "not_proven": [],
+    "proven_rules": [
+      "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "BR_MISSING_IDENTITY_IS_REJECTED",
+      "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+      "BR_LOGIN_DELETES_PRESENT_COOKIE",
+      "TYPES"
+    ],
+    "what": "the verifier (Z3) proves each rule over canonical IR under the listed assumptions; two-state laws and invariants hold across every sequence of atomic operations"
+  },
+  "plane_2_validated_on_csharp": {
+    "status": "NOT_RUN",
+    "what": "C# conformance tests against the IR reference model; this is not a proof"
+  },
+  "plane_3_integration_operation": {
+    "items": [
+      "step durability and atomicity (AS_1)",
+      "concurrency (Q_4)",
+      "real persistence",
+      "performance",
+      "real process interruptions"
+    ],
+    "status": "OUT_OF_SCOPE_FOR_MVP"
+  }
+}

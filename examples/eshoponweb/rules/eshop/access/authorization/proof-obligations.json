@@ -1,0 +1,35 @@
+[
+  {
+    "description": "AuthorizeAdministrator satisfies postcondition BR_ADMIN_REQUIRES_ROLE",
+    "id": "ENS:BR_ADMIN_REQUIRES_ROLE@AuthorizeAdministrator",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "AuthorizeAdministrator",
+    "rule": "BR_ADMIN_REQUIRES_ROLE",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 4
+  },
+  {
+    "description": "AuthorizeAdministrator satisfies postcondition BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+    "id": "ENS:BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@AuthorizeAdministrator",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "AuthorizeAdministrator",
+    "rule": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 6
+  },
+  {
+    "description": "AuthorizeUser satisfies postcondition BR_SHOPPER_REQUIRES_AUTHENTICATION",
+    "id": "ENS:BR_SHOPPER_REQUIRES_AUTHENTICATION@AuthorizeUser",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "AuthorizeUser",
+    "rule": "BR_SHOPPER_REQUIRES_AUTHENTICATION",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  }
+]

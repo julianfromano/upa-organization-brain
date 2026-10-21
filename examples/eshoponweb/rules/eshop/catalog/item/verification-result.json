@@ -1,0 +1,229 @@
+{
+  "assumptions": [],
+  "errors": [],
+  "ir_hash": "8f406d83b66eedc865fc60e1bd993933c8d65b45646e4b25e45244fa545a2073",
+  "obligations": [
+    {
+      "description": "UpdateItemDetails satisfies postcondition BR_VALID_DETAILS_ARE_APPLIED",
+      "id": "ENS:BR_VALID_DETAILS_ARE_APPLIED@UpdateItemDetails",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemDetails",
+      "rule": "BR_VALID_DETAILS_ARE_APPLIED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    },
+    {
+      "description": "UpdateItemDetails satisfies postcondition BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "id": "ENS:BR_NONPOSITIVE_PRICE_IS_REJECTED@UpdateItemDetails",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemDetails",
+      "rule": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "UpdateItemDetails satisfies postcondition BR_EMPTY_NAME_IS_REJECTED",
+      "id": "ENS:BR_EMPTY_NAME_IS_REJECTED@UpdateItemDetails",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemDetails",
+      "rule": "BR_EMPTY_NAME_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "UpdateItemDetails satisfies postcondition BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "id": "ENS:BR_EMPTY_DESCRIPTION_IS_REJECTED@UpdateItemDetails",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemDetails",
+      "rule": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "UpdateItemDetails satisfies postcondition BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "id": "ENS:BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION@UpdateItemDetails",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemDetails",
+      "rule": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "UpdateItemBrand satisfies postcondition BR_BRAND_MUST_BE_NONZERO",
+      "id": "ENS:BR_BRAND_MUST_BE_NONZERO@UpdateItemBrand",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemBrand",
+      "rule": "BR_BRAND_MUST_BE_NONZERO",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "UpdateItemType satisfies postcondition BR_TYPE_MUST_BE_NONZERO",
+      "id": "ENS:BR_TYPE_MUST_BE_NONZERO@UpdateItemType",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "UpdateItemType",
+      "rule": "BR_TYPE_MUST_BE_NONZERO",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 2
+    }
+  ],
+  "proof_cache": {
+    "frame": 0,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 7
+  },
+  "rules": [
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_VALID_DETAILS_ARE_APPLIED@UpdateItemDetails"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "rule": "BR_VALID_DETAILS_ARE_APPLIED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "valid name, description, and price replace the item's details",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_NONPOSITIVE_PRICE_IS_REJECTED@UpdateItemDetails"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));"
+      },
+      "rule": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a zero or negative price leaves the item unchanged",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_EMPTY_NAME_IS_REJECTED@UpdateItemDetails"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));"
+      },
+      "rule": "BR_EMPTY_NAME_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an empty name leaves the item unchanged",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_EMPTY_DESCRIPTION_IS_REJECTED@UpdateItemDetails"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));"
+      },
+      "rule": "BR_EMPTY_DESCRIPTION_IS_REJECTED",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an empty description leaves the item unchanged",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION@UpdateItemDetails"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Name = details.Name;"
+      },
+      "rule": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "updating details does not change the brand, type, or image",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_BRAND_MUST_BE_NONZERO@UpdateItemBrand"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));"
+      },
+      "rule": "BR_BRAND_MUST_BE_NONZERO",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a zero brand identifier is rejected",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_TYPE_MUST_BE_NONZERO@UpdateItemType"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));"
+      },
+      "rule": "BR_TYPE_MUST_BE_NONZERO",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a zero type identifier is rejected",
+      "user_assumptions": []
+    }
+  ],
+  "summary": {
+    "PROVEN": 7,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {
+    "business": {
+      "PROVEN": 7,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

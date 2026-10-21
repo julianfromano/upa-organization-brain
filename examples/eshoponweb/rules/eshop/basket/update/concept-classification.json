@@ -1,0 +1,174 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "OP:Lines_FindBasket",
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "BR_INVALID_FORM_HAS_NO_EFFECT",
+        "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+        "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
+        "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "OP:Lines_RemoveZeroQuantityLines",
+        "OP:Lines_SetLineQuantity"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "BuyerResolution",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "State",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are referenced in guards or properties (governs behavior)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ValidateQuantityModel"
+      ],
+      "name": "ValidateQuantityModel",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_FindBasket"
+      ],
+      "name": "Lines_FindBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_SetLineQuantity"
+      ],
+      "name": "Lines_SetLineQuantity",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Lines_RemoveZeroQuantityLines"
+      ],
+      "name": "Lines_RemoveZeroQuantityLines",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:UpdateBasketQuantities"
+      ],
+      "name": "UpdateBasketQuantities",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:Buyer_ResolveBuyer"
+      ],
+      "name": "Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Lines_FindBasket"
+      ],
+      "name": "Lines_FindBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Lines_GetOrCreateBasket"
+      ],
+      "name": "Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "OP:Lines_SetLineQuantity"
+      ],
+      "name": "Lines_SetLineQuantity.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "BR_INVALID_FORM_HAS_NO_EFFECT",
+        "BR_POSITIVE_QUANTITY_REPLACES_LINE",
+        "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
+        "BR_ZERO_QUANTITY_REMOVES_SUBMITTED_LINE"
+      ],
+      "name": "UpdateBasketQuantities.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    }
+  ],
+  "role_notes": []
+}

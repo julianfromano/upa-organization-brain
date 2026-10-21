@@ -1,0 +1,16 @@
+[
+  {
+    "evidence": "declared in the UPA program",
+    "id": "AS_DATABASE_CASCADE",
+    "owner": "EF Core",
+    "source": "user",
+    "text": "Deleting a basket also deletes its basket lines through the EF Core relationship"
+  },
+  {
+    "evidence": "declared in the UPA program",
+    "id": "AS_EMPTY_BASKETS",
+    "owner": "operation",
+    "source": "user",
+    "text": "No baskets or basket lines exist initially"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_SUBMITTED_LINE",
+    "resolves": null,
+    "status": "decided",
+    "text": "A submitted line identifier belongs to this basket; SetQuantities only visits lines in the loaded basket"
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "build_seconds": 0.34,
+  "composition": {
+    "components": [
+      {
+        "alias": "Access",
+        "ref": "eshop.access.authorization",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      },
+      {
+        "alias": "Item",
+        "ref": "eshop.catalog.item",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1,
+    "summary_total": {
+      "PROVEN": 15,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "35649dfa89975cf5fc5de5a9aa1367b9943fa6ce1b37ce9f4387d6a5041aabb8",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 2,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 0,
+    "inferred_roles": 0,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 3,
+    "ir_bytes": 11902,
+    "obligations": 5,
+    "operations": 3,
+    "properties": 5,
+    "upa_lines": 21
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 5,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "assumptions": [],
+  "components": [
+    {
+      "alias": "Create",
+      "ref": "eshop.catalog.create",
+      "summary": {
+        "PROVEN": 6,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 9,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    },
+    {
+      "alias": "Edit",
+      "ref": "eshop.catalog.edit",
+      "summary": {
+        "PROVEN": 17,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 27,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    },
+    {
+      "alias": "Delete",
+      "ref": "eshop.catalog.delete",
+      "summary": {
+        "PROVEN": 5,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 15,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    },
+    {
+      "alias": "Filter",
+      "ref": "eshop.catalog.filter",
+      "summary": {
+        "PROVEN": 0,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 0,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    }
+  ],
+  "errors": [],
+  "ir_hash": "4b7aad2414388fad251429ff6a12347cc38101fec34515145cae95c982ff7c76",
+  "obligations": [],
+  "proof_cache": {
+    "frame": 0,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 0
+  },
+  "rules": [],
+  "summary": {
+    "PROVEN": 0,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {},
+  "summary_total": {
+    "PROVEN": 51,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

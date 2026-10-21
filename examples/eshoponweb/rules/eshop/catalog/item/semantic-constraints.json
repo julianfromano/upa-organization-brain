@@ -1,0 +1,135 @@
+[
+  {
+    "detail": "a rule indexes or queries this concept by identity",
+    "id": "SC-001",
+    "kind": "ENTITY_REQUIRED",
+    "source": "OP:FindCatalogItem",
+    "subject": "CatalogItem"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-002",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-003",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-004",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-005",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-006",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-007",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateItemDetails",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-008",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateItemBrand",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-009",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateItemBrand",
+    "subject": "CatalogItem.brandId"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-010",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "OP:UpdateItemType",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Int",
+    "id": "SC-011",
+    "kind": "TYPE_EVIDENCE",
+    "source": "OP:UpdateItemType",
+    "subject": "CatalogItem.typeId"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-012",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-013",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.description"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-014",
+    "kind": "TYPE_EVIDENCE",
+    "source": "BR_VALID_DETAILS_ARE_APPLIED",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "a rule reads or writes this attribute",
+    "id": "SC-015",
+    "kind": "ATTRIBUTE_REQUIRED",
+    "source": "BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+    "subject": "CatalogItem.imageUri"
+  },
+  {
+    "detail": "CatalogItem has exactly_one name: Text",
+    "id": "SC-016",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "compatible with Text",
+    "id": "SC-017",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_NAME",
+    "subject": "CatalogItem.name"
+  },
+  {
+    "detail": "CatalogItem has exactly_one price: Money",
+    "id": "SC-018",
+    "kind": "STRUCTURAL_FACT",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  },
+  {
+    "detail": "compatible with Money",
+    "id": "SC-019",
+    "kind": "TYPE_EVIDENCE",
+    "source": "F_ITEM_PRICE",
+    "subject": "CatalogItem.price"
+  }
+]

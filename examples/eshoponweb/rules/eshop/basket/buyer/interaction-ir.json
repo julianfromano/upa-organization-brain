@@ -1,0 +1,761 @@
+{
+  "capabilities": [
+    {
+      "evidence": [
+        "operations.DecideLoginMerge.cases[1].stmts[0]",
+        "operations.DecideLoginMerge.cases[2].stmts[0]",
+        "operations.DecideLoginMerge.cases[3].stmts[0]",
+        "operations.ResolveBuyer.cases[2].stmts[0]",
+        "operations.ResolveBuyer.cases[3].stmts[0]",
+        "operations.ResolveBuyer.cases[4].stmts[0]"
+      ],
+      "name": "command-execution",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.DecideLoginMerge.params.request",
+        "operations.ResolveBuyer.params.request"
+      ],
+      "name": "data-input",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.DecideLoginMerge.cases[1].stmts[0]",
+        "operations.DecideLoginMerge.cases[2].stmts[0]",
+        "operations.DecideLoginMerge.cases[3].stmts[0]",
+        "operations.ResolveBuyer.cases[2].stmts[0]",
+        "operations.ResolveBuyer.cases[3].stmts[0]",
+        "operations.ResolveBuyer.cases[4].stmts[0]"
+      ],
+      "name": "human-interaction",
+      "reasons": [
+        "The IR does not explicitly identify who initiates the operation."
+      ],
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence": [
+        "operations.DecideLoginMerge.cases[0]",
+        "operations.ResolveBuyer.cases[0]",
+        "operations.ResolveBuyer.cases[1]"
+      ],
+      "name": "validation-feedback",
+      "status": "OBSERVED"
+    }
+  ],
+  "format": "upa-interaction-ir-1",
+  "inference_rules": [
+    "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+    "EXPLICIT_TO_TEXT_OF_OPERATION_PARAMETER",
+    "LOGICAL_OPERATION_PROJECTION",
+    "NAMED_OPERATION_OUTCOMES",
+    "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+    "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+    "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+    "UNCONDITIONAL_STATE_CHANGE_CASE"
+  ],
+  "operations": [
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "cookieIsGuid",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.DecideLoginMerge.params.cookieIsGuid"
+          ]
+        },
+        {
+          "parameter": "hasCookie",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.DecideLoginMerge.params.hasCookie"
+          ]
+        },
+        {
+          "parameter": "userNameEmpty",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.DecideLoginMerge.params.userNameEmpty"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.DecideLoginMerge.cases[1].stmts[0]",
+            "operations.DecideLoginMerge.cases[2].stmts[0]",
+            "operations.DecideLoginMerge.cases[3].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.DecideLoginMerge.params.request"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.DecideLoginMerge.cases[1].stmts[0]",
+            "operations.DecideLoginMerge.cases[2].stmts[0]",
+            "operations.DecideLoginMerge.cases[3].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.DecideLoginMerge.cases[0]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "LoginMergeDecision",
+          "kind": "create",
+          "trace": "operations.DecideLoginMerge.cases[1].stmts[0]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "kind": "create",
+          "trace": "operations.DecideLoginMerge.cases[2].stmts[0]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "kind": "create",
+          "trace": "operations.DecideLoginMerge.cases[3].stmts[0]"
+        }
+      ],
+      "id": "DecideLoginMerge",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.DecideLoginMerge.params.request"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "LoginMergeDecision",
+        "trace": [
+          "operations.DecideLoginMerge.cases[1].stmts[0]",
+          "operations.DecideLoginMerge.cases[2].stmts[0]",
+          "operations.DecideLoginMerge.cases[3].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "EmptyUserName",
+          "trace": "operations.DecideLoginMerge.cases[0]"
+        },
+        {
+          "case_index": 3,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.DecideLoginMerge.cases[3]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.DecideLoginMerge.params.request"
+          ],
+          "type": "id"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "hasCookie",
+          "required": true,
+          "trace": [
+            "operations.DecideLoginMerge.params.hasCookie"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "cookieIsGuid",
+          "required": true,
+          "trace": [
+            "operations.DecideLoginMerge.params.cookieIsGuid"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "userNameEmpty",
+          "required": true,
+          "trace": [
+            "operations.DecideLoginMerge.params.userNameEmpty"
+          ],
+          "type": "bool"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "bin",
+              "l": {
+                "k": "var",
+                "n": "hasCookie",
+                "ty": "bool"
+              },
+              "op": "and",
+              "r": {
+                "k": "var",
+                "n": "cookieIsGuid",
+                "ty": "bool"
+              },
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameEmpty",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "EmptyUserName",
+          "trace": "operations.DecideLoginMerge.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": null,
+          "trace": "operations.DecideLoginMerge.cases[1].cond"
+        },
+        {
+          "expression": {
+            "k": "var",
+            "n": "hasCookie",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": null,
+          "trace": "operations.DecideLoginMerge.cases[2].cond"
+        }
+      ],
+      "system_values": [
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": true
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "deletesCookie",
+          "trace": "operations.DecideLoginMerge.cases[1].stmts[0].inits[1]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": true
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "deletesCookie",
+          "trace": "operations.DecideLoginMerge.cases[2].stmts[0].inits[1]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": false
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "deletesCookie",
+          "trace": "operations.DecideLoginMerge.cases[3].stmts[0].inits[1]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": true
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "mergesBasket",
+          "trace": "operations.DecideLoginMerge.cases[1].stmts[0].inits[0]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": false
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "mergesBasket",
+          "trace": "operations.DecideLoginMerge.cases[2].stmts[0].inits[0]"
+        },
+        {
+          "entity": "LoginMergeDecision",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": false
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "mergesBasket",
+          "trace": "operations.DecideLoginMerge.cases[3].stmts[0].inits[0]"
+        }
+      ],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.DecideLoginMerge"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "cookieIsGuid",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.ResolveBuyer.params.cookieIsGuid"
+          ]
+        },
+        {
+          "parameter": "hasCookie",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.ResolveBuyer.params.hasCookie"
+          ]
+        },
+        {
+          "parameter": "identityMissing",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.ResolveBuyer.params.identityMissing"
+          ]
+        },
+        {
+          "parameter": "isAuthenticated",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.ResolveBuyer.params.isAuthenticated"
+          ]
+        },
+        {
+          "parameter": "userNameMissing",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.ResolveBuyer.params.userNameMissing"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.ResolveBuyer.cases[2].stmts[0]",
+            "operations.ResolveBuyer.cases[3].stmts[0]",
+            "operations.ResolveBuyer.cases[4].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.ResolveBuyer.params.request"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.ResolveBuyer.cases[2].stmts[0]",
+            "operations.ResolveBuyer.cases[3].stmts[0]",
+            "operations.ResolveBuyer.cases[4].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.ResolveBuyer.cases[0]",
+            "operations.ResolveBuyer.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "BuyerResolution",
+          "kind": "create",
+          "trace": "operations.ResolveBuyer.cases[2].stmts[0]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "kind": "create",
+          "trace": "operations.ResolveBuyer.cases[3].stmts[0]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "kind": "create",
+          "trace": "operations.ResolveBuyer.cases[4].stmts[0]"
+        }
+      ],
+      "id": "ResolveBuyer",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.request"
+          ],
+          "type": "id"
+        }
+      ],
+      "intent": {
+        "kind": "CREATE",
+        "subject": "BuyerResolution",
+        "trace": [
+          "operations.ResolveBuyer.cases[2].stmts[0]",
+          "operations.ResolveBuyer.cases[3].stmts[0]",
+          "operations.ResolveBuyer.cases[4].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "var",
+            "n": "identityMissing",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "IdentityMissing",
+          "trace": "operations.ResolveBuyer.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "UserNameMissing",
+          "trace": "operations.ResolveBuyer.cases[1]"
+        },
+        {
+          "case_index": 4,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.ResolveBuyer.cases[4]"
+        }
+      ],
+      "parameters": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "request",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.request"
+          ],
+          "type": "id"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "identityMissing",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.identityMissing"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "isAuthenticated",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.isAuthenticated"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "userNameMissing",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.userNameMissing"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "hasCookie",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.hasCookie"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "cookieIsGuid",
+          "required": true,
+          "trace": [
+            "operations.ResolveBuyer.params.cookieIsGuid"
+          ],
+          "type": "bool"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "var",
+            "n": "identityMissing",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "IdentityMissing",
+          "trace": "operations.ResolveBuyer.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "isAuthenticated",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "userNameMissing",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "UserNameMissing",
+          "trace": "operations.ResolveBuyer.cases[1].cond"
+        },
+        {
+          "expression": {
+            "k": "var",
+            "n": "isAuthenticated",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": null,
+          "trace": "operations.ResolveBuyer.cases[2].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "hasCookie",
+              "ty": "bool"
+            },
+            "op": "and",
+            "r": {
+              "k": "var",
+              "n": "cookieIsGuid",
+              "ty": "bool"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": null,
+          "trace": "operations.ResolveBuyer.cases[3].cond"
+        }
+      ],
+      "system_values": [
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "e": "BuyerSource",
+            "k": "enum",
+            "ty": "enum:BuyerSource",
+            "v": "SignedInUser"
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "source",
+          "trace": "operations.ResolveBuyer.cases[2].stmts[0].inits[0]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "e": "BuyerSource",
+            "k": "enum",
+            "ty": "enum:BuyerSource",
+            "v": "ExistingCookie"
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "source",
+          "trace": "operations.ResolveBuyer.cases[3].stmts[0].inits[0]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "e": "BuyerSource",
+            "k": "enum",
+            "ty": "enum:BuyerSource",
+            "v": "NewCookie"
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "source",
+          "trace": "operations.ResolveBuyer.cases[4].stmts[0].inits[0]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": false
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "writesCookie",
+          "trace": "operations.ResolveBuyer.cases[2].stmts[0].inits[1]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": false
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "writesCookie",
+          "trace": "operations.ResolveBuyer.cases[3].stmts[0].inits[1]"
+        },
+        {
+          "entity": "BuyerResolution",
+          "expression": {
+            "k": "bool",
+            "ty": "bool",
+            "v": true
+          },
+          "inference_rule": "CREATE_INITIALIZER_NOT_BOUND_TO_INPUT",
+          "kind": "GENERATED",
+          "name": "writesCookie",
+          "trace": "operations.ResolveBuyer.cases[4].stmts[0].inits[1]"
+        }
+      ],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.ResolveBuyer"
+      }
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "source": {
+    "logical_ir_version": "upa-ir-0.1",
+    "sha256": "442ea949d4cf247ef9f06f69b1beff306b4797a1ac85c4927a6ef2b476610462",
+    "spec": "BasketBuyer"
+  }
+}

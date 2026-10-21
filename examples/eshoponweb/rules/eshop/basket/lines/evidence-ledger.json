@@ -1,0 +1,176 @@
+{
+  "items": [
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "existingItem.AddQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_EXISTING_LINE_ADDS_QUANTITY",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "adding an existing item increases that line's quantity"
+    },
+    {
+      "evidence": "Quantity += quantity;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ADDING_LINE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "adding units to an existing line does not change its unit price"
+    },
+    {
+      "evidence": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a new line stores its basket, item, quantity, and unit price"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an out-of-range quantity does not create or change a line"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a submitted quantity replaces the existing line quantity"
+    },
+    {
+      "evidence": "item.SetQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "changing a line quantity does not reprice it"
+    },
+    {
+      "evidence": "if (quantities.TryGetValue(item.Id.ToString(), out var quantity))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a line omitted from the submitted quantities is not changed"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup removes zero-quantity lines from the selected basket"
+    },
+    {
+      "evidence": "_items.RemoveAll(i => i.Quantity == 0);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_CLEANUP_PRESERVES_OTHER_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "cleanup preserves other baskets' lines and nonempty lines"
+    },
+    {
+      "evidence": "userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MERGE_ADDS_EXISTING_QUANTITY",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "merging into an existing shopper line adds the anonymous quantity"
+    },
+    {
+      "evidence": "Quantity += quantity;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MERGE_PRESERVES_SHOPPER_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "when a shopper already has an item, their existing unit price takes precedence"
+    },
+    {
+      "evidence": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MERGE_CREATES_MISSING_LINE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an item missing from the shopper basket is copied from the anonymous line"
+    },
+    {
+      "evidence": "AS_DATABASE_CASCADE",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_DELETE_BASKET_CASCADES_TO_LINES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "assumption",
+      "text": "deleting a basket removes the basket and its lines"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BASKET_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Basket has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public int Quantity { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_QUANTITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one quantity: Int"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one unitPrice: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

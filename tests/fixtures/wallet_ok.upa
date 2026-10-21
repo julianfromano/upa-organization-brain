@@ -1,0 +1,15 @@
+spec AccountLedger version "0.1"
+type Balance = Natural scale 2
+assumption AS_1 "Accounts are managed by the environment" owner "domain"
+initial origin assumption(AS_1): forall a: Account.balance[a] >= 0
+
+operation Withdraw(acc: Identifier, amount: Balance) {
+  when acc in Account and Account.balance[acc] >= amount {
+    set Account.balance[acc] = Account.balance[acc] - amount
+  }
+}
+
+business_rules {
+  invariant BR_NONNEG origin literal("the account balance is never negative") "nonnegative balance":
+    forall a: Account.balance[a] >= 0
+}

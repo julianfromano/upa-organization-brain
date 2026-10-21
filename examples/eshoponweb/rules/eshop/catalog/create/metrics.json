@@ -1,0 +1,49 @@
+{
+  "build_seconds": 0.17,
+  "composition": {
+    "components": [
+      {
+        "alias": "Access",
+        "ref": "eshop.access.authorization",
+        "verdict": "VERIFIED",
+        "version": "0.1"
+      }
+    ],
+    "depth": 1,
+    "summary_total": {
+      "PROVEN": 9,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "ir_hash": "d02faf0b1bcb9d5ca6321ebeacb8e847631dd0a53dd4818f995394ca29ffd9a8",
+  "scope_coverage": null,
+  "scope_sha256": null,
+  "semantic_model": {
+    "ambiguous_model_choices": 0,
+    "explicit_entities": 2,
+    "human_design_decisions_required": 0,
+    "inferred_attributes": 0,
+    "inferred_entities": 0,
+    "inferred_relations": 0,
+    "inferred_roles": 0,
+    "inferred_values": 0,
+    "unjustified_structure_count": 0
+  },
+  "sizes": {
+    "facts": 1,
+    "ir_bytes": 17185,
+    "obligations": 6,
+    "operations": 4,
+    "properties": 6,
+    "upa_lines": 38
+  },
+  "tokens": null,
+  "verification": {
+    "PROVEN": 6,
+    "REFUTED": 0,
+    "UNKNOWN": 0,
+    "verdict": "VERIFIED",
+    "z3": "5.3.1"
+  }
+}

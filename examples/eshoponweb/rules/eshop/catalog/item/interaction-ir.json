@@ -1,0 +1,973 @@
+{
+  "capabilities": [
+    {
+      "evidence": [
+        "operations.UpdateItemBrand.cases[2].stmts[0]",
+        "operations.UpdateItemDetails.cases[4].stmts[0]",
+        "operations.UpdateItemDetails.cases[4].stmts[1]",
+        "operations.UpdateItemDetails.cases[4].stmts[2]",
+        "operations.UpdateItemType.cases[2].stmts[0]"
+      ],
+      "name": "command-execution",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.UpdateItemBrand.params.brandId",
+        "operations.UpdateItemDetails.params.description",
+        "operations.UpdateItemDetails.params.name",
+        "operations.UpdateItemDetails.params.price",
+        "operations.UpdateItemType.params.typeId"
+      ],
+      "name": "data-input",
+      "status": "OBSERVED"
+    },
+    {
+      "evidence": [
+        "operations.UpdateItemBrand.cases[2].stmts[0]",
+        "operations.UpdateItemDetails.cases[4].stmts[0]",
+        "operations.UpdateItemDetails.cases[4].stmts[1]",
+        "operations.UpdateItemDetails.cases[4].stmts[2]",
+        "operations.UpdateItemType.cases[2].stmts[0]"
+      ],
+      "name": "human-interaction",
+      "reasons": [
+        "The IR does not explicitly identify who initiates the operation."
+      ],
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence": [
+        "operations.FindCatalogItem.cases[0]",
+        "operations.FindCatalogItem.cases[1]",
+        "operations.UpdateItemBrand.cases[0]",
+        "operations.UpdateItemBrand.cases[1]",
+        "operations.UpdateItemDetails.cases[0]",
+        "operations.UpdateItemDetails.cases[1]",
+        "operations.UpdateItemDetails.cases[2]",
+        "operations.UpdateItemDetails.cases[3]",
+        "operations.UpdateItemType.cases[0]",
+        "operations.UpdateItemType.cases[1]"
+      ],
+      "name": "validation-feedback",
+      "status": "OBSERVED"
+    }
+  ],
+  "format": "upa-interaction-ir-1",
+  "inference_rules": [
+    "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+    "EXPLICIT_TO_TEXT_OF_OPERATION_PARAMETER",
+    "LOGICAL_OPERATION_PROJECTION",
+    "NAMED_OPERATION_OUTCOMES",
+    "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+    "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+    "STATE_ATTRIBUTE_VALUE_IN_CREATE",
+    "UNCONDITIONAL_STATE_CHANGE_CASE"
+  ],
+  "language_gaps": [
+    {
+      "id": "GAP_NAME_LENGTH",
+      "impact": "medium",
+      "kind": "language",
+      "legacy": true,
+      "required": true,
+      "status": "LANGUAGE_GAP",
+      "text": "The database limits catalog item names to 50 characters; this storage constraint is not modeled"
+    }
+  ],
+  "operations": [
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.FindCatalogItem.params.itemId",
+            "operations.FindCatalogItem.cases[0].cond.x"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.FindCatalogItem.cases[0]",
+            "operations.FindCatalogItem.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [],
+      "id": "FindCatalogItem",
+      "inputs": [],
+      "intent": {
+        "kind": "EXECUTE",
+        "subject": null,
+        "trace": []
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.FindCatalogItem.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "ItemFound",
+          "trace": "operations.FindCatalogItem.cases[1]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.FindCatalogItem.params.itemId",
+            "operations.FindCatalogItem.cases[0].cond.x"
+          ],
+          "type": "id"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.FindCatalogItem.cases[0].cond"
+        },
+        {
+          "expression": {
+            "e": "CatalogItem",
+            "k": "in",
+            "key": {
+              "k": "var",
+              "n": "itemId",
+              "ty": "id"
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemFound",
+          "trace": "operations.FindCatalogItem.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.FindCatalogItem"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.UpdateItemBrand.params.itemId",
+            "operations.UpdateItemBrand.cases[0].cond.x"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.UpdateItemBrand.cases[2].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemBrand.params.brandId"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemBrand.cases[2].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemBrand.cases[0]",
+            "operations.UpdateItemBrand.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "CatalogItem",
+          "kind": "set",
+          "trace": "operations.UpdateItemBrand.cases[2].stmts[0]"
+        }
+      ],
+      "id": "UpdateItemBrand",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "brandId",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemBrand.params.brandId"
+          ],
+          "type": "int"
+        }
+      ],
+      "intent": {
+        "kind": "UPDATE",
+        "subject": "CatalogItem",
+        "trace": [
+          "operations.UpdateItemBrand.cases[2].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.UpdateItemBrand.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "InvalidBrand",
+          "trace": "operations.UpdateItemBrand.cases[1]"
+        },
+        {
+          "case_index": 2,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.UpdateItemBrand.cases[2]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.UpdateItemBrand.params.itemId",
+            "operations.UpdateItemBrand.cases[0].cond.x"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "brandId",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemBrand.params.brandId"
+          ],
+          "type": "int"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.UpdateItemBrand.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "brandId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "InvalidBrand",
+          "trace": "operations.UpdateItemBrand.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.UpdateItemBrand"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "descriptionIsEmpty",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.UpdateItemDetails.params.descriptionIsEmpty"
+          ]
+        },
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.UpdateItemDetails.params.itemId",
+            "operations.UpdateItemDetails.cases[0].cond.x"
+          ]
+        },
+        {
+          "parameter": "nameIsEmpty",
+          "reason": "The parameter has no semantic use that supports classification.",
+          "trace": [
+            "operations.UpdateItemDetails.params.nameIsEmpty"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.UpdateItemDetails.cases[4].stmts[0]",
+            "operations.UpdateItemDetails.cases[4].stmts[1]",
+            "operations.UpdateItemDetails.cases[4].stmts[2]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemDetails.params.name",
+            "operations.UpdateItemDetails.params.description",
+            "operations.UpdateItemDetails.params.price"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemDetails.cases[4].stmts[0]",
+            "operations.UpdateItemDetails.cases[4].stmts[1]",
+            "operations.UpdateItemDetails.cases[4].stmts[2]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemDetails.cases[0]",
+            "operations.UpdateItemDetails.cases[1]",
+            "operations.UpdateItemDetails.cases[2]",
+            "operations.UpdateItemDetails.cases[3]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "CatalogItem",
+          "kind": "set",
+          "trace": "operations.UpdateItemDetails.cases[4].stmts[0]"
+        },
+        {
+          "entity": "CatalogItem",
+          "kind": "set",
+          "trace": "operations.UpdateItemDetails.cases[4].stmts[1]"
+        },
+        {
+          "entity": "CatalogItem",
+          "kind": "set",
+          "trace": "operations.UpdateItemDetails.cases[4].stmts[2]"
+        }
+      ],
+      "id": "UpdateItemDetails",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "name",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.name"
+          ],
+          "type": "text"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "description",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.description"
+          ],
+          "type": "text"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "price",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.price"
+          ],
+          "type": "int"
+        }
+      ],
+      "intent": {
+        "kind": "UPDATE",
+        "subject": "CatalogItem",
+        "trace": [
+          "operations.UpdateItemDetails.cases[4].stmts[0]",
+          "operations.UpdateItemDetails.cases[4].stmts[1]",
+          "operations.UpdateItemDetails.cases[4].stmts[2]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.UpdateItemDetails.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "EmptyName",
+          "trace": "operations.UpdateItemDetails.cases[1]"
+        },
+        {
+          "case_index": 2,
+          "condition": {
+            "k": "var",
+            "n": "descriptionIsEmpty",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "EmptyDescription",
+          "trace": "operations.UpdateItemDetails.cases[2]"
+        },
+        {
+          "case_index": 3,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "NonPositivePrice",
+          "trace": "operations.UpdateItemDetails.cases[3]"
+        },
+        {
+          "case_index": 4,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.UpdateItemDetails.cases[4]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.itemId",
+            "operations.UpdateItemDetails.cases[0].cond.x"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "name",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.name"
+          ],
+          "type": "text"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "description",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.description"
+          ],
+          "type": "text"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "price",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.price"
+          ],
+          "type": "int"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "nameIsEmpty",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.nameIsEmpty"
+          ],
+          "type": "bool"
+        },
+        {
+          "kind": "UNRESOLVED",
+          "name": "descriptionIsEmpty",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemDetails.params.descriptionIsEmpty"
+          ],
+          "type": "bool"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.UpdateItemDetails.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "var",
+            "n": "nameIsEmpty",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "EmptyName",
+          "trace": "operations.UpdateItemDetails.cases[1].cond"
+        },
+        {
+          "expression": {
+            "k": "var",
+            "n": "descriptionIsEmpty",
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "EmptyDescription",
+          "trace": "operations.UpdateItemDetails.cases[2].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "price",
+              "ty": "int"
+            },
+            "op": "<=",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "NonPositivePrice",
+          "trace": "operations.UpdateItemDetails.cases[3].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.UpdateItemDetails"
+      }
+    },
+    {
+      "actor": {
+        "kind": "UNRESOLVED",
+        "reason": "Logical IR does not declare a human or technical initiator."
+      },
+      "ambiguities": [
+        {
+          "parameter": "itemId",
+          "reason": "No explicit identity was found for the referenced entity.",
+          "trace": [
+            "operations.UpdateItemType.params.itemId",
+            "operations.UpdateItemType.cases[0].cond.x"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "evidence": [
+            "operations.UpdateItemType.cases[2].stmts[0]"
+          ],
+          "inference_rule": "STATE_CHANGE_STATEMENTS",
+          "name": "command-execution",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemType.params.typeId"
+          ],
+          "inference_rule": "OPERATION_PARAMETERS_USED_BY_STATE_CHANGE",
+          "name": "data-input",
+          "status": "OBSERVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemType.cases[2].stmts[0]"
+          ],
+          "name": "human-interaction",
+          "reason": "The IR does not explicitly identify who initiates the operation.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "evidence": [
+            "operations.UpdateItemType.cases[0]",
+            "operations.UpdateItemType.cases[1]"
+          ],
+          "inference_rule": "NAMED_OPERATION_OUTCOMES",
+          "name": "validation-feedback",
+          "status": "OBSERVED"
+        }
+      ],
+      "effects": [
+        {
+          "entity": "CatalogItem",
+          "kind": "set",
+          "trace": "operations.UpdateItemType.cases[2].stmts[0]"
+        }
+      ],
+      "id": "UpdateItemType",
+      "inputs": [
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "typeId",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemType.params.typeId"
+          ],
+          "type": "int"
+        }
+      ],
+      "intent": {
+        "kind": "UPDATE",
+        "subject": "CatalogItem",
+        "trace": [
+          "operations.UpdateItemType.cases[2].stmts[0]"
+        ]
+      },
+      "outcomes": [
+        {
+          "case_index": 0,
+          "condition": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "name": "ItemNotFound",
+          "trace": "operations.UpdateItemType.cases[0]"
+        },
+        {
+          "case_index": 1,
+          "condition": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "name": "InvalidType",
+          "trace": "operations.UpdateItemType.cases[1]"
+        },
+        {
+          "case_index": 2,
+          "inference_rule": "UNCONDITIONAL_STATE_CHANGE_CASE",
+          "kind": "SUCCESS",
+          "name": null,
+          "trace": "operations.UpdateItemType.cases[2]"
+        }
+      ],
+      "parameters": [
+        {
+          "ambiguity": "No explicit identity was found for the referenced entity.",
+          "inference_rule": "ENTITY_MEMBERSHIP_OR_UPDATE_TARGET",
+          "kind": "ENTITY_REFERENCE",
+          "name": "itemId",
+          "reference": {
+            "entity": "CatalogItem",
+            "identity_attribute": null
+          },
+          "required": true,
+          "trace": [
+            "operations.UpdateItemType.params.itemId",
+            "operations.UpdateItemType.cases[0].cond.x"
+          ],
+          "type": "id"
+        },
+        {
+          "inference_rule": "OPERATION_PARAMETER_USED_BY_STATE_CHANGE",
+          "kind": "USER_INPUT",
+          "name": "typeId",
+          "required": true,
+          "trace": [
+            "operations.UpdateItemType.params.typeId"
+          ],
+          "type": "int"
+        }
+      ],
+      "preconditions": [
+        {
+          "expression": {
+            "k": "un",
+            "op": "not",
+            "ty": "bool",
+            "x": {
+              "e": "CatalogItem",
+              "k": "in",
+              "key": {
+                "k": "var",
+                "n": "itemId",
+                "ty": "id"
+              },
+              "ty": "bool"
+            }
+          },
+          "kind": "VALIDATION",
+          "outcome": "ItemNotFound",
+          "trace": "operations.UpdateItemType.cases[0].cond"
+        },
+        {
+          "expression": {
+            "k": "bin",
+            "l": {
+              "k": "var",
+              "n": "typeId",
+              "ty": "int"
+            },
+            "op": "==",
+            "r": {
+              "k": "int",
+              "ty": "int",
+              "v": 0
+            },
+            "ty": "bool"
+          },
+          "kind": "VALIDATION",
+          "outcome": "InvalidType",
+          "trace": "operations.UpdateItemType.cases[1].cond"
+        }
+      ],
+      "system_values": [],
+      "trace": {
+        "inference_rule": "LOGICAL_OPERATION_PROJECTION",
+        "operation": "operations.UpdateItemType"
+      }
+    }
+  ],
+  "regeneration_coverage": {
+    "basis": "declared_surfaces_only",
+    "declared_surfaces": [],
+    "open_required": [],
+    "percentage": null,
+    "state": "not_evaluated",
+    "verification_result": "SEPARATE_ARTIFACT"
+  },
+  "source": {
+    "logical_ir_version": "upa-ir-0.1",
+    "sha256": "8f406d83b66eedc865fc60e1bd993933c8d65b45646e4b25e45244fa545a2073",
+    "spec": "CatalogItem"
+  }
+}

@@ -1,0 +1,16 @@
+spec Export version "0.1"
+assumption AS_1 "No files or reports exist at startup" owner "operations"
+initial origin assumption(AS_1): forall k: not (k in Report) and not (k in File)
+
+operation Save(id: Identifier, body: Text) {
+  when id in Report { }
+  otherwise {
+    create Report[id] { body = body }
+    write_file id = body
+  }
+}
+
+business_rules {
+  invariant R_FILE origin literal("every saved report has a file with matching content") "a report file matches its content":
+    forall r: (r in Report) => (r in File and File.content[r] == Report.body[r])
+}

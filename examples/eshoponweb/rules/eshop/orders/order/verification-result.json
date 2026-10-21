@@ -1,0 +1,538 @@
+{
+  "assumptions": [
+    {
+      "evidence": "declared in the UPA program",
+      "id": "AS_NO_EXISTING_ORDERS",
+      "owner": "operation",
+      "source": "user",
+      "text": "No orders or order lines exist initially"
+    }
+  ],
+  "components": [
+    {
+      "alias": "Lines",
+      "ref": "eshop.basket.lines",
+      "summary": {
+        "PROVEN": 21,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 21,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    },
+    {
+      "alias": "Item",
+      "ref": "eshop.catalog.item",
+      "summary": {
+        "PROVEN": 7,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "summary_total": {
+        "PROVEN": 7,
+        "REFUTED": 0,
+        "UNKNOWN": 0
+      },
+      "verdict": "VERIFIED",
+      "version": "0.1"
+    }
+  ],
+  "errors": [],
+  "ir_hash": "84f573072ae31c7596e1c8d6568033652e660e14f216ff84189bedb4ecf5a900",
+  "obligations": [
+    {
+      "description": "the initial state establishes BR_ORDER_LINE_SUBTOTAL",
+      "id": "INIT:BR_ORDER_LINE_SUBTOTAL",
+      "inherited_from": null,
+      "kind": "INIT",
+      "operation": null,
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "ValidateBasketForOrder preserves BR_ORDER_LINE_SUBTOTAL",
+      "id": "PRES:BR_ORDER_LINE_SUBTOTAL@ValidateBasketForOrder",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "ValidateBasketForOrder",
+      "reason": "frame: the operation leaves the rule inputs unchanged (goal identical to an assumption)",
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "ValidateBasketForOrder satisfies BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "id": "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@ValidateBasketForOrder",
+      "inherited_from": null,
+      "kind": "LAW",
+      "operation": "ValidateBasketForOrder",
+      "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "CreateOrderLine preserves BR_ORDER_LINE_SUBTOTAL",
+      "id": "PRES:BR_ORDER_LINE_SUBTOTAL@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "CreateOrderLine",
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 39
+    },
+    {
+      "description": "CreateOrderLine satisfies BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "id": "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "LAW",
+      "operation": "CreateOrderLine",
+      "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 8
+    },
+    {
+      "description": "CreateOrderLine satisfies postcondition BR_ORDER_LINE_USES_BASKET_PRICE",
+      "id": "ENS:BR_ORDER_LINE_USES_BASKET_PRICE@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderLine",
+      "rule": "BR_ORDER_LINE_USES_BASKET_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "CreateOrderLine satisfies postcondition BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "id": "ENS:BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderLine",
+      "rule": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "CreateOrderLine satisfies postcondition BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "id": "ENS:BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderLine",
+      "rule": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateOrderLine satisfies postcondition BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "id": "ENS:BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderLine",
+      "rule": "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 5
+    },
+    {
+      "description": "CreateOrderLine satisfies postcondition BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "id": "ENS:BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL@CreateOrderLine",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderLine",
+      "rule": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 4
+    },
+    {
+      "description": "InsertOrder preserves BR_ORDER_LINE_SUBTOTAL",
+      "id": "PRES:BR_ORDER_LINE_SUBTOTAL@InsertOrder",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "InsertOrder",
+      "reason": "frame: the operation leaves the rule inputs unchanged (goal identical to an assumption)",
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "InsertOrder satisfies BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "id": "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@InsertOrder",
+      "inherited_from": null,
+      "kind": "LAW",
+      "operation": "InsertOrder",
+      "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "conditional_on": [
+        "PRES:BR_ORDER_LINE_SUBTOTAL@CreateOrderLine",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@InsertOrder",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@ValidateBasketForOrder"
+      ],
+      "description": "CreateOrderFromBasket preserves BR_ORDER_LINE_SUBTOTAL",
+      "id": "PRES:BR_ORDER_LINE_SUBTOTAL@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "PRES",
+      "operation": "CreateOrderFromBasket",
+      "reason": "modular: every step of the compose preserves all invariants and types (step obligations), so the intermediate states, final state, and rollback of an atomic compose preserve them too",
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "id": "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "LAW",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 10
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+      "id": "ENS:BR_EMPTY_BASKET_CANNOT_CREATE_ORDER@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 8
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+      "id": "ENS:BR_MISSING_BASKET_CANNOT_CREATE_ORDER@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+      "id": "ENS:BR_EMPTY_BUYER_CANNOT_CREATE_ORDER@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_ORDER_STORES_SHIPPING_ADDRESS",
+      "id": "ENS:BR_ORDER_STORES_SHIPPING_ADDRESS@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 9
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_ORDER_CREATION_PRESERVES_BASKET",
+      "id": "ENS:BR_ORDER_CREATION_PRESERVES_BASKET@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_ORDER_CREATION_PRESERVES_BASKET",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 1
+    },
+    {
+      "description": "CreateOrderFromBasket satisfies postcondition BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+      "id": "ENS:BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG@CreateOrderFromBasket",
+      "inherited_from": null,
+      "kind": "ENS",
+      "operation": "CreateOrderFromBasket",
+      "rule": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "time_ms": 0
+    }
+  ],
+  "proof_cache": {
+    "frame": 2,
+    "fresh": 0,
+    "reused": 0,
+    "solver": 17
+  },
+  "rules": [
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "invariant",
+      "obligations": [
+        "INIT:BR_ORDER_LINE_SUBTOTAL",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@ValidateBasketForOrder",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@CreateOrderLine",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@InsertOrder",
+        "PRES:BR_ORDER_LINE_SUBTOTAL@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "rule": "BR_ORDER_LINE_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "each order-line subtotal equals unit price times units",
+      "user_assumptions": [
+        "AS_NO_EXISTING_ORDERS"
+      ]
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "law",
+      "obligations": [
+        "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@ValidateBasketForOrder",
+        "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@CreateOrderLine",
+        "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@InsertOrder",
+        "LAW:BR_ORDER_LINE_SNAPSHOT_IMMUTABLE@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "/// Represents a snapshot of the item that was ordered."
+      },
+      "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a recorded order line keeps its purchased name, image, price, and units",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_LINE_USES_BASKET_PRICE@CreateOrderLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);"
+      },
+      "rule": "BR_ORDER_LINE_USES_BASKET_PRICE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an order line copies price and units from the basket line, not the current catalog price",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM@CreateOrderLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))"
+      },
+      "rule": "BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an order line records the catalog name, image, and item identifier at purchase time",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE@CreateOrderLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);"
+      },
+      "rule": "BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a basket line whose catalog item is missing does not produce an order line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE@CreateOrderLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);"
+      },
+      "rule": "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an item identifier outside the valid integer range does not produce an order line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL@CreateOrderLine"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "total += item.UnitPrice * item.Units;"
+      },
+      "rule": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "the order total increases by the subtotal of each created line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_EMPTY_BASKET_CANNOT_CREATE_ORDER@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.EmptyBasketOnCheckout(basket.Items);"
+      },
+      "rule": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an empty basket cannot produce an order or order line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_MISSING_BASKET_CANNOT_CREATE_ORDER@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.Null(basket, nameof(basket));"
+      },
+      "rule": "BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a missing basket cannot produce an order",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_EMPTY_BUYER_CANNOT_CREATE_ORDER@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "Guard.Against.NullOrEmpty(buyerId, nameof(buyerId));"
+      },
+      "rule": "BR_EMPTY_BUYER_CANNOT_CREATE_ORDER",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "an empty buyer identifier does not produce an order or line",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_STORES_SHIPPING_ADDRESS@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order)"
+      },
+      "rule": "BR_ORDER_STORES_SHIPPING_ADDRESS",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "a created order records its buyer and supplied shipping address",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_CREATION_PRESERVES_BASKET@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "literal",
+        "ref": "await _orderRepository.AddAsync(order);"
+      },
+      "rule": "BR_ORDER_CREATION_PRESERVES_BASKET",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "creating an order does not alter the basket; basket deletion occurs afterward",
+      "user_assumptions": []
+    },
+    {
+      "group": "business",
+      "inherited": false,
+      "kind": "ensures",
+      "obligations": [
+        "ENS:BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG@CreateOrderFromBasket"
+      ],
+      "origin": {
+        "kind": "derived",
+        "ref": "DD_ORDER_ITEM_SNAPSHOT"
+      },
+      "rule": "BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",
+      "status": "PROVEN",
+      "stdlib_axioms": [],
+      "text": "creating an order copies catalog details without changing the catalog",
+      "user_assumptions": []
+    }
+  ],
+  "summary": {
+    "PROVEN": 20,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "summary_by_category": {
+    "business": {
+      "PROVEN": 20,
+      "REFUTED": 0,
+      "UNKNOWN": 0
+    }
+  },
+  "summary_total": {
+    "PROVEN": 48,
+    "REFUTED": 0,
+    "UNKNOWN": 0
+  },
+  "timeout_ms": 60000,
+  "tool": {
+    "backend": "z3",
+    "version": "5.3.1"
+  },
+  "verdict": "VERIFIED"
+}

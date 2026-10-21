@@ -1,0 +1,11 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_CATALOG_ROLE",
+    "resolves": null,
+    "status": "decided",
+    "text": "Catalog administration requires the Administrators role; other protected shopper operations require an authenticated user"
+  }
+]

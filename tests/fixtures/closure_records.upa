@@ -1,0 +1,11 @@
+spec Records version "0.1"
+input {
+    "Records can be registered with code and name."
+}
+business {
+    records {
+        "Every record has code and name." from "Records can be registered with code and name."
+        "The code uniquely identifies the record." from "Records can be registered with code and name."
+        "Records can be registered." from "Records can be registered with code and name."
+    }
+}

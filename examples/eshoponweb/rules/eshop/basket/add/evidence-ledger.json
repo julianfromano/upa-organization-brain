@@ -1,0 +1,186 @@
+{
+  "items": [
+    {
+      "evidence": "if (item == null)",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing item creates neither a basket nor a basket line"
+    },
+    {
+      "evidence": "await _basketService.AddItemToBasket(username,",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a new basket line stores one unit at the catalog price"
+    },
+    {
+      "evidence": "existingItem.AddQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "adding an item that is already present adds one unit without changing its price"
+    },
+    {
+      "evidence": "basket = new Basket(username);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "BR_SUCCESSFUL_ADD_HAS_BASKET",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a successful add leaves a basket for the resolved shopper"
+    },
+    {
+      "evidence": "return Request.HttpContext.User.Identity.Name!;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an authenticated shopper is identified by their user name and receives no basket cookie"
+    },
+    {
+      "evidence": "if (!Guid.TryParse(userName, out var _))",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper with a valid GUID cookie reuses that basket"
+    },
+    {
+      "evidence": "userName = Guid.NewGuid().ToString();",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an anonymous shopper without a valid GUID cookie receives a new basket identity and cookie"
+    },
+    {
+      "evidence": "Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a missing request identity cannot resolve a basket buyer"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+      "kind": "invariant",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "basket line quantities are never negative"
+    },
+    {
+      "evidence": "existingItem.AddQuantity(quantity);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "adding an existing item increases that line's quantity"
+    },
+    {
+      "evidence": "Quantity += quantity;",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "adding units to an existing line does not change its unit price"
+    },
+    {
+      "evidence": "_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "a new line stores its basket, item, quantity, and unit price"
+    },
+    {
+      "evidence": "Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);",
+      "formal_status": "PROVEN",
+      "group": "business",
+      "id": "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+      "kind": "ensures",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "an out-of-range quantity does not create or change a line"
+    },
+    {
+      "evidence": "string? userName = null;",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_SOURCE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one source: BuyerSource"
+    },
+    {
+      "evidence": "Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BUYER_COOKIE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BuyerResolution has exactly_one writesCookie: Bool"
+    },
+    {
+      "evidence": "public string BuyerId { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_BASKET_BUYER",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every Basket has exactly_one buyerId: Text"
+    },
+    {
+      "evidence": "public int Quantity { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_QUANTITY",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one quantity: Int"
+    },
+    {
+      "evidence": "public decimal UnitPrice { get; private set; }",
+      "formal_status": "STRUCTURAL",
+      "group": "structural",
+      "id": "F_LINE_UNIT_PRICE",
+      "kind": "fact:has",
+      "may_be_guarantee": true,
+      "origin": "literal",
+      "text": "every BasketLine has exactly_one unitPrice: Money"
+    }
+  ],
+  "open_questions": [],
+  "rule": "unspecified properties cannot become guarantees"
+}

@@ -1,0 +1,876 @@
+{
+  "concepts": [
+    {
+      "class": "Entity",
+      "evidence": [
+        "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "CreateItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "EditItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "F_ACCESS_GRANTED",
+        "OP:Checkout_Access_AuthorizeUser",
+        "OP:CreateItem_Access_AuthorizeAdministrator",
+        "OP:DeleteItem_Access_AuthorizeAdministrator",
+        "OP:EditItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "AccessGrant",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "F_BASKET_BUYER",
+        "INITIAL",
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Add_Lines_GetOrCreateBasket",
+        "OP:Checkout_Lines_DeleteBasket",
+        "OP:Checkout_Order_ValidateBasketForOrder",
+        "OP:Checkout_Update_Lines_FindBasket",
+        "OP:Checkout_Update_Lines_GetOrCreateBasket",
+        "OP:Merge_Lines_DeleteBasket",
+        "OP:Merge_Lines_GetOrCreateBasket",
+        "OP:Update_Lines_FindBasket",
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Basket",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "INITIAL",
+        "Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Add_Lines_AddBasketLine",
+        "OP:Checkout_Lines_DeleteBasket",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:Checkout_Order_ValidateBasketForOrder",
+        "OP:Checkout_Update_Lines_RemoveZeroQuantityLines",
+        "OP:Checkout_Update_Lines_SetLineQuantity",
+        "OP:Merge_Lines_DeleteBasket",
+        "OP:Merge_Lines_MergeBasketLine",
+        "OP:Update_Lines_RemoveZeroQuantityLines",
+        "OP:Update_Lines_SetLineQuantity",
+        "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED"
+      ],
+      "name": "BasketLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:Add_Buyer_ResolveBuyer",
+        "OP:Checkout_Update_Buyer_ResolveBuyer",
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ],
+      "name": "BuyerResolution",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
+        "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "F_ITEM_NAME",
+        "F_ITEM_PRICE",
+        "OP:Checkout_Order_CreateOrderLine",
+        "OP:CreateItem_InsertCatalogItem",
+        "OP:CreateItem_SetDefaultImage",
+        "OP:DeleteItem_DeleteItem",
+        "OP:DeleteItem_Item_FindCatalogItem",
+        "OP:EditItem_Item_FindCatalogItem",
+        "OP:EditItem_Item_UpdateItemBrand",
+        "OP:EditItem_Item_UpdateItemDetails",
+        "OP:EditItem_Item_UpdateItemType"
+      ],
+      "name": "CatalogItem",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ],
+      "name": "LoginMergeDecision",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "F_ORDER_BUYER",
+        "F_ORDER_CITY",
+        "F_ORDER_COUNTRY",
+        "F_ORDER_POSTAL_CODE",
+        "F_ORDER_REGION",
+        "F_ORDER_STREET",
+        "INITIAL",
+        "OP:Checkout_Order_InsertOrder"
+      ],
+      "name": "Order",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
+        "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_LINE_IMAGE",
+        "F_ORDER_LINE_ITEM",
+        "F_ORDER_LINE_NAME",
+        "F_ORDER_LINE_PRICE",
+        "F_ORDER_LINE_TOTAL",
+        "F_ORDER_LINE_UNITS",
+        "INITIAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "OrderLine",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Entity",
+      "evidence": [
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "F_ORDER_TOTAL",
+        "INITIAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "OrderTotal",
+      "reason": "used with identity (indexed attributes / membership / creation)"
+    },
+    {
+      "class": "Value",
+      "evidence": [
+        "type"
+      ],
+      "name": "Money",
+      "reason": "alias of Int with scale 2; no identity"
+    },
+    {
+      "class": "State",
+      "evidence": [
+        "enum"
+      ],
+      "name": "BuyerSource",
+      "reason": "its members are referenced in guards or properties (governs behavior)"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Add_ValidateCatalogItem"
+      ],
+      "name": "Add_ValidateCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Add_Buyer_ResolveBuyer"
+      ],
+      "name": "Add_Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Add_Lines_GetOrCreateBasket"
+      ],
+      "name": "Add_Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Add_Lines_AddBasketLine"
+      ],
+      "name": "Add_Lines_AddBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_ValidateQuantityModel"
+      ],
+      "name": "Update_ValidateQuantityModel",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Buyer_ResolveBuyer"
+      ],
+      "name": "Update_Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Update_Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_FindBasket"
+      ],
+      "name": "Update_Lines_FindBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_SetLineQuantity"
+      ],
+      "name": "Update_Lines_SetLineQuantity",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Update_Lines_RemoveZeroQuantityLines"
+      ],
+      "name": "Update_Lines_RemoveZeroQuantityLines",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Access_AuthorizeUser"
+      ],
+      "name": "Checkout_Access_AuthorizeUser",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_ValidateQuantityModel"
+      ],
+      "name": "Checkout_Update_ValidateQuantityModel",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_Buyer_ResolveBuyer"
+      ],
+      "name": "Checkout_Update_Buyer_ResolveBuyer",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Checkout_Update_Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_Lines_FindBasket"
+      ],
+      "name": "Checkout_Update_Lines_FindBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_Lines_SetLineQuantity"
+      ],
+      "name": "Checkout_Update_Lines_SetLineQuantity",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Update_Lines_RemoveZeroQuantityLines"
+      ],
+      "name": "Checkout_Update_Lines_RemoveZeroQuantityLines",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Order_ValidateBasketForOrder"
+      ],
+      "name": "Checkout_Order_ValidateBasketForOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "Checkout_Order_CreateOrderLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Order_InsertOrder"
+      ],
+      "name": "Checkout_Order_InsertOrder",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Checkout_Lines_DeleteBasket"
+      ],
+      "name": "Checkout_Lines_DeleteBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ],
+      "name": "Merge_Buyer_DecideLoginMerge",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Merge_Lines_GetOrCreateBasket"
+      ],
+      "name": "Merge_Lines_GetOrCreateBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Merge_Lines_MergeBasketLine"
+      ],
+      "name": "Merge_Lines_MergeBasketLine",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:Merge_Lines_DeleteBasket"
+      ],
+      "name": "Merge_Lines_DeleteBasket",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "CreateItem_Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateItem_CheckNameAvailability"
+      ],
+      "name": "CreateItem_CheckNameAvailability",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateItem_InsertCatalogItem"
+      ],
+      "name": "CreateItem_InsertCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:CreateItem_SetDefaultImage"
+      ],
+      "name": "CreateItem_SetDefaultImage",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "EditItem_Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditItem_Item_FindCatalogItem"
+      ],
+      "name": "EditItem_Item_FindCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditItem_Item_UpdateItemDetails"
+      ],
+      "name": "EditItem_Item_UpdateItemDetails",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditItem_Item_UpdateItemBrand"
+      ],
+      "name": "EditItem_Item_UpdateItemBrand",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:EditItem_Item_UpdateItemType"
+      ],
+      "name": "EditItem_Item_UpdateItemType",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "DeleteItem_Access_AuthorizeAdministrator",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteItem_Item_FindCatalogItem"
+      ],
+      "name": "DeleteItem_Item_FindCatalogItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:DeleteItem_DeleteItem"
+      ],
+      "name": "DeleteItem_DeleteItem",
+      "reason": "declared atomic transition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:AddAndCheckout"
+      ],
+      "name": "AddAndCheckout",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:MergeOnLogin"
+      ],
+      "name": "MergeOnLogin",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Operation",
+      "evidence": [
+        "OP:ManageCatalog"
+      ],
+      "name": "ManageCatalog",
+      "reason": "operation composition"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "BasketLine.catalogItemId",
+      "reason": "attribute used as the identifier for CatalogItem: contextual role, not a class"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Add_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Add_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:Add_Buyer_ResolveBuyer"
+      ],
+      "name": "Add_Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
+        "OP:Add_Lines_AddBasketLine"
+      ],
+      "name": "Add_Lines_AddBasketLine.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Add_Lines_GetOrCreateBasket"
+      ],
+      "name": "Add_Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
+        "OP:Checkout_Access_AuthorizeUser"
+      ],
+      "name": "Checkout_Access_AuthorizeUser.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Checkout_Lines_DeleteBasket"
+      ],
+      "name": "Checkout_Lines_DeleteBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "Checkout_Order_CreateOrderLine.basketLineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
+        "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
+        "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "Checkout_Order_CreateOrderLine.lineId",
+      "reason": "parameter used as the identifier for ['OrderLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
+        "OP:Checkout_Order_CreateOrderLine"
+      ],
+      "name": "Checkout_Order_CreateOrderLine.orderId",
+      "reason": "parameter used as the identifier for ['OrderTotal']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Checkout_Order_InsertOrder"
+      ],
+      "name": "Checkout_Order_InsertOrder.orderId",
+      "reason": "parameter used as the identifier for ['Order']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Checkout_Order_ValidateBasketForOrder"
+      ],
+      "name": "Checkout_Order_ValidateBasketForOrder.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "OP:Checkout_Update_Buyer_ResolveBuyer"
+      ],
+      "name": "Checkout_Update_Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Checkout_Update_Lines_FindBasket"
+      ],
+      "name": "Checkout_Update_Lines_FindBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Checkout_Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Checkout_Update_Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
+        "OP:Checkout_Update_Lines_SetLineQuantity"
+      ],
+      "name": "Checkout_Update_Lines_SetLineQuantity.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "CreateItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:CreateItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "CreateItem_Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:CreateItem_InsertCatalogItem"
+      ],
+      "name": "CreateItem_InsertCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:CreateItem_SetDefaultImage"
+      ],
+      "name": "CreateItem_SetDefaultImage.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:DeleteItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "DeleteItem_Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:DeleteItem_DeleteItem"
+      ],
+      "name": "DeleteItem_DeleteItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:DeleteItem_Item_FindCatalogItem"
+      ],
+      "name": "DeleteItem_Item_FindCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "EditItem_Access_BR_ADMIN_REQUIRES_ROLE",
+        "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+        "OP:EditItem_Access_AuthorizeAdministrator"
+      ],
+      "name": "EditItem_Access_AuthorizeAdministrator.request",
+      "reason": "parameter used as the identifier for ['AccessGrant']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:EditItem_Item_FindCatalogItem"
+      ],
+      "name": "EditItem_Item_FindCatalogItem.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
+        "OP:EditItem_Item_UpdateItemBrand"
+      ],
+      "name": "EditItem_Item_UpdateItemBrand.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
+        "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
+        "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
+        "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
+        "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
+        "OP:EditItem_Item_UpdateItemDetails"
+      ],
+      "name": "EditItem_Item_UpdateItemDetails.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
+        "OP:EditItem_Item_UpdateItemType"
+      ],
+      "name": "EditItem_Item_UpdateItemType.itemId",
+      "reason": "parameter used as the identifier for ['CatalogItem']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "OP:Merge_Buyer_DecideLoginMerge"
+      ],
+      "name": "Merge_Buyer_DecideLoginMerge.request",
+      "reason": "parameter used as the identifier for ['LoginMergeDecision']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
+        "OP:Merge_Lines_DeleteBasket"
+      ],
+      "name": "Merge_Lines_DeleteBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Merge_Lines_GetOrCreateBasket"
+      ],
+      "name": "Merge_Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "OP:Merge_Lines_MergeBasketLine"
+      ],
+      "name": "Merge_Lines_MergeBasketLine.anonymousLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
+        "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
+        "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
+        "OP:Merge_Lines_MergeBasketLine"
+      ],
+      "name": "Merge_Lines_MergeBasketLine.shopperLine",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Buyer_ResolveBuyer",
+        "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME"
+      ],
+      "name": "Update_Buyer_ResolveBuyer.request",
+      "reason": "parameter used as the identifier for ['BuyerResolution']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_FindBasket"
+      ],
+      "name": "Update_Lines_FindBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_GetOrCreateBasket"
+      ],
+      "name": "Update_Lines_GetOrCreateBasket.basketId",
+      "reason": "parameter used as the identifier for ['Basket']"
+    },
+    {
+      "class": "Role",
+      "evidence": [
+        "OP:Update_Lines_SetLineQuantity",
+        "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
+        "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
+        "Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED"
+      ],
+      "name": "Update_Lines_SetLineQuantity.lineId",
+      "reason": "parameter used as the identifier for ['BasketLine']"
+    }
+  ],
+  "role_notes": []
+}

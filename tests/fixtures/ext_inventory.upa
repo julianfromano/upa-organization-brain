@@ -1,0 +1,40 @@
+spec InventoryReservation version "0.1"
+
+external FulfillmentService version "3" source "fulfillment.yaml" hash "sha256:7515a784058efacf42a27d415e74ba9565a67d72eb0b26718e3d6623c01dcbb3" {
+  operation Reserve(operationId: Identifier, amount: Natural) http "POST /inventory/reservations" {
+    outcome Accepted status "200"
+    outcome Rejected status "409"
+    outcome Uncertain uncertain
+    resolve_by GetReservation
+    on Accepted { create ExternalReservation[operationId] { amount = amount } }
+  }
+  operation GetReservation(operationId: Identifier) http "GET /inventory/reservations/{operationId}" {
+    outcome Accepted status "200"
+    outcome NotFound status "404"
+  }
+}
+
+enum ReservationState { Accepted, Rejected, Uncertain }
+assumption AS_1 "No reservations or external inventory holds exist at startup" owner "operations"
+initial origin assumption(AS_1): forall k: not (k in Reservation) and not (k in ExternalReservation)
+
+operation ReserveInventory(id: Identifier, amt: Natural, r: FulfillmentService_Reserve_Outcome) {
+  when id in Reservation { }
+  when r == FulfillmentService_Reserve_Outcome.Accepted {
+    invoke FulfillmentService.Reserve(id, amt) yields r
+    create Reservation[id] { state = ReservationState.Accepted }
+  }
+  when r == FulfillmentService_Reserve_Outcome.Uncertain {
+    invoke FulfillmentService.Reserve(id, amt) yields r
+    create Reservation[id] { state = ReservationState.Uncertain }
+  }
+  otherwise {
+    invoke FulfillmentService.Reserve(id, amt) yields r
+    create Reservation[id] { state = ReservationState.Rejected }
+  }
+}
+
+business_rules {
+  invariant R_DONE_HAS_DEBIT origin literal("a reservation is accepted only after the external stock hold is applied") "an accepted reservation has an external stock hold":
+    forall p: (p in Reservation and Reservation.state[p] == ReservationState.Accepted) => p in ExternalReservation
+}

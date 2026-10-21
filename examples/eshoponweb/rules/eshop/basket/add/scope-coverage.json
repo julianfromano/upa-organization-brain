@@ -1,0 +1,79 @@
+{
+  "ratio": 0.182,
+  "sentences": [
+    {
+      "covered_by": [],
+      "sentence": "Model an online store with catalog items described by name, description, price, brand, type, and image."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Administrators can create, edit, and delete catalog items; shoppers can browse and filter the catalog."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Shoppers add items to a basket, change quantities, and check out when signed in."
+    },
+    {
+      "covered_by": [],
+      "sentence": "When an anonymous shopper signs in, their basket is merged into the signed-in shopper's basket."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Existing shopper prices take precedence during a merge."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Checkout creates an order for the signed-in shopper and records a shipping address plus a snapshot of each purchased catalog item's name and image and each basket line's price and quantity."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Later catalog changes do not rewrite the order."
+    },
+    {
+      "covered_by": [],
+      "sentence": "An empty basket cannot be checked out."
+    },
+    {
+      "covered_by": [],
+      "sentence": "Authorization is enforced by the web framework; persistence, concurrent requests, and failure recovery are outside this model."
+    },
+    {
+      "covered_by": [
+        "BR_EXISTING_BASKET_LINE_ADDS_ONE",
+        "BR_MISSING_CATALOG_ITEM_HAS_NO_EFFECT",
+        "BR_NEW_BASKET_LINE_HAS_ONE_UNIT",
+        "BR_SUCCESSFUL_ADD_HAS_BASKET",
+        "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
+        "Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BASKET_BUYER",
+        "F_BUYER_COOKIE",
+        "F_LINE_QUANTITY",
+        "F_LINE_UNIT_PRICE",
+        "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
+        "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
+        "Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
+        "Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
+        "Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES"
+      ],
+      "sentence": "Verbatim source evidence excerpts (code, not additional business requirements):\n\n\"/// Represents a snapshot of the item that was ordered.\"\n\"Guard.Against.EmptyBasketOnCheckout(basket.Items);\"\n\"Guard.Against.NegativeOrZero(details.Price, nameof(details.Price));\"\n\"Guard.Against.Null(Request.HttpContext.User.Identity, nameof(Request.HttpContext.User.Identity));\"\n\"Guard.Against.Null(basket, nameof(basket));\"\n\"Guard.Against.NullOrEmpty(buyerId, nameof(buyerId));\"\n\"Guard.Against.NullOrEmpty(details.Description, nameof(details.Description));\"\n\"Guard.Against.NullOrEmpty(details.Name, nameof(details.Name));\"\n\"Guard.Against.OutOfRange(catalogItemId, nameof(catalogItemId), 1, int.MaxValue);\"\n\"Guard.Against.OutOfRange(quantity, nameof(quantity), 0, int.MaxValue);\"\n\"Guard.Against.Zero(catalogBrandId, nameof(catalogBrandId));\"\n\"Guard.Against.Zero(catalogTypeId, nameof(catalogTypeId));\"\n\"Name = details.Name;\"\n\"Quantity += quantity;\"\n\"Response.Cookies.Append(Constants.BASKET_COOKIENAME, userName, cookieOptions);\"\n\"Response.Cookies.Delete(Constants.BASKET_COOKIENAME);\"\n\"[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS\"\n\"[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS)]\"\n\"[Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]\"\n\"[Authorize]\"\n\"_items.Add(new BasketItem(catalogItemId, quantity, unitPrice));\"\n\"_items.RemoveAll(i => i.Quantity == 0);\"\n\"await _basketRepository.DeleteAsync(anonymousBasket);\"\n\"await _basketService.AddItemToBasket(username,\"\n\"await _basketService.DeleteBasketAsync(BasketModel.Id);\"\n\"await _basketService.TransferBasketAsync(anonymousId, userName);\"\n\"await _orderRepository.AddAsync(order)\"\n\"await _orderRepository.AddAsync(order);\"\n\"await itemRepository.DeleteAsync(itemToDelete);\"\n\"basket = new Basket(username);\"\n\"catch (EmptyBasketOnCheckoutException emptyBasketOnCheckoutException)\"\n\"existingItem.AddQuantity(quantity);\"\n\"existingItem.UpdateBrand(request.CatalogBrandId);\"\n\"existingItem.UpdateDetails(details);\"\n\"if (!Guid.TryParse(userName, out var _))\"\n\"if (!ModelState.IsValid)\"\n\"if (Guid.TryParse(anonymousId, out var _))\"\n\"if (Request.Cookies.ContainsKey(Constants.BASKET_COOKIENAME))\"\n\"if (anonymousBasket == null) return;\"\n\"if (item == null)\"\n\"if (itemToDelete is null)\"\n\"if (quantities.TryGetValue(item.Id.ToString(), out var quantity))\"\n\"item.SetQuantity(quantity);\"\n\"new CatalogItemOrdered(catalogItem.Id, catalogItem.Name, _uriComposer.ComposePicUri(catalogItem.PictureUri))\"\n\"new(viewModel.Name, existingCatalogItem.Description, viewModel.Price)\"\n\"newItem.UpdatePictureUri(\"eCatalog-item-default.png\");\"\n\"public decimal Price { get; private set; }\"\n\"public decimal UnitPrice { get; private set; }\"\n\"public int CatalogItemId { get; private set; }\"\n\"public int Quantity { get; private set; }\"\n\"public int Units { get; private set; }\"\n\"public string BuyerId { get; private set; }\"\n\"public string City { get; private set; }\"\n\"public string Country { get; private set; }\"\n\"public string Name { get; private set; }\"\n\"public string PictureUri { get; private set; }\"\n\"public string ProductName { get; private set; }\"\n\"public string State { get; private set; }\"\n\"public string Street { get; private set; }\"\n\"public string ZipCode { get; private set; }\"\n\"return Request.HttpContext.User.Identity.Name!;\"\n\"return Results.NotFound();\"\n\"string?"
+    },
+    {
+      "covered_by": [
+        "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER"
+      ],
+      "sentence": "userName = null;\"\n\"throw new DuplicateException($\"A catalogItem with name {request.Name} already exists\");\"\n\"total += item.UnitPrice * item.Units;\"\n\"userBasket.AddItem(item.CatalogItemId, item.UnitPrice, item.Quantity);\"\n\"userName = Guid.NewGuid().ToString();\"\n\"var catalogItem = catalogItems.First(c => c.Id == basketItem.CatalogItemId);\"\n\"var newItem = new CatalogItem(request.CatalogTypeId, request.CatalogBrandId, request.Description, request.Name, request.Price, request.PictureUri);\"\n\"var orderItem = new OrderItem(itemOrdered, basketItem.UnitPrice, basketItem.Quantity);\""
+    }
+  ],
+  "uncovered": [
+    "Model an online store with catalog items described by name, description, price, brand, type, and image.",
+    "Administrators can create, edit, and delete catalog items; shoppers can browse and filter the catalog.",
+    "Shoppers add items to a basket, change quantities, and check out when signed in.",
+    "When an anonymous shopper signs in, their basket is merged into the signed-in shopper's basket.",
+    "Existing shopper prices take precedence during a merge.",
+    "Checkout creates an order for the signed-in shopper and records a shipping address plus a snapshot of each purchased catalog item's name and image and each basket line's price and quantity.",
+    "Later catalog changes do not rewrite the order.",
+    "An empty basket cannot be checked out.",
+    "Authorization is enforced by the web framework; persistence, concurrent requests, and failure recovery are outside this model."
+  ]
+}

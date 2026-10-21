@@ -1,0 +1,68 @@
+[
+  {
+    "description": "Access_AuthorizeAdministrator satisfies postcondition Access_BR_ADMIN_REQUIRES_ROLE",
+    "id": "ENS:Access_BR_ADMIN_REQUIRES_ROLE@Access_AuthorizeAdministrator",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "Access_AuthorizeAdministrator",
+    "rule": "Access_BR_ADMIN_REQUIRES_ROLE",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 0
+  },
+  {
+    "description": "Access_AuthorizeAdministrator satisfies postcondition Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+    "id": "ENS:Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT@Access_AuthorizeAdministrator",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "Access_AuthorizeAdministrator",
+    "rule": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 2
+  },
+  {
+    "description": "CreateItem satisfies postcondition BR_CREATE_REQUIRES_ADMIN",
+    "id": "ENS:BR_CREATE_REQUIRES_ADMIN@CreateItem",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "CreateItem",
+    "rule": "BR_CREATE_REQUIRES_ADMIN",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 2
+  },
+  {
+    "description": "CreateItem satisfies postcondition BR_DUPLICATE_NAME_IS_REJECTED",
+    "id": "ENS:BR_DUPLICATE_NAME_IS_REJECTED@CreateItem",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "CreateItem",
+    "rule": "BR_DUPLICATE_NAME_IS_REJECTED",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  },
+  {
+    "description": "CreateItem satisfies postcondition BR_CREATE_STORES_REQUESTED_VALUES",
+    "id": "ENS:BR_CREATE_STORES_REQUESTED_VALUES@CreateItem",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "CreateItem",
+    "rule": "BR_CREATE_STORES_REQUESTED_VALUES",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  },
+  {
+    "description": "CreateItem satisfies postcondition BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+    "id": "ENS:BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE@CreateItem",
+    "inherited_from": null,
+    "kind": "ENS",
+    "operation": "CreateItem",
+    "rule": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
+    "status": "PROVEN",
+    "stdlib_axioms": [],
+    "time_ms": 1
+  }
+]

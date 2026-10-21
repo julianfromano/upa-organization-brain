@@ -1,0 +1,18 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f4f6f8; color: #1d2939; font: 16px/1.5 system-ui, sans-serif; }
+button, input, select { font: inherit; }
+.app-shell { display: grid; gap: 1rem; max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+.site-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; background: white; border-bottom: 1px solid #d0d5dd; }
+.page-tabs, .fields, .actions { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+.fields > * { flex: 1 1 220px; }
+.button { border: 1px solid #155eef; border-radius: .375rem; padding: .55rem .9rem; color: white; background: #155eef; cursor: pointer; }
+.button:disabled { opacity: .55; cursor: not-allowed; }
+.card { padding: 1.25rem; border: 1px solid #d0d5dd; border-radius: .5rem; background: white; }
+.card h2 { margin: 0 0 1rem; font-size: 1.2rem; }
+.field { display: grid; gap: .35rem; min-width: 0; }
+.field input, .field select { width: 100%; min-height: 2.5rem; border: 1px solid #98a2b3; border-radius: .375rem; padding: .4rem .6rem; background: white; }
+.checkbox { display: flex; align-items: center; gap: .5rem; }
+.alert { padding: .85rem 1rem; border-radius: .375rem; background: #eff8ff; }
+.alert-error { color: #912018; background: #fef3f2; }
+.alert-success { color: #05603a; background: #ecfdf3; }
+.alert-warning { color: #93370d; background: #fffaeb; }

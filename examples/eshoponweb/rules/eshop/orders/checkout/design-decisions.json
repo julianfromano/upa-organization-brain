@@ -1,0 +1,20 @@
+[
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_FIXED_SHIPPING_ADDRESS",
+    "resolves": null,
+    "status": "decided",
+    "text": "The checkout address is hard-coded in the page; the shopper does not enter it"
+  },
+  {
+    "alternatives": "",
+    "chooses": null,
+    "classification": "DESIGN_DECISION",
+    "id": "DD_ORDER_BUYER_FROM_BASKET",
+    "resolves": null,
+    "status": "decided",
+    "text": "The order buyer identifier is the basket BuyerId"
+  }
+]

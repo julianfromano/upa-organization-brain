@@ -1,0 +1,116 @@
+{
+  "by_rule": {
+    "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "BR_LOGIN_DELETES_PRESENT_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "BR_LOGIN_MERGES_ONLY_GUID_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "BR_MISSING_IDENTITY_IS_REJECTED": [
+      "BuyerResolution"
+    ],
+    "BR_SIGNED_IN_BUYER_USES_USER_NAME": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BUYER_COOKIE": [
+      "BuyerResolution",
+      "BuyerResolution.writesCookie"
+    ],
+    "F_BUYER_SOURCE": [
+      "BuyerResolution",
+      "BuyerResolution.source"
+    ],
+    "F_LOGIN_COOKIE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie"
+    ],
+    "F_LOGIN_MERGE": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "OP:DecideLoginMerge": [
+      "LoginMergeDecision",
+      "LoginMergeDecision.deletesCookie",
+      "LoginMergeDecision.mergesBasket"
+    ],
+    "OP:ResolveBuyer": [
+      "BuyerResolution",
+      "BuyerResolution.source",
+      "BuyerResolution.writesCookie"
+    ]
+  },
+  "why": {
+    "BuyerResolution": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_MISSING_IDENTITY_IS_REJECTED",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "F_BUYER_SOURCE",
+        "OP:ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.source": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_SOURCE",
+        "OP:ResolveBuyer"
+      ]
+    },
+    "BuyerResolution.writesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
+        "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
+        "BR_SIGNED_IN_BUYER_USES_USER_NAME",
+        "F_BUYER_COOKIE",
+        "OP:ResolveBuyer"
+      ]
+    },
+    "LoginMergeDecision": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.deletesCookie": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_LOGIN_DELETES_PRESENT_COOKIE",
+        "F_LOGIN_COOKIE",
+        "OP:DecideLoginMerge"
+      ]
+    },
+    "LoginMergeDecision.mergesBasket": {
+      "classification": "EXPLICIT_RULE",
+      "required_by": [
+        "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
+        "F_LOGIN_MERGE",
+        "OP:DecideLoginMerge"
+      ]
+    }
+  }
+}

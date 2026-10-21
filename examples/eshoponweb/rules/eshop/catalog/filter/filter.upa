@@ -1,0 +1,11 @@
+spec FilterCatalog version "0.1" tier atom
+// Sources: src/ApplicationCore/Specifications/CatalogFilterSpecification.cs:10-11; CatalogFilterPaginatedSpecification.cs:11-18; src/Web/Services/CatalogViewModelService.cs:46,63-75.
+
+// Null brand and type criteria do not restrict results; a page size of zero means unbounded.
+language_gap GAP_TOTAL_PAGES "The UI computes total pages with decimal division and ceiling; division and ceiling are not modeled"
+language_gap GAP_RESULT_ORDER "The query does not declare an ordering, so page order is database-dependent"
+query MatchesCatalogFilters(hasBrand: Bool, brandFilter: Int, itemBrand: Int, hasType: Bool, typeFilter: Int, itemType: Int) -> Bool = (not hasBrand or itemBrand == brandFilter) and (not hasType or itemType == typeFilter)
+query EffectivePageSize(pageSize: Int) -> Int = if pageSize == 0 then 2147483647 else pageSize
+query RowsToSkip(pageIndex: Int, pageSize: Int) -> Int = pageSize * pageIndex
+query IsLastPage(currentPage: Int, totalPages: Int) -> Bool = currentPage == totalPages - 1
+query IsFirstPage(currentPage: Int) -> Bool = currentPage == 0
