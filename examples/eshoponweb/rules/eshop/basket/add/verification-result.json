@@ -53,7 +53,7 @@
       "rule": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 5
+      "time_ms": 4
     },
     {
       "description": "BuyerResolution.source preserves its type after ValidateCatalogItem",
@@ -123,7 +123,7 @@
       "rule": "Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 0
+      "time_ms": 1
     },
     {
       "description": "Buyer_ResolveBuyer satisfies postcondition Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
@@ -134,7 +134,7 @@
       "rule": "Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 5
+      "time_ms": 4
     },
     {
       "description": "Buyer_ResolveBuyer satisfies postcondition Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
@@ -145,7 +145,7 @@
       "rule": "Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 1
+      "time_ms": 0
     },
     {
       "description": "BuyerResolution.source preserves its type after Lines_GetOrCreateBasket",
@@ -215,7 +215,7 @@
       "rule": "Lines_BR_ADDING_LINE_PRESERVES_PRICE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 0
+      "time_ms": 1
     },
     {
       "description": "Lines_AddBasketLine satisfies postcondition Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
@@ -314,7 +314,7 @@
       "rule": "BR_EXISTING_BASKET_LINE_ADDS_ONE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 0
+      "time_ms": 1
     },
     {
       "description": "AddItemToBasket satisfies postcondition BR_SUCCESSFUL_ADD_HAS_BASKET",
@@ -325,7 +325,7 @@
       "rule": "BR_SUCCESSFUL_ADD_HAS_BASKET",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 3
+      "time_ms": 5
     }
   ],
   "proof_cache": {

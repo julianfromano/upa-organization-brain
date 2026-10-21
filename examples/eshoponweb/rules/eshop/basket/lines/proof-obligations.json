@@ -76,7 +76,7 @@
     "rule": "BR_NEW_LINE_USES_SUBMITTED_VALUES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 6
   },
   {
     "description": "AddBasketLine satisfies postcondition BR_INVALID_ADDITION_HAS_NO_EFFECT",
@@ -87,7 +87,7 @@
     "rule": "BR_INVALID_ADDITION_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 4
   },
   {
     "description": "SetLineQuantity preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -98,7 +98,7 @@
     "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 5
   },
   {
     "description": "SetLineQuantity satisfies postcondition BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
@@ -120,7 +120,7 @@
     "rule": "BR_QUANTITY_UPDATE_PRESERVES_PRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 0
+    "time_ms": 1
   },
   {
     "description": "SetLineQuantity satisfies postcondition BR_UNSUBMITTED_LINE_IS_UNCHANGED",
@@ -131,7 +131,7 @@
     "rule": "BR_UNSUBMITTED_LINE_IS_UNCHANGED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "RemoveZeroQuantityLines preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -142,7 +142,7 @@
     "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 5
   },
   {
     "description": "RemoveZeroQuantityLines satisfies postcondition BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
@@ -164,7 +164,7 @@
     "rule": "BR_CLEANUP_PRESERVES_OTHER_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 5
   },
   {
     "description": "MergeBasketLine preserves BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -175,7 +175,7 @@
     "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 7
   },
   {
     "description": "MergeBasketLine satisfies postcondition BR_MERGE_ADDS_EXISTING_QUANTITY",
@@ -186,7 +186,7 @@
     "rule": "BR_MERGE_ADDS_EXISTING_QUANTITY",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 6
   },
   {
     "description": "MergeBasketLine satisfies postcondition BR_MERGE_PRESERVES_SHOPPER_PRICE",
@@ -219,7 +219,7 @@
     "rule": "BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 6
   },
   {
     "description": "DeleteBasket satisfies postcondition BR_DELETE_BASKET_CASCADES_TO_LINES",
@@ -230,6 +230,6 @@
     "rule": "BR_DELETE_BASKET_CASCADES_TO_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 5
   }
 ]

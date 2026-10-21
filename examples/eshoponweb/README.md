@@ -6,7 +6,7 @@ The source project is [.NET Architecture eShopOnWeb](https://github.com/dotnet-a
 
 ## Build and view
 
-Run these commands from the `upa-open` repository root in PowerShell. Each build writes verification artifacts (`canonical-ir.json`, `verification-result.json`, proof and evidence reports, and `viewer.html`) beside the corresponding specification. The checked-in viewer snapshots have English labels; the shared viewer template still has a few untranslated labels, so regenerate the snapshots after that shared translation is complete. Build components bottom-up, then build the store macro last:
+Run these commands from the `upa-open` repository root in PowerShell. Each build writes verification artifacts (`canonical-ir.json`, `verification-result.json`, proof and evidence reports, and `viewer.html`) beside the corresponding specification. The checked-in viewer snapshots are generated with English labels and store artifact paths relative to the repository root. Build components bottom-up, then build the store macro last:
 
 ```powershell
 $specs = @(

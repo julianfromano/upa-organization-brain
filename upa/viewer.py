@@ -54,6 +54,15 @@ def _key(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", "".join(c for c in s if not unicodedata.combining(c)).lower())
 
 
+def _display_dir(d: Path) -> str:
+    """Prefer a working-directory-relative path so viewers do not embed local user paths."""
+    resolved = d.resolve()
+    try:
+        return str(resolved.relative_to(Path.cwd().resolve()))
+    except ValueError:
+        return str(resolved)
+
+
 def _expr(e: dict, params: dict) -> str:
     """Describe an IR expression in plain English."""
     k = e.get("k")
@@ -488,7 +497,7 @@ def build_data(artifacts: Path, source: str | None = None, _depth: int = 0, base
     return {
         "insight": insight,
         "name": surf.get("spec") or d.name, "version": surf.get("version"), "verdict": ver.get("verdict", "UNVERIFIED"),
-        "artifact_dir": str(d.resolve()),
+        "artifact_dir": _display_dir(d),
         "summary": summary, "by_category": ver.get("summary_by_category", {}),
         "capabilities": caps_out, "states": state_info, "groups": groups, "initial_rules": initial_rules, "technical": technical,
         "concepts": concepts, "relations": relations,
@@ -622,6 +631,9 @@ table{border-collapse:collapse;width:100%}td,th{border:1px solid var(--line);pad
 .process-node{display:flex;flex-direction:column;align-items:flex-start;min-height:84px;padding:10px 12px;border:2px solid #7c3aed;border-radius:10px;background:#fff;color:#312e81;text-align:left;cursor:pointer}
 .process-node:hover,.process-node:focus-visible{background:#f5f3ff;box-shadow:0 0 0 3px #ddd6fe;outline:none}
 .process-node.selected{background:#ede9fe;box-shadow:0 0 0 3px #c4b5fd;border-color:#5b21b6}
+.process-node.behavior-node{border-color:#0f766e;background:#f0fdfa;color:#134e4a}
+.process-node.behavior-node:hover,.process-node.behavior-node:focus-visible{background:#ccfbf1;box-shadow:0 0 0 3px #99f6e4}
+.process-node.behavior-node.selected{background:#99f6e4;box-shadow:0 0 0 3px #5eead4;border-color:#115e59}
 .process-node b{font-size:16px}.process-node span{font-weight:650}.process-node small{margin-top:auto;color:var(--mut)}
 .process-graph{position:relative;height:500px;margin:8px 0;border:1px solid #ddd6fe;border-radius:12px;background:linear-gradient(#fff,#fafaff);overflow:hidden}.cy-graph{position:absolute;inset:0}.graph-fallback{display:none}
 .graph-legend{position:absolute;z-index:4;left:10px;bottom:9px;display:flex;gap:10px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:#fffffff0;font-size:11px;color:var(--mut);pointer-events:none}.graph-legend i{display:inline-block;width:25px;border-top:2px solid #2563eb;vertical-align:middle}.graph-legend i.async{border-top-color:#7c3aed;border-top-style:dashed}
@@ -684,8 +696,8 @@ function activeRuleContext(s){return !cur&&DRILL.system?drillData(DRILL.system,D
 function activeRuleBanner(s){if(!DRILL.system&& !cur)return "";const d=activeRuleContext(s),path=!cur?[SYSTEMS[DRILL.system].viewer_key||SYSTEMS[DRILL.system].name,...DRILL.path]:[SYSTEMS[cur].viewer_key||SYSTEMS[cur].name,...DETAIL_PATH];
  return `<div class="process-breadcrumb"><button type="button" class="link" onclick="returnToDrill()">← Return to this map location</button><span class="badge info">What-if for</span><b>${path.map(esc).join(" › ")}</b><span class="mut">${esc(d.name)}</span></div>`}
 function draw(){nav();const s=S(),main=$("#main");$("#hdr").textContent=`version ${s.version||"?"}`;main.innerHTML=VIEWS[tab](s);
- main.onclick=e=>{const target=e.target.closest?e.target.closest("[data-open-system],[data-drill-system],[data-drill-path]"):null;if(!target)return;e.preventDefault();
-  if(target.dataset.drillSystem!==undefined){DRILL.system=Number(target.dataset.drillSystem);DRILL.path=[];impSel="";draw();return}
+ main.onclick=e=>{const target=e.target.closest? e.target.closest("[data-behavior-name],[data-open-system],[data-drill-system],[data-drill-path]"):null;if(!target)return;e.preventDefault();
+   if(target.dataset.behaviorName!==undefined){REL_SEL[target.dataset.behaviorKey]=target.dataset.behaviorName;draw();return}  if(target.dataset.drillSystem!==undefined){DRILL.system=Number(target.dataset.drillSystem);DRILL.path=[];impSel="";draw();return}
   if(target.dataset.drillPath!==undefined){DRILL.path=JSON.parse(decodeURIComponent(target.dataset.drillPath));impSel="";draw();return}
   openSystem(Number(target.dataset.openSystem))};
   if(tab=="states")stateEvents();if(typeof requestAnimationFrame=="function")requestAnimationFrame(mountGraphs);window.scrollTo(0,0)}
@@ -850,16 +862,16 @@ const OPN={"and":"and","or":"or","=>":"⇒","==":"=","!=":"≠","<":"<","<=":"�
 function rx(e,d){d=d||0;if(!e||typeof e!="object")return String(e);
  if(e.via&&e.via.length){const v=e.via[0];return `${v.q}(${v.args.map(a=>rx(a,d+1)).join(", ")})`}
  const k=e.k;
- switch(k){case"int":return String(e.v);case"bool":return e.v?"verdadero":"falso";case"str":return JSON.stringify(e.v);case"var":return e.n;
- case"enum":return `${e.e}.${e.v}`;case"attr":return `${e.e}.${e.a}[${rx(e.key,d+1)}]`;case"in":return `${rx(e.key,d+1)} en ${e.e}`;
+ switch(k){case"int":return String(e.v);case"bool":return e.v?"true":"false";case"str":return JSON.stringify(e.v);case"var":return e.n;
+ case"enum":return `${e.e}.${e.v}`;case"attr":return `${e.e}.${e.a}[${rx(e.key,d+1)}]`;case"in":return `${rx(e.key,d+1)} in ${e.e}`;
  case"sum":return `sum(${e.e}.${e.a})`;case"concat":return `${rx(e.l,d+1)} ++ ${rx(e.r,d+1)}`;case"to_text":return `text(${rx(e.x,d+1)})`;case"norm":return `${e.op}(${rx(e.x,d+1)})`;
- case"text_length":return `largo(${rx(e.x,d+1)})`;case"contains":return `contiene(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;
- case"starts_with":return `empieza_con(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;case"ends_with":return `termina_con(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;
+ case"text_length":return `length(${rx(e.x,d+1)})`;case"contains":return `contains(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;
+ case"starts_with":return `starts_with(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;case"ends_with":return `ends_with(${rx(e.l,d+1)}, ${rx(e.r,d+1)})`;
  case"mod":return `mod(${rx(e.x,d+1)}, ${e.d.v})`;case"substring":return `substring(${rx(e.text,d+1)}, ${rx(e.start,d+1)}, ${rx(e.length,d+1)})`;
- case"replace_first":return `reemplazar(${rx(e.text,d+1)}, ${rx(e.search,d+1)}, ${rx(e.replacement,d+1)})`;
+ case"replace_first":return `replace_first(${rx(e.text,d+1)}, ${rx(e.search,d+1)}, ${rx(e.replacement,d+1)})`;
  case"old":return `before(${rx(e.x,d+1)})`;case"un":return `not ${rx(e.x,d+1)}`;
- case"if":return `(If ${rx(e.c,d+1)} entonces ${rx(e.t,d+1)} If no ${rx(e.f,d+1)})`;
- case"forall":case"exists":return `${k=="forall"?"para todo":"existe"} ${e.v}${e.e?" en "+e.e:""}: ${rx(e.body,d+1)}`;
+ case"if":return `(if ${rx(e.c,d+1)} then ${rx(e.t,d+1)} else ${rx(e.f,d+1)})`;
+ case"forall":case"exists":return `${k=="forall"?"for all":"exists"} ${e.v}${e.e?" in "+e.e:""}: ${rx(e.body,d+1)}`;
  case"bin":{const s=`${rx(e.l,d+1)} ${OPN[e.op]||e.op} ${rx(e.r,d+1)}`;return d?`(${s})`:s}}
  return k}
 const MAXT=400;
@@ -894,7 +906,7 @@ function ev(sim,e,env,st,old,T){
   if(op=="=>"){const l=R(e.l);return l?!!R(e.r):true}
   const l=R(e.l),r=R(e.r);
   switch(op){case"+":return l+r;case"-":return l-r;case"*":return l*r;case"==":return l===r;case"!=":return l!==r;case"<":return l<r;case"<=":return l<=r;case">":return l>r;case">=":return l>=r}}}
- throw new Error("nodo no soportado: "+e.k)}
+ throw new Error("unsupported expression node: "+e.k)}
 function runOp(sim,name,args,st){
  const op=sim.operations.find(o=>o.name==name),env={};op.params.forEach((p,i)=>env[p.name]=args[i]);
  const tr={op:name,args:op.params.map((p,i)=>[p.name,args[i]]),cases:[],effects:[],q:[]};
@@ -1111,7 +1123,7 @@ function definitionButton(l,h,t){return `<button type="button" class="formal-hel
 function explained(text,c){let out=esc(text);const defs=c.defs.filter(x=>!x[1]&&x[2]).sort((a,b)=>b[0].length-a[0].length);defs.forEach(([l,h,t],i)=>{const token=`@@UPA_DEF_${i}@@`;out=out.split(esc(l)).join(token);out=out.split(token).join(`${esc(l)} ${definitionButton(l,h,t)}`)});return out}
 const DIRK={database:"Reads from/writes to the database",api:"Calls the API",service:"Calls the service",queue:"Sends/receives through the queue",file:"Uses the file",directory:"Uses the directory",mail:"Sends email to"};
 function defsHtml(c){const xs=c.defs.filter(x=>x[1]);return xs.length?`<div class="small formal-definitions"><span class="mut">Calculations:</span>${xs.map(([l,h,t])=>`<span class="formal-definition">${esc(l)} ${definitionButton(l,h,t)}</span>`).join("")}</div>`:""}
-const DBVERB={database:"query la base",api:"calls the API",service:"calls the service",queue:"uses the queue",file:"reads the file",directory:"uses the directory",mail:"sends email to"};
+const DBVERB={database:"queries the database",api:"calls the API",service:"calls the service",queue:"uses the queue",file:"reads the file",directory:"uses the directory",mail:"sends email to"};
 function storeOf(s,scope,ent){const by=TT(s).by;const own=((by[scope]||{}).stores||[]).find(x=>x.entity==ent);if(own)return own;for(const k in by){const f=(by[k].stores||[]).find(x=>x.entity==ent);if(f)return f}return null}
 function invOf(s,op,call){const [scope,leaf]=opScope(s,op);const all=((TT(s).by[scope]||{}).inv||[]).filter(v=>v.target==leaf);
  if(!call)return all;const o=s.sim.operations.find(x=>x.name==op);if(!o)return all;
@@ -1203,8 +1215,8 @@ function composeStory(s,name){const co=s.sim.composes.find(x=>x.name==name);cons
  const pp=co.params.filter(p=>p.type!="id"),req=pp.filter(p=>!ext[p.name]),rsp=pp.filter(p=>ext[p.name]);
  const ins=req.map(p=>esc(L(s,"",p.name)));
  const rspHtml=rsp.length?`<p class="small"><b>Responses used from other systems</b> (the model receives the result; it does not calculate it): ${rsp.map(p=>`${esc(L(s,"",p.name))} <span class="mut">← ${esc([...ext[p.name]].join(" / "))}</span>`).join("; ")}.</p>`:"";
- const tg=[];const wk=(ns,pre)=>(ns||[]).forEach(n=>{const pth=pre.concat(n.alias);(n.gaps||[]).forEach(g=>tg.push([pth.join(" › "),"not expressible",g]));(n.questions||[]).forEach(g=>tg.push([pth.join(" › "),"open question",g]));(n.hdec||[]).forEach(h=>tg.push([pth.join(" › "),"human decision",h.text+" — branch: "+h.owner+". Options: "+(h.options||[]).map(o=>o.id+" ("+o.text+")").join("; ")]));wk(n.children,pth)});wk(s.sim.tree,[]);
- ((s.notes||{}).language_gaps||[]).forEach(g=>tg.push(["this process","not expressible",g]));((s.notes||{}).questions||[]).forEach(g=>tg.push(["this process","open question",g]));((s.notes||{}).risks||[]).forEach(h=>tg.push(["this process","identified risk",h.text+(h.severity?" (severity "+h.severity+")":"")]));((s.notes||{}).concurrency||[]).forEach(h=>tg.push(["this process","concurrency ("+(h.mode||"undeclared")+")",h.text+(h.by?" — by "+h.by:"")+((h.protects||[]).length?" — protects "+h.protects.join(", "):"")+(h.on_conflict?" — on conflict: "+h.on_conflict:"")]));((s.notes||{}).concurrency_gaps||[]).forEach(h=>tg.push(["this process","concurrency undeclared","“"+h.operation+"” writes state on which the following depend "+h.rules.join(", ")+"; the model assumes atomic operations"]));((s.notes||{}).persists||[]).forEach(h=>tg.push(["this process",h.cache?"cached data":"persisted data",h.target+(h.hint?" — currently in "+h.hint:"")+(h.normalized?" — normalized: "+h.normalized:"")]));((s.notes||{}).parameters||[]).forEach(h=>tg.push(["this process","configurable parameter",h.text+(h.owner?" — define: "+h.owner:"")]));((s.notes||{}).human_decisions||[]).forEach(h=>tg.push(["this process","human decision",h.text+" — branch: "+h.owner+". Options: "+(h.options||[]).map(o=>o.id+" ("+o.text+")").join("; ")]));
+ const tg=[];const wk=(ns,pre)=>(ns||[]).forEach(n=>{const pth=pre.concat(n.alias);(n.gaps||[]).forEach(g=>tg.push([pth.join(" › "),"not expressible",g]));(n.questions||[]).forEach(g=>tg.push([pth.join(" › "),"open question",g]));(n.hdec||[]).forEach(h=>tg.push([pth.join(" › "),"human decision",h.text+" — decided by: "+h.owner+". Options: "+(h.options||[]).map(o=>o.id+" ("+o.text+")").join("; ")]));wk(n.children,pth)});wk(s.sim.tree,[]);
+ ((s.notes||{}).language_gaps||[]).forEach(g=>tg.push(["this process","not expressible",g]));((s.notes||{}).questions||[]).forEach(g=>tg.push(["this process","open question",g]));((s.notes||{}).risks||[]).forEach(h=>tg.push(["this process","identified risk",h.text+(h.severity?" (severity "+h.severity+")":"")]));((s.notes||{}).concurrency||[]).forEach(h=>tg.push(["this process","concurrency ("+(h.mode||"undeclared")+")",h.text+(h.by?" — by "+h.by:"")+((h.protects||[]).length?" — protects "+h.protects.join(", "):"")+(h.on_conflict?" — on conflict: "+h.on_conflict:"")]));((s.notes||{}).concurrency_gaps||[]).forEach(h=>tg.push(["this process","concurrency undeclared","“"+h.operation+"” writes state on which the following depend "+h.rules.join(", ")+"; the model assumes atomic operations"]));((s.notes||{}).persists||[]).forEach(h=>tg.push(["this process",h.cache?"cached data":"persisted data",h.target+(h.hint?" — currently in "+h.hint:"")+(h.normalized?" — normalized: "+h.normalized:"")]));((s.notes||{}).parameters||[]).forEach(h=>tg.push(["this process","configurable parameter",h.text+(h.owner?" — defined by: "+h.owner:"")]));((s.notes||{}).human_decisions||[]).forEach(h=>tg.push(["this process","human decision",h.text+" — decided by: "+h.owner+". Options: "+(h.options||[]).map(o=>o.id+" ("+o.text+")").join("; ")]));
  {const sn=new Map();tg.forEach(([w,k,g])=>{const key=k+"|"+(g.text||g.id);if(!sn.has(key))sn.set(key,[w,k,g])});tg.length=0;tg.push(...sn.values())}
  const lim=(sys.size||tg.length)?`<div class="card"><h3 style="margin:0 0 6px">How far this model goes</h3>
   <p class="small">This narrative is exact within the model. At these points it relies on behavior that is not modeled internally; the returned values have not been verified and are treated as inputs.</p>
@@ -1222,21 +1234,23 @@ function narrativeOne(s,embedded){const sim=s.sim;if(!sim)return `<div class="ca
  const names=sim.composes.map(c=>c.name);const called=new Set(sim.composes.flatMap(c=>c.calls.map(x=>x.op)));
  const loose=sim.operations.filter(o=>!o.block&&!called.has(o.name));
  const key=String(s.viewer_key||s.ref||s.name),selected=names.includes(REL_SEL[key])?REL_SEL[key]:names[0];
- const pick=names.length>1?`<div class="card"><b>Comportamiento:</b> ${names.map(n=>`<button class="link ${n==selected?"on":""}" onclick="REL_SEL[${JSON.stringify(key)}]=${JSON.stringify(n)};draw()" title="${esc(n)}">${esc(cap(L(s,"",n)))}</button>`).join(" · ")}</div>`:"";
- const rest=loose.length?`<div class="card"><h3 style="margin:0 0 6px">Otras operations triggered independently (${loose.length})</h3>${loose.map(o=>{const [sc,lf]=opScope(s,o.name);const ex=X(s,sc,lf);return `<details><summary><b>${esc(cap(L(s,sc,lf)))}</b>${ex?` — ${esc(ex)}`:""} <span class="small mut">(${esc(sc.replace(/\./g," › ")||"this process")})</span></summary><div class="small">${opStory(s,o.name)}</div></details>`}).join("")}</div>`:"";
+ const pick=names.length>1?` <div class="card"><b>Behavior:</b> ${names.map(n=>`<button type="button" class="link ${n==selected?"on":""}" data-behavior-key="${esc(key)}" data-behavior-name="${esc(n)}" title="${esc(n)}">${esc(cap(L(s,"",n)))}</button>`).join(" · ")}</div>`:"";
+  const rest=loose.length?`<div class="card"><h3 style="margin:0 0 6px">Other operations triggered independently (${loose.length})</h3>${loose.map(o=>{const [sc,lf]=opScope(s,o.name);const ex=X(s,sc,lf);return `<details><summary><b>${esc(cap(L(s,sc,lf)))}</b>${ex?` — ${esc(ex)}`:""} <span class="small mut">(${esc(sc.replace(/\./g," › ")||"this process")})</span></summary><div class="small">${opStory(s,o.name)}</div></details>`}).join("")}</div>`:"";
  return pick+(names.length?composeStory(s,selected):"")+rest+(embedded?"":regenCard(s))}
 function graphFrame(nodes,rels,overlay){const specs=rels.map(r=>`<i hidden data-graph-edge data-from="${esc(r.from)}" data-to="${esc(r.to)}" data-kind="${esc(r.kind)}" data-label="${esc(r.label)}"></i>`).join("");
  return `<div class="process-graph" data-process-graph><div class="cy-graph"></div><div class="graph-fallback">${nodes}</div>${specs}${overlay||""}<div class="graph-legend"><span><i></i> synchronous</span><span><i class="async"></i> asynchronous</span><span>Drag to pan · scroll to zoom</span></div></div>`}
 let CY_GRAPHS=[];
 function mountGraphs(){CY_GRAPHS.forEach(c=>c.destroy());CY_GRAPHS=[];if(typeof cytoscape!="function"||!document.querySelectorAll)return;
  document.querySelectorAll("[data-process-graph]").forEach(g=>{const rawNodes=[...g.querySelectorAll("[data-graph-node]")],rawEdges=[...g.querySelectorAll("[data-graph-edge]")];
-  const elements=rawNodes.map(n=>({data:{id:n.dataset.graphNode,label:[n.querySelector("b")?.textContent,n.querySelector("span")?.textContent].filter(Boolean).join("\n"),subtitle:n.querySelector("small")?.textContent||"",external:n.classList.contains("external")?1:0,selected:n.classList.contains("selected")?1:0,drillSystem:n.dataset.drillSystem,drillPath:n.dataset.drillPath}}));
+  const elements=rawNodes.map(n=>({data:{id:n.dataset.graphNode,label:[n.querySelector("b")?.textContent,n.querySelector("span")?.textContent].filter(Boolean).join("\n"),subtitle:n.querySelector("small")?.textContent||"",external:n.classList.contains("external")?1:0,behavior:n.classList.contains("behavior-node")?1:0,selected:n.classList.contains("selected")?1:0,behaviorKey:n.dataset.behaviorKey,behaviorName:n.dataset.behaviorName,drillSystem:n.dataset.drillSystem,drillPath:n.dataset.drillPath}}));
   rawEdges.forEach((e,i)=>elements.push({data:{id:`e${i}`,source:e.dataset.from,target:e.dataset.to,label:e.dataset.label,kind:e.dataset.kind}}));
   const cy=cytoscape({container:g.querySelector(".cy-graph"),elements,minZoom:.35,maxZoom:2.2,wheelSensitivity:1.2,
    style:[
     {selector:"node",style:{"shape":"round-rectangle","width":154,"height":76,"background-color":"#fff","border-width":2,"border-color":"#7c3aed","label":"data(label)","font-family":"system-ui","font-size":12,"font-weight":600,"color":"#312e81","text-wrap":"wrap","text-max-width":136,"text-valign":"center","text-halign":"center","text-outline-color":"#fff","text-outline-width":2}},
     {selector:"node[external = 1]",style:{"border-style":"dashed","border-color":"#64748b","background-color":"#f8fafc","color":"#334155"}},
+    {selector:"node[behavior = 1]",style:{"shape":"diamond","width":190,"height":92,"background-color":"#ccfbf1","border-color":"#0f766e","color":"#134e4a"}},
     {selector:"node[selected = 1]",style:{"background-color":"#ede9fe","border-color":"#5b21b6","border-width":4}},
+    {selector:"node[behavior = 1][selected = 1]",style:{"background-color":"#99f6e4","border-color":"#115e59","border-width":5}},
     {selector:"node:active",style:{"overlay-color":"#7c3aed","overlay-opacity":.12}},
     {selector:"edge",style:{"width":2.4,"curve-style":"bezier","target-arrow-shape":"triangle","line-color":"#2563eb","target-arrow-color":"#2563eb","label":"data(label)","font-family":"system-ui","font-size":10,"font-weight":600,"color":"#334155","text-rotation":"autorotate","text-background-color":"#fff","text-background-opacity":.92,"text-background-padding":4,"text-margin-y":-8}},
     {selector:'edge[kind = "async"]',style:{"line-style":"dashed","line-color":"#7c3aed","target-arrow-color":"#7c3aed"}},
@@ -1244,7 +1258,7 @@ function mountGraphs(){CY_GRAPHS.forEach(c=>c.destroy());CY_GRAPHS=[];if(typeof 
    ],
    layout:rawNodes.length>4?{name:"circle",padding:70,startAngle:-Math.PI/2,clockwise:true,avoidOverlap:true,spacingFactor:1.12}:{name:"breadthfirst",directed:true,padding:90,spacingFactor:1.35,avoidOverlap:true}
   });
-  cy.on("tap","node",ev=>{const d=ev.target.data();if(d.drillSystem!==undefined&&d.drillSystem!==null){DRILL.system=Number(d.drillSystem);DRILL.path=[];draw()}else if(d.drillPath){DRILL.path=JSON.parse(decodeURIComponent(d.drillPath));draw()}});
+  cy.on("tap","node",ev=>{const d=ev.target.data();if(d.behaviorName){REL_SEL[d.behaviorKey]=d.behaviorName;draw()}else if(d.drillSystem!==undefined&&d.drillSystem!==null){DRILL.system=Number(d.drillSystem);DRILL.path=[];draw()}else if(d.drillPath){DRILL.path=JSON.parse(decodeURIComponent(d.drillPath));draw()}});
   cy.ready(()=>cy.fit(undefined,55));CY_GRAPHS.push(cy)})}
 function processMap(s,embedded){const m=s.system_map||{components:[]},component=k=>m.components.find(c=>c.id==k),epProcess=a=>{const z=/Referenciar(P\d+)/.exec(String(a&&a.operation||""));return z?z[1]:null},rels=[],seen=new Set(),add=(from,to,kind,label)=>{const k=[from,to,kind,label].join("|");if(!seen.has(k)){seen.add(k);rels.push({from,to,kind,label})}};
  const producers=new Map((s.async_producers||[]).map(x=>[x.id,x])),consumers=new Map((s.async_consumers||[]).map(x=>[x.id,x]));
@@ -1259,15 +1273,17 @@ function processMap(s,embedded){const m=s.system_map||{components:[]},component=
  return embedded?body:`<div class="card drill-shell">${body}</div>`}
 function drillChild(d,alias){return ((d.composition||{}).children||[]).find(x=>x.alias==alias)}
 function drillData(system,path){let d=SYSTEMS[system];for(const alias of path){const c=drillChild(d,alias);if(!c||!c.data)break;d=c.data}return d}
-function drillSequence(d,children){const aliases=new Set(children.map(x=>x.alias)),seq=[],co=((d.sim||{}).composes||[])[0];
+function composeSequence(co,children){const aliases=new Set(children.map(x=>x.alias)),seq=[];
  ((co||{}).calls||[]).forEach(call=>{const alias=((call.trail||[])[0]||"").split(".")[0];if(aliases.has(alias)&&seq[seq.length-1]!=alias)seq.push(alias)});
  return seq}
 function compositionLevel(d,basePath,preview){const children=((d.composition||{}).children||[]),title=cap(L(d,"",d.name||d.ref||"level"));
- if(!children.length){const atom=`<div class="process-node" data-graph-node="atom"><b>Atomic</b><span>${esc(title)}</span><small>final level · no lower-level components</small></div>`;return `<h2 style="margin-top:0">${esc(title)}</h2>${graphFrame(atom,[],preview)}`}
- const seq=drillSequence(d,children),nextPath=alias=>encodeURIComponent(JSON.stringify(basePath.concat(alias)));
+ const composes=((d.sim||{}).composes||[]),key=String(d.viewer_key||d.ref||d.name),selected=composes.some(c=>c.name==REL_SEL[key])?REL_SEL[key]:((composes[0]||{}).name);
+ const behaviorNodes=composes.map((co,i)=>`<button type="button" class="process-node behavior-node ${co.name==selected?"selected":""}" data-graph-node="__behavior_${i}" data-behavior-key="${esc(key)}" data-behavior-name="${esc(co.name)}"><b>Behavior</b><span>${esc(cap(L(d,"",co.name)))}</span><small>Select to show its narrative</small></button>`).join("");
+ if(!children.length){const atom=`<div class="process-node" data-graph-node="atom"><b>Atomic</b><span>${esc(title)}</span><small>final level · no lower-level components</small></div>`,rels=composes.map((_,i)=>({from:`__behavior_${i}`,to:"atom",kind:"sync",label:"runs in"}));return `<h2 style="margin-top:0">${esc(title)}</h2>${graphFrame(behaviorNodes+atom,rels,preview)}`}
+ const nextPath=alias=>encodeURIComponent(JSON.stringify(basePath.concat(alias)));
  const nodes=children.map(c=>{const cd=c.data||{},label=cap(L(cd,"",cd.name||c.alias)),sub=((cd.composition||{}).children||[]).length;return `<button type="button" class="process-node" data-graph-node="${esc(c.alias)}" data-drill-path="${nextPath(c.alias)}"><b>${esc(c.alias)}</b><span>${esc(label)}</span><small>${esc(TIERN[cd.tier]||cd.tier||"component")} · ${sub?`Show ${sub} lower-level node${sub==1?"":"s"} ↓`:"Show atomic model and narrative ↓"}</small></button>`}).join("");
- const rels=seq.slice(1).map((to,i)=>({from:seq[i],to,kind:"sync",label:"then"}));
- return `<h2 style="margin-top:0">${esc(title)} · lower level</h2>${graphFrame(nodes,rels,preview)}${rels.length?"":`<div class="drill-empty">${children.length==1?"This level contains a single node.":"The model does not declare a direct order between these nodes, so no relationship is inferred."}</div>`}`}
+ const rels=[];composes.forEach((co,i)=>{const seq=composeSequence(co,children);if(seq.length)rels.push({from:`__behavior_${i}`,to:seq[0],kind:"sync",label:"runs"});seq.slice(1).forEach((to,j)=>rels.push({from:seq[j],to,kind:"sync",label:"then"}))});
+ return `<h2 style="margin-top:0">${esc(title)} · lower level</h2>${graphFrame(behaviorNodes+nodes,rels,preview)}${rels.length?"":`<div class="drill-empty">${children.length==1?"This level contains a single node.":"The model does not declare a direct order between these nodes, so no relationship is inferred."}</div>`}`}
 function previousPreview(s){let title,labels,attrs;if(!DRILL.path.length){title="System";labels=(s.external_systems||[]).map(x=>x.key);attrs=`data-drill-system="0"`}
  else{const parentPath=DRILL.path.slice(0,-1),parent=drillData(DRILL.system,parentPath);title=parentPath.length?parentPath[parentPath.length-1]:(SYSTEMS[DRILL.system].viewer_key||SYSTEMS[DRILL.system].name);labels=((parent.composition||{}).children||[]).map(x=>x.alias);attrs=`data-drill-path="${encodeURIComponent(JSON.stringify(parentPath))}"`}
  const shown=labels.slice(0,6),extra=labels.length-shown.length;return `<button type="button" class="drill-prev" ${attrs}><b>← Previous level: ${esc(title)}</b><small>Preview; click to return</small><span class="preview-nodes">${shown.map(x=>`<span>${esc(x)}</span>`).join("")}${extra?`<span>+${extra}</span>`:""}</span></button>`}

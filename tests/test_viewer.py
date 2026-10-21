@@ -210,6 +210,16 @@ def test_integral_viewer_embeds_external_process_hierarchy(tmp_path):
     assert "Return to the process map" in html
     assert 'class="process-node ${' in html
     assert "REL_SEL" in html
+    assert 'onclick="REL_SEL[' not in html
+    assert 'data-behavior-key="${esc(key)}"' in html
+    assert 'data-behavior-name="${esc(n)}"' in html
+    assert 'class="process-node behavior-node ${' in html
+    assert "REL_SEL[target.dataset.behaviorKey]=target.dataset.behaviorName" in html
+    assert "REL_SEL[d.behaviorKey]=d.behaviorName" in html
+    assert "graphFrame(behaviorNodes+nodes,rels,preview)" in html
+    assert 'selector:"node[behavior = 1]"' in html
+    assert "<b>Behavior:</b>" in html
+    assert "Other operations triggered independently" in html
     assert "function openSystem(i)" in html
     assert 'tab=SYSTEMS[i].sim?"narrative":"summary"' in html
     assert 'data-drill-system="${x.index}"' in html
@@ -386,3 +396,14 @@ subscribes ConsumerOnly at Receive via queue "inputs" message "Input"
     assert "No producer is inferred." in rendered
     assert 'data-async-id="ProducerOnly"' in rendered
     assert 'data-async-consumer-only="ConsumerOnly"' in rendered
+
+
+def test_display_dir_is_relative_to_working_directory(tmp_path, monkeypatch):
+    from upa.viewer import _display_dir
+
+    inside = tmp_path / "rules" / "component"
+    inside.mkdir(parents=True)
+    monkeypatch.chdir(tmp_path)
+    assert _display_dir(inside) == str(Path("rules") / "component")
+    outside = tmp_path.parent
+    assert _display_dir(outside) == str(outside.resolve())

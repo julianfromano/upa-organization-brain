@@ -8,7 +8,7 @@
     "rule": "Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after ValidateQuantityModel",
@@ -183,7 +183,7 @@
     "rule": "Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 2
   },
   {
     "description": "Lines_SetLineQuantity satisfies postcondition Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
@@ -205,7 +205,7 @@
     "rule": "Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Lines_RemoveZeroQuantityLines",
@@ -251,7 +251,7 @@
     "rule": "Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 5
   },
   {
     "conditional_on": [
@@ -336,7 +336,7 @@
     "rule": "BR_POSITIVE_QUANTITY_REPLACES_LINE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 7
   },
   {
     "description": "UpdateBasketQuantities satisfies postcondition BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
@@ -347,6 +347,6 @@
     "rule": "BR_QUANTITY_UPDATE_DOES_NOT_REPRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 0
+    "time_ms": 1
   }
 ]

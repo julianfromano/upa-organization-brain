@@ -90,7 +90,7 @@
       "rule": "BR_DELETE_MISSING_ITEM_HAS_NO_EFFECT",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 1
+      "time_ms": 0
     }
   ],
   "proof_cache": {

@@ -12,7 +12,7 @@
       "rule": "BR_VALID_DETAILS_ARE_APPLIED",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 2
+      "time_ms": 1
     },
     {
       "description": "UpdateItemDetails satisfies postcondition BR_NONPOSITIVE_PRICE_IS_REJECTED",
@@ -23,7 +23,7 @@
       "rule": "BR_NONPOSITIVE_PRICE_IS_REJECTED",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 0
+      "time_ms": 1
     },
     {
       "description": "UpdateItemDetails satisfies postcondition BR_EMPTY_NAME_IS_REJECTED",
@@ -78,7 +78,7 @@
       "rule": "BR_TYPE_MUST_BE_NONZERO",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 2
+      "time_ms": 1
     }
   ],
   "proof_cache": {

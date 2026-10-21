@@ -8,7 +8,7 @@
     "rule": "Access_BR_ADMIN_REQUIRES_ROLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 0
+    "time_ms": 1
   },
   {
     "description": "Access_AuthorizeAdministrator satisfies postcondition Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
@@ -41,7 +41,7 @@
     "rule": "BR_DUPLICATE_NAME_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "CreateItem satisfies postcondition BR_CREATE_STORES_REQUESTED_VALUES",
@@ -63,6 +63,6 @@
     "rule": "BR_DEFAULT_IMAGE_REPLACES_REQUEST_IMAGE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   }
 ]

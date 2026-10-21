@@ -8,7 +8,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 8
+    "time_ms": 5
   },
   {
     "description": "the initial state establishes Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -19,7 +19,7 @@
     "rule": "Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 8
+    "time_ms": 5
   },
   {
     "description": "the initial state establishes Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -30,7 +30,7 @@
     "rule": "Checkout_Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 4
   },
   {
     "description": "the initial state establishes Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -41,7 +41,7 @@
     "rule": "Checkout_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 3
   },
   {
     "description": "the initial state establishes Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
@@ -52,7 +52,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 4
   },
   {
     "description": "the initial state establishes Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -285,7 +285,7 @@
     "rule": "Add_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 6
   },
   {
     "description": "Add_Buyer_ResolveBuyer satisfies postcondition Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
@@ -296,7 +296,7 @@
     "rule": "Add_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 1
   },
   {
     "description": "BuyerResolution.source preserves its type after Add_Lines_GetOrCreateBasket",
@@ -391,7 +391,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Add_Lines_AddBasketLine",
@@ -414,7 +414,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 7
   },
   {
     "description": "Add_Lines_AddBasketLine preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -489,7 +489,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Add_Lines_AddBasketLine satisfies postcondition Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
@@ -500,7 +500,7 @@
     "rule": "Add_Lines_BR_EXISTING_LINE_ADDS_QUANTITY",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 2
   },
   {
     "description": "Add_Lines_AddBasketLine satisfies postcondition Add_Lines_BR_ADDING_LINE_PRESERVES_PRICE",
@@ -522,7 +522,7 @@
     "rule": "Add_Lines_BR_NEW_LINE_USES_SUBMITTED_VALUES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 4
   },
   {
     "description": "Add_Lines_AddBasketLine satisfies postcondition Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
@@ -533,7 +533,7 @@
     "rule": "Add_Lines_BR_INVALID_ADDITION_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after Update_ValidateQuantityModel",
@@ -639,7 +639,7 @@
     "rule": "TYPE:BuyerResolution.source",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 11
+    "time_ms": 6
   },
   {
     "description": "Update_Buyer_ResolveBuyer preserves Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -722,7 +722,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Update_Buyer_ResolveBuyer satisfies postcondition Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
@@ -744,7 +744,7 @@
     "rule": "Update_Buyer_BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 1
   },
   {
     "description": "Update_Buyer_ResolveBuyer satisfies postcondition Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
@@ -755,7 +755,7 @@
     "rule": "Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 16
+    "time_ms": 5
   },
   {
     "description": "Update_Buyer_ResolveBuyer satisfies postcondition Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
@@ -766,7 +766,7 @@
     "rule": "Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 1
   },
   {
     "description": "BuyerResolution.source preserves its type after Update_Lines_GetOrCreateBasket",
@@ -956,7 +956,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Update_Lines_SetLineQuantity",
@@ -979,7 +979,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 16
+    "time_ms": 6
   },
   {
     "description": "Update_Lines_SetLineQuantity preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -1054,7 +1054,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Update_Lines_SetLineQuantity satisfies postcondition Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
@@ -1065,7 +1065,7 @@
     "rule": "Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 3
   },
   {
     "description": "Update_Lines_SetLineQuantity satisfies postcondition Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
@@ -1076,7 +1076,7 @@
     "rule": "Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "Update_Lines_SetLineQuantity satisfies postcondition Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
@@ -1110,7 +1110,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 5
   },
   {
     "description": "Update_Lines_RemoveZeroQuantityLines preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -1185,7 +1185,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Update_Lines_RemoveZeroQuantityLines satisfies postcondition Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
@@ -1196,7 +1196,7 @@
     "rule": "Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 8
+    "time_ms": 5
   },
   {
     "description": "Update_Lines_RemoveZeroQuantityLines satisfies postcondition Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
@@ -1207,7 +1207,7 @@
     "rule": "Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 11
+    "time_ms": 4
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Access_AuthorizeUser",
@@ -1302,7 +1302,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "Checkout_Access_AuthorizeUser satisfies postcondition Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
@@ -1313,7 +1313,7 @@
     "rule": "Checkout_Access_BR_SHOPPER_REQUIRES_AUTHENTICATION",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Update_ValidateQuantityModel",
@@ -1502,7 +1502,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "Checkout_Update_Buyer_ResolveBuyer satisfies postcondition Checkout_Update_Buyer_BR_SIGNED_IN_BUYER_USES_USER_NAME",
@@ -1535,7 +1535,7 @@
     "rule": "Checkout_Update_Buyer_BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 6
   },
   {
     "description": "Checkout_Update_Buyer_ResolveBuyer satisfies postcondition Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
@@ -1546,7 +1546,7 @@
     "rule": "Checkout_Update_Buyer_BR_MISSING_IDENTITY_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Update_Lines_GetOrCreateBasket",
@@ -1641,7 +1641,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Update_Lines_FindBasket",
@@ -1759,7 +1759,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 14
+    "time_ms": 5
   },
   {
     "description": "Checkout_Update_Lines_SetLineQuantity preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -1834,7 +1834,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Checkout_Update_Lines_SetLineQuantity satisfies postcondition Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
@@ -1845,7 +1845,7 @@
     "rule": "Checkout_Update_Lines_BR_SUBMITTED_QUANTITY_REPLACES_EXISTING",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 15
+    "time_ms": 3
   },
   {
     "description": "Checkout_Update_Lines_SetLineQuantity satisfies postcondition Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
@@ -1856,7 +1856,7 @@
     "rule": "Checkout_Update_Lines_BR_QUANTITY_UPDATE_PRESERVES_PRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 0
   },
   {
     "description": "Checkout_Update_Lines_SetLineQuantity satisfies postcondition Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
@@ -1867,7 +1867,7 @@
     "rule": "Checkout_Update_Lines_BR_UNSUBMITTED_LINE_IS_UNCHANGED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Update_Lines_RemoveZeroQuantityLines",
@@ -1890,7 +1890,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 17
+    "time_ms": 4
   },
   {
     "description": "Checkout_Update_Lines_RemoveZeroQuantityLines preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -1965,7 +1965,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "Checkout_Update_Lines_RemoveZeroQuantityLines satisfies postcondition Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
@@ -1976,7 +1976,7 @@
     "rule": "Checkout_Update_Lines_BR_ZERO_QUANTITY_LINES_ARE_REMOVED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 27
+    "time_ms": 5
   },
   {
     "description": "Checkout_Update_Lines_RemoveZeroQuantityLines satisfies postcondition Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
@@ -1987,7 +1987,7 @@
     "rule": "Checkout_Update_Lines_BR_CLEANUP_PRESERVES_OTHER_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 35
+    "time_ms": 3
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Order_ValidateBasketForOrder",
@@ -2082,7 +2082,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Order_CreateOrderLine",
@@ -2153,7 +2153,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SUBTOTAL",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 93
+    "time_ms": 42
   },
   {
     "description": "Checkout_Order_CreateOrderLine preserves Merge_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -2176,7 +2176,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 14
+    "time_ms": 8
   },
   {
     "description": "Checkout_Order_CreateOrderLine satisfies postcondition Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
@@ -2187,7 +2187,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_USES_BASKET_PRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 15
+    "time_ms": 7
   },
   {
     "description": "Checkout_Order_CreateOrderLine satisfies postcondition Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
@@ -2198,7 +2198,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 14
+    "time_ms": 7
   },
   {
     "description": "Checkout_Order_CreateOrderLine satisfies postcondition Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
@@ -2209,7 +2209,7 @@
     "rule": "Checkout_Order_BR_DELETED_CATALOG_ITEM_ABORTS_ORDER_LINE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 1
   },
   {
     "description": "Checkout_Order_CreateOrderLine satisfies postcondition Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
@@ -2220,7 +2220,7 @@
     "rule": "Checkout_Order_BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 15
+    "time_ms": 5
   },
   {
     "description": "Checkout_Order_CreateOrderLine satisfies postcondition Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
@@ -2231,7 +2231,7 @@
     "rule": "Checkout_Order_BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 17
+    "time_ms": 7
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Order_InsertOrder",
@@ -2326,7 +2326,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Checkout_Lines_DeleteBasket",
@@ -2349,7 +2349,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 9
+    "time_ms": 4
   },
   {
     "description": "Checkout_Lines_DeleteBasket preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -2424,7 +2424,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Checkout_Lines_DeleteBasket satisfies postcondition Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
@@ -2435,7 +2435,7 @@
     "rule": "Checkout_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after Merge_Buyer_DecideLoginMerge",
@@ -2530,7 +2530,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Merge_Buyer_DecideLoginMerge satisfies postcondition Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
@@ -2541,7 +2541,7 @@
     "rule": "Merge_Buyer_BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 11
+    "time_ms": 4
   },
   {
     "description": "Merge_Buyer_DecideLoginMerge satisfies postcondition Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
@@ -2552,7 +2552,7 @@
     "rule": "Merge_Buyer_BR_LOGIN_DELETES_PRESENT_COOKIE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after Merge_Lines_GetOrCreateBasket",
@@ -2670,7 +2670,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 8
+    "time_ms": 6
   },
   {
     "description": "Merge_Lines_MergeBasketLine preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -2756,7 +2756,7 @@
     "rule": "Merge_Lines_BR_MERGE_ADDS_EXISTING_QUANTITY",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 3
   },
   {
     "description": "Merge_Lines_MergeBasketLine satisfies postcondition Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
@@ -2767,7 +2767,7 @@
     "rule": "Merge_Lines_BR_MERGE_PRESERVES_SHOPPER_PRICE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "Merge_Lines_MergeBasketLine satisfies postcondition Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
@@ -2778,7 +2778,7 @@
     "rule": "Merge_Lines_BR_MERGE_CREATES_MISSING_LINE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 2
   },
   {
     "description": "BuyerResolution.source preserves its type after Merge_Lines_DeleteBasket",
@@ -2801,7 +2801,7 @@
     "rule": "Add_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 5
   },
   {
     "description": "Merge_Lines_DeleteBasket preserves Update_Lines_BR_BASKET_QUANTITY_IS_NONNEGATIVE",
@@ -2887,7 +2887,7 @@
     "rule": "Merge_Lines_BR_DELETE_BASKET_CASCADES_TO_LINES",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 11
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after CreateItem_Access_AuthorizeAdministrator",
@@ -3004,7 +3004,7 @@
     "rule": "CreateItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 7
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after CreateItem_CheckNameAvailability",
@@ -3099,7 +3099,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after CreateItem_InsertCatalogItem",
@@ -3395,7 +3395,7 @@
     "rule": "EditItem_Access_BR_ADMIN_REQUIRES_ROLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 1
   },
   {
     "description": "EditItem_Access_AuthorizeAdministrator satisfies postcondition EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
@@ -3406,7 +3406,7 @@
     "rule": "EditItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 4
   },
   {
     "description": "BuyerResolution.source preserves its type after EditItem_Item_FindCatalogItem",
@@ -3501,7 +3501,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after EditItem_Item_UpdateItemDetails",
@@ -3596,7 +3596,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "EditItem_Item_UpdateItemDetails satisfies postcondition EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
@@ -3607,7 +3607,7 @@
     "rule": "EditItem_Item_BR_VALID_DETAILS_ARE_APPLIED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 6
+    "time_ms": 4
   },
   {
     "description": "EditItem_Item_UpdateItemDetails satisfies postcondition EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
@@ -3618,7 +3618,7 @@
     "rule": "EditItem_Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 1
   },
   {
     "description": "EditItem_Item_UpdateItemDetails satisfies postcondition EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
@@ -3629,7 +3629,7 @@
     "rule": "EditItem_Item_BR_EMPTY_NAME_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "EditItem_Item_UpdateItemDetails satisfies postcondition EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
@@ -3640,7 +3640,7 @@
     "rule": "EditItem_Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 2
   },
   {
     "description": "EditItem_Item_UpdateItemDetails satisfies postcondition EditItem_Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
@@ -3746,7 +3746,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 0
   },
   {
     "description": "EditItem_Item_UpdateItemBrand satisfies postcondition EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
@@ -3757,7 +3757,7 @@
     "rule": "EditItem_Item_BR_BRAND_MUST_BE_NONZERO",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after EditItem_Item_UpdateItemType",
@@ -3852,7 +3852,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "EditItem_Item_UpdateItemType satisfies postcondition EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
@@ -3863,7 +3863,7 @@
     "rule": "EditItem_Item_BR_TYPE_MUST_BE_NONZERO",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 1
   },
   {
     "description": "BuyerResolution.source preserves its type after DeleteItem_Access_AuthorizeAdministrator",
@@ -3958,7 +3958,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "DeleteItem_Access_AuthorizeAdministrator satisfies postcondition DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
@@ -3969,7 +3969,7 @@
     "rule": "DeleteItem_Access_BR_ADMIN_REQUIRES_ROLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "DeleteItem_Access_AuthorizeAdministrator satisfies postcondition DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
@@ -3980,7 +3980,7 @@
     "rule": "DeleteItem_Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 13
+    "time_ms": 5
   },
   {
     "description": "BuyerResolution.source preserves its type after DeleteItem_Item_FindCatalogItem",
@@ -4075,7 +4075,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 3
+    "time_ms": 0
   },
   {
     "description": "BuyerResolution.source preserves its type after DeleteItem_DeleteItem",
@@ -4170,7 +4170,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "conditional_on": [
@@ -5308,7 +5308,7 @@
     "rule": "Checkout_Order_BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 17
+    "time_ms": 10
   },
   {
     "conditional_on": [

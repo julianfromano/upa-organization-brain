@@ -19,7 +19,7 @@
     "rule": "Access_BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 4
+    "time_ms": 2
   },
   {
     "description": "Item_UpdateItemDetails satisfies postcondition Item_BR_VALID_DETAILS_ARE_APPLIED",
@@ -41,7 +41,7 @@
     "rule": "Item_BR_NONPOSITIVE_PRICE_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 0
+    "time_ms": 1
   },
   {
     "description": "Item_UpdateItemDetails satisfies postcondition Item_BR_EMPTY_NAME_IS_REJECTED",
@@ -63,7 +63,7 @@
     "rule": "Item_BR_EMPTY_DESCRIPTION_IS_REJECTED",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 0
+    "time_ms": 1
   },
   {
     "description": "Item_UpdateItemDetails satisfies postcondition Item_BR_DETAILS_DO_NOT_CHANGE_CLASSIFICATION",
@@ -85,7 +85,7 @@
     "rule": "Item_BR_BRAND_MUST_BE_NONZERO",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 0
   },
   {
     "description": "Item_UpdateItemType satisfies postcondition Item_BR_TYPE_MUST_BE_NONZERO",
@@ -107,7 +107,7 @@
     "rule": "BR_UPDATE_API_REQUIRES_ADMIN",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 2
+    "time_ms": 3
   },
   {
     "description": "UpdateCatalogItemApi satisfies postcondition BR_UPDATE_MISSING_ITEM_HAS_NO_EFFECT",
@@ -140,7 +140,7 @@
     "rule": "BR_UPDATE_INVALID_CLASSIFICATION_HAS_NO_EFFECT",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 5
+    "time_ms": 3
   },
   {
     "description": "UpdateCatalogItemApi satisfies postcondition BR_UPDATE_API_APPLIES_ALL_FIELDS",
@@ -162,7 +162,7 @@
     "rule": "BR_ADMIN_EDIT_PRESERVES_OTHER_FIELDS",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   },
   {
     "description": "EditCatalogItemPage satisfies postcondition BR_ADMIN_EDIT_REQUIRES_ADMIN",
@@ -184,6 +184,6 @@
     "rule": "BR_ADMIN_EDIT_REJECTS_EMPTY_EXISTING_DESCRIPTION",
     "status": "PROVEN",
     "stdlib_axioms": [],
-    "time_ms": 1
+    "time_ms": 0
   }
 ]

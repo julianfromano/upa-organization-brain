@@ -88,7 +88,7 @@
       "rule": "BR_ORDER_LINE_SUBTOTAL",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 39
+      "time_ms": 32
     },
     {
       "description": "CreateOrderLine satisfies BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
@@ -99,7 +99,7 @@
       "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 8
+      "time_ms": 5
     },
     {
       "description": "CreateOrderLine satisfies postcondition BR_ORDER_LINE_USES_BASKET_PRICE",
@@ -110,7 +110,7 @@
       "rule": "BR_ORDER_LINE_USES_BASKET_PRICE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 5
+      "time_ms": 4
     },
     {
       "description": "CreateOrderLine satisfies postcondition BR_ORDER_LINE_SNAPSHOTS_CATALOG_ITEM",
@@ -143,7 +143,7 @@
       "rule": "BR_INVALID_ITEM_ID_ABORTS_ORDER_LINE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 5
+      "time_ms": 3
     },
     {
       "description": "CreateOrderLine satisfies postcondition BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
@@ -154,7 +154,7 @@
       "rule": "BR_ORDER_TOTAL_ACCUMULATES_SUBTOTAL",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 4
+      "time_ms": 6
     },
     {
       "description": "InsertOrder preserves BR_ORDER_LINE_SUBTOTAL",
@@ -177,7 +177,7 @@
       "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 1
+      "time_ms": 0
     },
     {
       "conditional_on": [
@@ -205,7 +205,7 @@
       "rule": "BR_ORDER_LINE_SNAPSHOT_IMMUTABLE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 10
+      "time_ms": 8
     },
     {
       "description": "CreateOrderFromBasket satisfies postcondition BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
@@ -216,7 +216,7 @@
       "rule": "BR_EMPTY_BASKET_CANNOT_CREATE_ORDER",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 8
+      "time_ms": 5
     },
     {
       "description": "CreateOrderFromBasket satisfies postcondition BR_MISSING_BASKET_CANNOT_CREATE_ORDER",
@@ -249,7 +249,7 @@
       "rule": "BR_ORDER_STORES_SHIPPING_ADDRESS",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 9
+      "time_ms": 8
     },
     {
       "description": "CreateOrderFromBasket satisfies postcondition BR_ORDER_CREATION_PRESERVES_BASKET",
@@ -260,7 +260,7 @@
       "rule": "BR_ORDER_CREATION_PRESERVES_BASKET",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 1
+      "time_ms": 0
     },
     {
       "description": "CreateOrderFromBasket satisfies postcondition BR_ORDER_CREATION_DOES_NOT_CHANGE_CATALOG",

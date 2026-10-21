@@ -19,7 +19,7 @@
       "rule": "TYPE:BuyerResolution.source",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 17
+      "time_ms": 5
     },
     {
       "description": "ResolveBuyer satisfies postcondition BR_SIGNED_IN_BUYER_USES_USER_NAME",
@@ -30,7 +30,7 @@
       "rule": "BR_SIGNED_IN_BUYER_USES_USER_NAME",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 1
+      "time_ms": 0
     },
     {
       "description": "ResolveBuyer satisfies postcondition BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
@@ -41,7 +41,7 @@
       "rule": "BR_ANONYMOUS_GUID_COOKIE_IS_REUSED",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 2
+      "time_ms": 1
     },
     {
       "description": "ResolveBuyer satisfies postcondition BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
@@ -52,7 +52,7 @@
       "rule": "BR_INVALID_OR_MISSING_COOKIE_CREATES_BUYER",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 6
+      "time_ms": 3
     },
     {
       "description": "ResolveBuyer satisfies postcondition BR_MISSING_IDENTITY_IS_REJECTED",
@@ -86,7 +86,7 @@
       "rule": "BR_LOGIN_MERGES_ONLY_GUID_COOKIE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 4
+      "time_ms": 2
     },
     {
       "description": "DecideLoginMerge satisfies postcondition BR_LOGIN_DELETES_PRESENT_COOKIE",
@@ -97,7 +97,7 @@
       "rule": "BR_LOGIN_DELETES_PRESENT_COOKIE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 0
+      "time_ms": 1
     }
   ],
   "proof_cache": {

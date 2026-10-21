@@ -12,7 +12,7 @@
       "rule": "BR_ADMIN_REQUIRES_ROLE",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 4
+      "time_ms": 0
     },
     {
       "description": "AuthorizeAdministrator satisfies postcondition BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
@@ -23,7 +23,7 @@
       "rule": "BR_DENIED_ADMIN_ACCESS_HAS_NO_EFFECT",
       "status": "PROVEN",
       "stdlib_axioms": [],
-      "time_ms": 6
+      "time_ms": 2
     },
     {
       "description": "AuthorizeUser satisfies postcondition BR_SHOPPER_REQUIRES_AUTHENTICATION",
