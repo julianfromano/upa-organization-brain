@@ -32,7 +32,7 @@ foreach ($spec in $specs) {
 }
 ```
 
-Open any generated `viewer.html` in a browser, or build a combined view explicitly:
+Open the store `viewer.html` in a browser. Its **Narrative** tab starts with a Cytoscape composition map: the macroprocess, its component processes, and the behaviors that call them. Select a component node to drill into its lower-level composition; use **Levels and components** for the expandable hierarchy view. A standalone macro viewer includes this map automatically. To build a combined view explicitly:
 
 ```powershell
 python -m upa view examples\eshoponweb\rules\eshop\store --out examples\eshoponweb\store-view.html

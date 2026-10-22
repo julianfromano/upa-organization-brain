@@ -49,6 +49,45 @@ def test_viewer_builds_plain_language_html(tmp_path):
     assert "create an Order" in rendered
 
 
+def test_macro_narrative_shows_a_drillable_component_map(tmp_path):
+    from upa.__main__ import main
+
+    rules = tmp_path / "rules" / "demo"
+    checkout = rules / "checkout"
+    checkout.mkdir(parents=True)
+    (checkout / "checkout.upa").write_text(
+        '''spec Checkout version "0.1" tier process
+operation PlaceOrder(orderId: Identifier, quantity: Natural) {
+  when quantity == 0 outcome INVALID_QUANTITY { }
+  otherwise { create Order[orderId] { quantity = quantity } }
+}
+''',
+        encoding="utf-8",
+    )
+    store = rules / "store"
+    store.mkdir()
+    (store / "store.upa").write_text(
+        '''spec Store version "0.1" tier macroprocess
+component Checkout = demo.checkout@0.1
+compose Purchase(orderId: Identifier, quantity: Natural) =
+  Checkout.PlaceOrder(orderId, quantity)
+''',
+        encoding="utf-8",
+    )
+
+    assert main(["build", str(checkout / "checkout.upa")]) == 0
+    assert main(["build", str(store / "store.upa")]) == 0
+    out = viewer.build_viewer([store], tmp_path / "store-viewer.html")
+    rendered = _render_initial_dom(out, tmp_path, "#narrative")
+
+    assert "Store · macroprocess composition" in rendered
+    assert "Checkout" in rendered
+    assert "data-process-graph" in rendered
+    assert 'data-label="runs"' in rendered
+    assert "data-drill-path" in rendered
+    assert "Place order" in rendered
+
+
 def test_viewer_reads_english_reverse_evidence_fields(tmp_path):
     artifacts = _build_demo(tmp_path)
     (artifacts / "reverse-evidence.json").write_text(json.dumps({
