@@ -22,11 +22,11 @@ What happens when a customer signs in with a basket already in progress—which 
 
 The included UPA skill guides an AI coding agent through inspecting relevant source, tracing behavior to code, and drafting a reviewable organizational model with citations. It helps teams understand an existing system, spot contradictions in the rules they choose to model, explore change impact, and ground AI-assisted work in explicit evidence. The result is a starting point for review—not a guarantee of complete reverse engineering: inferred behavior and unknowns stay visible, and domain experts validate the model.
 
-**See it first:** [open the eShopOnWeb viewer](examples/eshoponweb/viewer.html#narrative) · [build and verify a checkout model](#quick-start) · [read how the UPA skill works](skills/upa-generate/SKILL.md).
+**See it first:** [open the eShopOnWeb viewer](https://julianfromano.github.io/upa-organization-brain/#narrative) · [build and verify a checkout model](#quick-start) · [read how the UPA skill works](skills/upa-generate/SKILL.md).
 
-| [![The eShopOnWeb macroprocess map connects store workflows in the UPA viewer](docs/images/eshoponweb-macroprocess-map.png)](examples/eshoponweb/viewer.html#narrative) | [![The eShopOnWeb component hierarchy expands the macroprocess into reusable, verified UPA components](docs/images/eshoponweb-component-hierarchy.png)](examples/eshoponweb/viewer.html#levels) |
+| [![The eShopOnWeb macroprocess map connects store workflows in the UPA viewer](docs/images/eshoponweb-macroprocess-map.png)](https://julianfromano.github.io/upa-organization-brain/#narrative) | [![The eShopOnWeb component hierarchy expands the macroprocess into reusable, verified UPA components](docs/images/eshoponweb-component-hierarchy.png)](https://julianfromano.github.io/upa-organization-brain/#levels) |
 | :---: | :---: |
-| *The customer journey as connected behavior. [Open the narrative](examples/eshoponweb/viewer.html#narrative).* | *Explore reusable components, down to individual behaviors and rules. [Open the hierarchy](examples/eshoponweb/viewer.html#levels).* |
+| *The customer journey as connected behavior. [Open the narrative](https://julianfromano.github.io/upa-organization-brain/#narrative).* | *Explore reusable components, down to individual behaviors and rules. [Open the hierarchy](https://julianfromano.github.io/upa-organization-brain/#levels).* |
 
 Unlike a document dump or a chatbot trained on disconnected prose, a UPA model connects workflows, reusable rules, systems, evidence, and assumptions in one traceable structure. People and AI can inspect the same context, check modeled rules, and use its machine-readable artifacts in viewers, generators, and tests—while people remain responsible for validating evidence and approving changes.
 
@@ -125,7 +125,7 @@ python -m pip install pytest
 python -m pytest tests
 ```
 
-The only bundled business example is [eShopOnWeb](examples/eshoponweb/README.md), an English UPA model of the MIT-licensed reference storefront. Its [macroprocess viewer](examples/eshoponweb/viewer.html) includes the component map and drill-down narrative. The example README documents how to rebuild all components, inspect its limitations, and run the generated C# conformance checks. Building the bundled model uses its UPA specifications; it does not require the original eShopOnWeb source checkout.
+The only bundled business example is [eShopOnWeb](examples/eshoponweb/README.md), an English UPA model of the MIT-licensed reference storefront. Its [macroprocess viewer](https://julianfromano.github.io/upa-organization-brain/) includes the component map and drill-down narrative. The example README documents how to rebuild all components, inspect its limitations, and run the generated C# conformance checks. Building the bundled model uses its UPA specifications; it does not require the original eShopOnWeb source checkout.
 
 ## Build output and exit codes
 
