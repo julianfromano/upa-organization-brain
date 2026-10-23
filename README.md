@@ -10,7 +10,7 @@
 
               ─── AN EXPLICIT ORGANIZATIONAL MODEL ───
 
-  PROBABILISTIC AI  ─────────────►  UPA  ─────────────►  CHECKABLE ORG RULES
+  PROBABILISTIC AI  ─────────────►  UPA  ─────────────►  DETERMINISTIC ORG RULES
 ```
 
 **If AI agents increasingly build and operate software, where does the organization itself live?**
