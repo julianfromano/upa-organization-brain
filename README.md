@@ -1,4 +1,4 @@
-# UPA — an organizational brain for the AI era
+# UPA — an explicit organizational model for humans and AI
 
 ```text
                   ██╗   ██╗ ██████╗   █████╗
@@ -8,19 +8,18 @@
                   ╚██████╔╝ ██║      ██║  ██║
                    ╚═════╝  ╚═╝      ╚═╝  ╚═╝
 
-              ─── ORGANIZATIONAL BRAIN ARCHITECTURE ───
+              ─── AN EXPLICIT ORGANIZATIONAL MODEL ───
 
   PROBABILISTIC AI  ─────────────►  UPA  ─────────────►  CHECKABLE ORG RULES
 ```
 
-```text
-                         CONWAY-STYLE ALIGNMENT
-           ORGANIZATIONAL STRUCTURE  <---->  SYSTEM ARCHITECTURE
-```
+**If AI agents increasingly build and operate software, where does the organization itself live?**
 
-What happens when a customer signs in with a basket already in progress—which price wins? If the catalog changes a moment later, what exactly does the order keep? UPA turns questions like these into a source-traceable map of business rules and workflows that teams can explore, review, and formally check.
+Its business rules are scattered across code, documentation, tickets, APIs, workflows, databases, and people's heads. AI can search those sources, but searching is not the same as having an explicit model of how the organization works.
 
-The included UPA skill guides an AI coding agent through inspecting relevant source, tracing behavior to code, and drafting a reviewable organizational model with citations. It helps teams understand an existing system, spot contradictions in the rules they choose to model, explore change impact, and ground AI-assisted work in explicit evidence. The result is a starting point for review—not a guarantee of complete reverse engineering: inferred behavior and unknowns stay visible, and domain experts validate the model.
+UPA is an experiment in making that model explicit. It represents business rules, workflows, systems, evidence, assumptions, and unknowns in a shared machine-readable structure that humans and AI agents can inspect together. UPA can then formally check selected properties of that model with Z3, trace rules back to their evidence, explore change impact, and use the model as context for AI-assisted work.
+
+> **UPA is not trying to replace code, documentation, or people. It is trying to make the organizational knowledge behind them explicit.** Think of it as an experiment towards a machine-readable organizational brain.
 
 **See it first:** [open the eShopOnWeb viewer](https://julianfromano.github.io/upa-organization-brain/#narrative) · [build and verify a checkout model](#quick-start) · [read how the UPA skill works](skills/upa-generate/SKILL.md).
 
@@ -30,11 +29,82 @@ The included UPA skill guides an AI coding agent through inspecting relevant sou
 
 Unlike a document dump or a chatbot trained on disconnected prose, a UPA model connects workflows, reusable rules, systems, evidence, and assumptions in one traceable structure. People and AI can inspect the same context, check modeled rules, and use its machine-readable artifacts in viewers, generators, and tests—while people remain responsible for validating evidence and approving changes.
 
-> **Important:** UPA verifies properties of the model under its declared assumptions. It does not prove that the model is complete, that the evidence is correct, or that a production system behaves exactly as described. Treat verification as a strong consistency check—not as a substitute for domain review, source validation, or operational testing.
+## A tiny example
 
-## From probabilistic AI to deterministic operations
+What happens when a customer signs in with an anonymous basket already in progress—what happens to it? The answer is usually implicit in several places at once:
 
-AI systems are powerful at interpreting ambiguous language and proposing possibilities; organizational workflows need explicit rules, accountable boundaries, and predictable outcomes. UPA provides a traceable path between those worlds. In Conway's-law terms, it also makes the relationship between how people and teams are organized and how their systems are shaped visible enough to review.
+```text
+application code · documentation · database constraints · API behavior · product decisions
+```
+
+UPA turns that distributed knowledge into something explicit. The sketch below is **conceptual**, not UPA syntax:
+
+```text
+RULE:          on sign-in, the anonymous basket is merged into the customer's basket
+
+EVIDENCE:      BasketService.cs:<line>
+
+ASSUMPTION:    a customer has at most one saved basket
+
+GAP:           behavior under concurrent basket updates is unknown
+
+VERIFICATION:  after sign-in, no modeled state keeps both baskets active
+```
+
+Now a person, an AI agent, and a formal solver are reasoning about the **same rule**—and each can see what is evidenced, what is assumed, and what is still unknown.
+
+## What VERIFIED means
+
+> **UPA can prove properties of a model. It cannot prove that the model is reality.**
+
+UPA verifies properties of the model under its declared assumptions. It does not prove that the model is complete, that the evidence is correct, or that a production system behaves exactly as described. Treat verification as a strong consistency check—not as a substitute for domain review, source validation, or operational testing.
+
+### No invented certainty
+
+UPA distinguishes between what is evidenced, assumed, inferred, verified, refuted, and unknown. Evidence, assumptions, and gaps remain first-class parts of the model, and **`UNKNOWN` is never reported as success.**
+
+## Quick start
+
+From a checkout of this repository, run these commands in its root. Requirements: Python 3.11 or later and `z3-solver`; `pytest` is only needed for the test suite. The optional C# generation/build steps require the .NET SDK.
+
+```powershell
+python -m pip install z3-solver
+
+# Build and verify the bundled eShopOnWeb checkout model without writing into the example.
+python -m upa build examples\eshoponweb\rules\eshop\orders\checkout\checkout.upa `
+  --scope examples\eshoponweb\informal-scope.md `
+  --out build\checkout
+
+# Expected: exit code 0 and a JSON report containing "verdict": "VERIFIED".
+
+# Optional: generate and build C# from the verified model (.NET SDK required).
+python -m upa generate `
+  build\checkout\canonical-ir.json `
+  --out build\checkout\generated-csharp
+dotnet build build\checkout\generated-csharp
+
+# Optional: run the project tests.
+python -m pip install pytest
+python -m pytest tests
+```
+
+Open `build\checkout\viewer.html` to inspect the model and its evidence, or `build\checkout\verification-result.json` for the formal results. The same viewer for the full store is [hosted online](https://julianfromano.github.io/upa-organization-brain/).
+
+The only bundled business example is [eShopOnWeb](examples/eshoponweb/README.md), an English UPA model of the MIT-licensed reference storefront. Its [macroprocess viewer](https://julianfromano.github.io/upa-organization-brain/) includes the component map and drill-down narrative. The example README documents how to rebuild all components, inspect its limitations, and run the generated C# conformance checks. Building the bundled model uses its UPA specifications; it does not require the original eShopOnWeb source checkout.
+
+## Why not just...?
+
+- **...use the code?** Code describes implementation precisely, but organizational intent is often distributed across implementations, configuration, and people.
+- **...use documentation plus RAG?** Retrieval can surface evidence. It does not by itself turn that evidence into an explicit, consistent, formally checkable model.
+- **...use Z3 directly?** Z3 reasons over formal constraints. UPA adds the organizational semantics, evidence, assumptions, gaps, composition, and traceability around those constraints.
+- **...use BPMN?** BPMN describes processes well. UPA is concerned more broadly with rules, state, evidence, assumptions, systems, and formally checkable behavior.
+- **...use a knowledge graph or OWL?** Those are strong at expressing entities and relationships. UPA explores combining organizational semantics with checkable behavioral constraints.
+
+UPA is not necessarily an alternative to these tools. It explores what happens when organizational semantics, provenance, and formal verification share one model.
+
+## How it works: from probabilistic AI to checkable rules
+
+AI systems are powerful at interpreting ambiguous language and proposing possibilities; organizational workflows need explicit rules, accountable boundaries, and predictable outcomes. UPA provides a traceable path between those worlds.
 
 This deliberately small checkout rule illustrates the layers below; it is not a claim about the bundled eShopOnWeb implementation. The order total is the sum of each item's unit price multiplied by its quantity, plus a service charge equal to 10% of that subtotal.
 
@@ -60,6 +130,14 @@ UPA has two complementary kinds of reusable components:
 - **Code-specific components** belong to a target/provider: map the model's abstract interactions to the components used by your stack. The React DOM example has a component catalog and local implementations; extend both when you need controls tailored to your application or design system, and implement your application's own runtime behavior. A new code target can consume UPA's IRs, but requires implementing that target—it is not inferred or generated automatically from arbitrary source code.
 
 This separation lets the business model stay provider-neutral while implementation components evolve with the codebase. See [component composition](docs/components.md) and the [frontend extension guide](docs/inferred-frontend-extension.md).
+
+## Organization and architecture
+
+In Conway's-law terms, how people and teams are organized shapes how their systems are built. UPA's system maps and components make that relationship visible enough to review, but UPA does not infer team structure: organizational relationships and evidence must be supplied and reviewed.
+
+```text
+ORGANIZATIONAL STRUCTURE  <---->  SYSTEM ARCHITECTURE
+```
 
 ## Why model the organization this way?
 
@@ -87,9 +165,9 @@ UPA is designed to sit between organizational knowledge and the tools that act o
 
 This creates a shared reference point that can complement documentation, source code, APIs, workflow platforms, observability, and AI agents. Integrations should preserve provenance and make clear which statements are verified, observed, documented, inferred, or assumed.
 
-## Technical overview
+## The current implementation
 
-UPA is a Python compiler and verification toolchain. Given a `.upa` specification, it can produce:
+The idea above is implemented today as a Python compiler and verification toolchain. Given a `.upa` specification, it can produce:
 
 - an inferred minimal domain model;
 - a canonical Logical IR;
@@ -101,31 +179,6 @@ UPA is a Python compiler and verification toolchain. Given a `.upa` specificatio
 The core DSL describes types, entities, initial state, operations, queries, compositions, business rules, assumptions, decisions, gaps, terms, and optional system maps. See [docs/components.md](docs/components.md), [docs/interaction-ir.md](docs/interaction-ir.md), and [docs/system-map.md](docs/system-map.md).
 
 The repository includes a [UPA modeling skill](skills/upa-generate/SKILL.md) and an accompanying [agent instruction](agents/upa.agent.md). The skill guides an AI coding agent through evidence gathering, source-to-rule traceability, bottom-up modeling, verification, and review; it does not treat generated inferences as confirmed business facts.
-
-## Quick start
-
-From a checkout of this repository, run these commands in its root. Requirements: Python 3.11 or later and `z3-solver`; `pytest` is only needed for the test suite. The optional C# generation/build steps require the .NET SDK.
-
-```powershell
-python -m pip install z3-solver
-
-# Build and verify the bundled eShopOnWeb checkout model without writing into the example.
-python -m upa build examples\eshoponweb\rules\eshop\orders\checkout\checkout.upa `
-  --scope examples\eshoponweb\informal-scope.md `
-  --out build\checkout
-
-# Optional: generate and build C# from the verified model (.NET SDK required).
-python -m upa generate `
-  build\checkout\canonical-ir.json `
-  --out build\checkout\generated-csharp
-dotnet build build\checkout\generated-csharp
-
-# Optional: run the project tests.
-python -m pip install pytest
-python -m pytest tests
-```
-
-The only bundled business example is [eShopOnWeb](examples/eshoponweb/README.md), an English UPA model of the MIT-licensed reference storefront. Its [macroprocess viewer](https://julianfromano.github.io/upa-organization-brain/) includes the component map and drill-down narrative. The example README documents how to rebuild all components, inspect its limitations, and run the generated C# conformance checks. Building the bundled model uses its UPA specifications; it does not require the original eShopOnWeb source checkout.
 
 ## Build output and exit codes
 
@@ -164,7 +217,7 @@ language_gap GAP_TRACE "Execution evidence is unavailable"
 
 Kinds are `language`, `evidence`, and `regeneration`; impact is `low`, `medium`, `high`, or `critical`. A regeneration gap without a target or declared scope is recorded, but does not define a surface that can be evaluated. Regeneration coverage is reported as `complete`, `partial`, or `not_evaluated`; it is not an invented percentage.
 
-## What verification and validation mean
+## Limitations: verification and validation
 
 - **Z3 verification** checks formal obligations over the IR under the model's declared assumptions.
 - **Generated-code conformance** compares supported generated C# behavior with a Python reference interpreter over generated traces. This is useful validation, but it is not an independent proof of business correctness.
